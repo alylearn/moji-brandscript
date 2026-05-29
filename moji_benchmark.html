@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOJi 对标账号参考</title>
+<style>
+:root {
+  --red: #E8342A;
+  --dark-red: #CC2A20;
+  --light-red: #FFF0EF;
+  --black: #1A1A1A;
+  --gray: #888888;
+  --bg: #F7F5F0;
+  --white: #FFFFFF;
+  --border: #E5E5E2;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; background: var(--bg); color: var(--black); line-height: 1.6; }
+
+.header { background: var(--white); border-bottom: 2px solid var(--red); padding: 18px 32px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; z-index: 100; }
+.header-logo { background: var(--red); color: white; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+.header-title { font-size: 17px; font-weight: 700; }
+.header-sub { font-size: 11px; color: var(--gray); margin-left: auto; }
+.back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--black); text-decoration: none; padding: 5px 12px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--bg); transition: all 0.15s; }
+.back-btn:hover { border-color: var(--red); color: var(--red); background: var(--light-red); }
+
+.main { max-width: 860px; margin: 0 auto; padding: 36px 32px 72px; }
+
+.page-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.page-sub { font-size: 13px; color: var(--gray); line-height: 1.7; margin-bottom: 32px; max-width: 600px; }
+
+/* Notice box */
+.notice { background: var(--light-red); border-radius: 10px; padding: 12px 16px; font-size: 12px; color: var(--dark-red); line-height: 1.7; margin-bottom: 32px; }
+.notice strong { color: var(--red); }
+
+/* Account card */
+.account-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+.account-card-header { padding: 24px 28px 20px; border-bottom: 1px solid var(--border); }
+.account-meta { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.account-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.account-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; }
+.badge-platform { background: #FFF0EF; color: var(--red); }
+.badge-type { background: #F0F0EE; color: #555; }
+.account-link { font-size: 11px; color: var(--red); text-decoration: none; border: 1px solid var(--red); padding: 4px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; transition: all 0.15s; }
+.account-link:hover { background: var(--red); color: white; }
+.account-position { font-size: 13px; color: var(--black); line-height: 1.7; margin-bottom: 12px; font-weight: 500; }
+.account-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.account-tag { font-size: 11px; padding: 3px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 20px; color: #555; }
+
+/* Collapse sections */
+.account-card-body { padding: 0; }
+.collapse-item { border-top: 1px solid var(--border); }
+.collapse-trigger { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; cursor: pointer; user-select: none; transition: background 0.12s; }
+.collapse-trigger:hover { background: var(--bg); }
+.collapse-trigger-left { display: flex; align-items: center; gap: 10px; }
+.collapse-trigger-icon { font-size: 14px; }
+.collapse-trigger-title { font-size: 13px; font-weight: 600; color: var(--black); }
+.collapse-trigger-hint { font-size: 11px; color: var(--gray); }
+.collapse-arrow { font-size: 11px; color: var(--gray); transition: transform 0.2s; }
+.collapse-item.open .collapse-arrow { transform: rotate(180deg); }
+.collapse-body { display: none; padding: 4px 28px 20px; }
+.collapse-item.open .collapse-body { display: block; }
+
+/* Pattern table */
+.pattern-list { display: flex; flex-direction: column; gap: 10px; }
+.pattern-row { background: var(--bg); border-radius: 10px; padding: 14px 16px; }
+.pattern-name { font-size: 12px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+.pattern-template { font-size: 11px; color: var(--gray); margin-bottom: 8px; font-style: italic; }
+.pattern-examples { display: flex; flex-direction: column; gap: 4px; }
+.pattern-eg { font-size: 12px; color: #444; padding: 4px 10px; background: var(--white); border-radius: 6px; border-left: 2.5px solid var(--red); }
+.pattern-tip { margin-top: 8px; font-size: 11px; color: var(--dark-red); padding: 6px 10px; background: var(--light-red); border-radius: 6px; }
+
+/* Cover style section */
+.cover-style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.cover-style-card { background: var(--bg); border-radius: 10px; padding: 12px 14px; }
+.cover-style-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); margin-bottom: 6px; }
+.cover-style-content { font-size: 12px; color: #444; line-height: 1.7; }
+
+/* MOJi apply box */
+.moji-apply { margin-top: 12px; padding: 12px 14px; background: var(--light-red); border-radius: 8px; }
+.moji-apply-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--red); margin-bottom: 4px; }
+.moji-apply-content { font-size: 12px; color: var(--dark-red); line-height: 1.7; }
+
+/* Divider */
+.section-divider { display: flex; align-items: center; gap: 10px; margin: 36px 0 24px; }
+.section-divider-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); white-space: nowrap; }
+.section-divider-line { flex: 1; height: 1px; background: var(--border); }
+
+/* Comparison table */
+.comparison-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+.comparison-table th { background: var(--bg); font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--gray); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+.comparison-table td { padding: 10px 16px; font-size: 12px; color: #444; border-bottom: 1px solid var(--bg); line-height: 1.6; vertical-align: top; }
+.comparison-table tr:last-child td { border-bottom: none; }
+.comparison-table td:first-child { font-weight: 600; color: var(--black); width: 100px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-logo">MOJi品宣</span>
+  <span class="header-title">对标账号参考</span>
+  <a href="index.html" class="back-btn">← 返回工作台</a>
+</div>
+
+<div class="main">
+
+  <div class="page-title">对标账号参考库</div>
+  <div class="page-sub">收录与MOJi品宣内容风格相关的对标账号，分析其选题结构、标题规律和封面风格，为每期内容策划提供参考方向。</div>
+
+  <div class="notice">
+    💡 <strong>使用说明：</strong>对标不等于照抄。这里的规律是为了理解「什么在小红书上有效」，每期内容仍需基于MOJi真实功能，结合产品手册输出。对标账号的风格可以用来校准语感和内容方向，不作为直接复制的来源。
+  </div>
+
+  <!-- ───── 账号1：参考答案阅览室 ───── -->
+  <div class="account-card">
+    <div class="account-card-header">
+      <div class="account-meta">
+        <div>
+          <div class="account-name">参考答案阅览室</div>
+          <div class="account-badges" style="margin-top:6px">
+            <span class="badge badge-platform">小红书</span>
+            <span class="badge badge-type">内容账号</span>
+            <span class="badge badge-type">知识管理</span>
+          </div>
+        </div>
+        <a href="https://www.xiaohongshu.com/user/profile/5d44e926000000001100d215" target="_blank" class="account-link">主页 →</a>
+      </div>
+      <div class="account-position">定位：深度阅读 / 知识管理内容账号，产品（App）是内容载体，不是主角。以分享阅读洞见为核心，产品功能自然嵌入叙事，无推广感。</div>
+      <div class="account-tags">
+        <span class="account-tag">内容优先</span>
+        <span class="account-tag">洞见驱动</span>
+        <span class="account-tag">无产品感</span>
+        <span class="account-tag">知识管理受众</span>
+        <span class="account-tag">D型纯大字封面</span>
+      </div>
+    </div>
+
+    <div class="account-card-body">
+
+      <!-- 标题规律 -->
+      <div class="collapse-item open">
+        <div class="collapse-trigger" onclick="toggleCollapse(this.parentElement)">
+          <div class="collapse-trigger-left">
+            <span class="collapse-trigger-icon">📌</span>
+            <div>
+              <div class="collapse-trigger-title">标题规律</div>
+              <span class="collapse-trigger-hint">5种高频结构 · 含示例</span>
+            </div>
+          </div>
+          <span class="collapse-arrow">▼</span>
+        </div>
+        <div class="collapse-body">
+          <div class="pattern-list">
+
+            <div class="pattern-row">
+              <div class="pattern-name">① 干货问句型</div>
+              <div class="pattern-template">「如何……？」「为什么……？」— 承诺有答案，用户冲着解决方案点进去</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">如何可持续、低门槛地保持输入？</div>
+                <div class="pattern-eg">为什么我们总觉得时间不够用？</div>
+                <div class="pattern-eg">如何快速学会任何你想学的东西？</div>
+              </div>
+              <div class="pattern-tip">与「悬念质疑型」的区别：这类问句答案明确可预期，用户知道点进去能得到方法；悬念质疑型的答案出人意料，用户好奇而非求知。</div>
+            </div>
+
+            <div class="pattern-row">
+              <div class="pattern-name">② 数字锚定型</div>
+              <div class="pattern-template">具体数字制造信息密度感，强调时间跨度或行动量级</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">一个人每天要做出35000次决策</div>
+                <div class="pattern-eg">人生回报率超高的1件事：大量阅读</div>
+                <div class="pattern-eg">1年也就36个10天！你可以用阅读改变自己</div>
+              </div>
+            </div>
+
+            <div class="pattern-row">
+              <div class="pattern-name">③ 对比反转型</div>
+              <div class="pattern-template">「A不等于B」「A，缺的是B」— 前半否定常识，后半给新认知</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">现代人不缺阅读，缺的是"通识阅读"</div>
+                <div class="pattern-eg">好领导≠好人</div>
+                <div class="pattern-eg">读得多，不等于练到了</div>
+              </div>
+            </div>
+
+            <div class="pattern-row">
+              <div class="pattern-name">④ 时间锚定型</div>
+              <div class="pattern-template">绑定具体时间节点，制造「现在开始刚好」的紧迫感和代入感</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">假如你从1月开始大量阅读……</div>
+                <div class="pattern-eg">布局2026</div>
+                <div class="pattern-eg">假如你从12月，开始重塑你的知识结构</div>
+                <div class="pattern-eg">这个冬天最值得读的9篇深度长文</div>
+              </div>
+            </div>
+
+            <div class="pattern-row">
+              <div class="pattern-name">⑤ 身份代入型</div>
+              <div class="pattern-template">用人格标签或场景状态锁定特定读者，精准共鸣</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">当J人制定了一个全年阅读计划</div>
+                <div class="pattern-eg">低能量人少做决策，多做晨间routine</div>
+                <div class="pattern-eg">主体性缺失的人，如何重建自主人生？</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="moji-apply">
+            <div class="moji-apply-label">MOJi阅读适用方向</div>
+            <div class="moji-apply-content">内容以「日语阅读这件事」为主角，产品作为解决方案自然出现。标题不出现App名，说的是学习认知和方法，而不是功能介绍。适合MOJi阅读品宣内容参考。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 封面风格 -->
+      <div class="collapse-item">
+        <div class="collapse-trigger" onclick="toggleCollapse(this.parentElement)">
+          <div class="collapse-trigger-left">
+            <span class="collapse-trigger-icon">🖼️</span>
+            <div>
+              <div class="collapse-trigger-title">封面文案风格</div>
+              <span class="collapse-trigger-hint">大字论断，无产品感</span>
+            </div>
+          </div>
+          <span class="collapse-arrow">▼</span>
+        </div>
+        <div class="collapse-body">
+          <div class="cover-style-grid">
+            <div class="cover-style-card">
+              <div class="cover-style-label">文字特征</div>
+              <div class="cover-style-content">大字、论断式，不是疑问式。直接放核心观点，不解释、不铺垫。像在分享一个洞见，而不是推销产品。</div>
+            </div>
+            <div class="cover-style-card">
+              <div class="cover-style-label">视觉特征</div>
+              <div class="cover-style-content">D型为主（纯大字无手机），偶尔配手机截图作辅助视觉。文字是主角，画面是背景。无产品logo主导版面。</div>
+            </div>
+            <div class="cover-style-card">
+              <div class="cover-style-label">色调</div>
+              <div class="cover-style-content">克制、低饱和。黑白灰为主，无撞色，无促销感。视觉语言传递的是「知识/深度」而非「工具/促销」。</div>
+            </div>
+            <div class="cover-style-card">
+              <div class="cover-style-label">示例封面文案</div>
+              <div class="cover-style-content">「像刷小红书一样刷文章」<br>「深度阅读，就是节约时间」<br>「每一次阅读，都是复利」</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ───── 账号2：无痛单词 ───── -->
+  <div class="account-card">
+    <div class="account-card-header">
+      <div class="account-meta">
+        <div>
+          <div class="account-name">无痛单词</div>
+          <div class="account-badges" style="margin-top:6px">
+            <span class="badge badge-platform">小红书</span>
+            <span class="badge badge-type">工具账号</span>
+            <span class="badge badge-type">英语背单词</span>
+          </div>
+        </div>
+        <a href="https://www.xiaohongshu.com/user/profile/61347079000000001f039513" target="_blank" class="account-link">主页 →</a>
+      </div>
+      <div class="account-position">定位：产品即主角的英语背单词工具账号，以功能展示 + 热点借势 + 情绪共鸣驱动传播，产品直接上封面，无内容包装层。</div>
+      <div class="account-tags">
+        <span class="account-tag">产品为主角</span>
+        <span class="account-tag">功能展示驱动</span>
+        <span class="account-tag">口语化情绪化</span>
+        <span class="account-tag">热点借势</span>
+        <span class="account-tag">第三方背书</span>
+      </div>
+    </div>
+
+    <div class="account-card-body">
+
+      <!-- 标题规律 -->
+      <div class="collapse-item open">
+        <div class="collapse-trigger" onclick="toggleCollapse(this.parentElement)">
+          <div class="collapse-trigger-left">
+            <span class="collapse-trigger-icon">📌</span>
+            <div>
+              <div class="collapse-trigger-title">标题规律</div>
+              <span class="collapse-trigger-hint">5种高频结构 · 含示例</span>
+            </div>
+          </div>
+          <span class="collapse-arrow">▼</span>
+        </div>
+        <div class="collapse-body">
+          <div class="pattern-list">
+
+            <div class="pattern-row">
+              <div class="pattern-name">① 热点借势型</div>
+              <div class="pattern-template">借当下热点/流行词切入，降低内容生产门槛，蹭流量池</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">deepseek把我整害膿了</div>
+                <div class="pattern-eg">我问deepseek四级考不过咋办？他骂的也太脏了我好喜欢…</div>
+                <div class="pattern-eg">感恩 #tiktokrefugee 这个单词是记住了</div>
+              </div>
+            </div>
+
+            <div class="pattern-row">
+              <div class="pattern-name">② 第三方背书型</div>
+              <div class="pattern-template">借助平台/品牌/机构推荐背书，建立可信度</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">vivo一年推荐3次的背单词App，太好用了</div>
+                <div class="pattern-eg">苹果懂我！推荐的背单词App太有料了</div>
+                <div class="pattern-eg">小米官方推荐的背单词App也太帅了吧‼️</div>
+              </div>
+            </div>
+
+            <div class="pattern-row">
+              <div class="pattern-name">③ 情绪化口语型</div>
+              <div class="pattern-template">极度口语化，模拟真实用户说话语气，降低距离感</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">大学生别走！能救一个是一个！</div>
+                <div class="pattern-eg">你好，请问可以喜欢我一下么…</div>
+                <div class="pattern-eg">只有我背单词不爱做题嘛？</div>
+                <div class="pattern-eg">疯了‼️用这个App刷单词刷的停不下来</div>
+              </div>
+            </div>
+
+            <div class="pattern-row">
+              <div class="pattern-name">④ 数字+紧迫型</div>
+              <div class="pattern-template">数字制造具体感 + 时间紧迫制造行动冲动</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">10分钟怒刷300词</div>
+                <div class="pattern-eg">15天搞定四级500高频词</div>
+                <div class="pattern-eg">还有16天慌什么？速通四级备考攻略</div>
+                <div class="pattern-eg">四级真题反复考，15天搞定四级500高频词</div>
+              </div>
+            </div>
+
+            <div class="pattern-row">
+              <div class="pattern-name">⑤ 产品差异化型</div>
+              <div class="pattern-template">直接点出产品与同类的不同，适合新功能上线或版本更新</div>
+              <div class="pattern-examples">
+                <div class="pattern-eg">造了个另类背单词App</div>
+                <div class="pattern-eg">背单词千万别过脑子</div>
+                <div class="pattern-eg">不做选择题，刷短视频一样轻松背单词</div>
+                <div class="pattern-eg">这么背单词绝了</div>
+              </div>
+            </div>
+
+          </div>
+          <div class="moji-apply">
+            <div class="moji-apply-label">MOJi适用方向</div>
+            <div class="moji-apply-content">热点借势型可在节点内容（新年备考、节假日）时参考；第三方背书型可在App Store推荐、媒体报道等节点使用；数字+紧迫型适合备考节点内容（JLPT报名前后）。情绪化口语型语感可参考，但需保持MOJi的内容调性。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 封面风格 -->
+      <div class="collapse-item">
+        <div class="collapse-trigger" onclick="toggleCollapse(this.parentElement)">
+          <div class="collapse-trigger-left">
+            <span class="collapse-trigger-icon">🖼️</span>
+            <div>
+              <div class="collapse-trigger-title">封面文案风格</div>
+              <span class="collapse-trigger-hint">大字撞色，产品直出</span>
+            </div>
+          </div>
+          <span class="collapse-arrow">▼</span>
+        </div>
+        <div class="collapse-body">
+          <div class="cover-style-grid">
+            <div class="cover-style-card">
+              <div class="cover-style-label">文字特征</div>
+              <div class="cover-style-content">大字撞色，极度口语化，情绪浓度高。封面直接标注产品名，像用户自发晒图，不像品牌广告。</div>
+            </div>
+            <div class="cover-style-card">
+              <div class="cover-style-label">视觉特征</div>
+              <div class="cover-style-content">产品截图/App Icon直接上封面，A/B/C型为主。配色高饱和（橙+绿+黑+白），视觉冲击强，无克制感。</div>
+            </div>
+            <div class="cover-style-card">
+              <div class="cover-style-label">色调</div>
+              <div class="cover-style-content">橙色、绿色、黑色为主色，高对比度。传递活力、轻松、年轻化氛围，与「无痛」品牌调性一致。</div>
+            </div>
+            <div class="cover-style-card">
+              <div class="cover-style-label">示例封面文案</div>
+              <div class="cover-style-content">「背单词千万别过脑子」<br>「抱紧佛脚，四级必过」<br>「BANG！一键背单词」</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ───── 账号对比总结 ───── -->
+  <div class="section-divider">
+    <span class="section-divider-label">两个账号对比</span>
+    <div class="section-divider-line"></div>
+  </div>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>维度</th>
+        <th>参考答案阅览室</th>
+        <th>无痛单词</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>内容主角</td>
+        <td>阅读/知识这件事本身</td>
+        <td>产品功能本身</td>
+      </tr>
+      <tr>
+        <td>产品出现方式</td>
+        <td>自然嵌入，不强调</td>
+        <td>直接上封面，是主视觉</td>
+      </tr>
+      <tr>
+        <td>标题情绪</td>
+        <td>洞见感、方法论感</td>
+        <td>情绪化、紧迫感、热点感</td>
+      </tr>
+      <tr>
+        <td>封面类型</td>
+        <td>D型纯大字为主</td>
+        <td>A/B/C型配产品截图为主</td>
+      </tr>
+      <tr>
+        <td>MOJi阅读参考价值</td>
+        <td>⭐⭐⭐⭐⭐ 内容方向高度吻合</td>
+        <td>⭐⭐⭐ 节点内容和备考向可参考</td>
+      </tr>
+      <tr>
+        <td>MOJi辞書参考价值</td>
+        <td>⭐⭐⭐ 词汇/语感类内容可参考</td>
+        <td>⭐⭐⭐⭐ 功能展示和备考向高度吻合</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<script>
+function toggleCollapse(item) {
+  item.classList.toggle('open');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOJi 品宣脚本工作流</title>
+<style>
+:root {
+  --red: #E8342A;
+  --dark-red: #CC2A20;
+  --light-red: #FFF0EF;
+  --black: #1A1A1A;
+  --gray: #888888;
+  --light-gray: #F0F0EE;
+  --bg: #F7F5F0;
+  --white: #FFFFFF;
+  --border: #E5E5E2;
+  --blue: #185FA5;
+  --step-line: #E5E5E2;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; background: var(--bg); color: var(--black); line-height: 1.6; }
+
+/* ── Header ── */
+.header { background: var(--white); border-bottom: 2px solid var(--red); padding: 18px 32px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; z-index: 200; }
+.header-logo { background: var(--red); color: white; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.3px; flex-shrink: 0; }
+.header-title { font-size: 17px; font-weight: 700; }
+.header-sub { font-size: 11px; color: var(--gray); margin-left: auto; white-space: nowrap; }
+
+/* ── Nav ── */
+.nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; }
+.nav-tab { font-size: 13px; font-weight: 500; padding: 13px 20px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--gray); transition: all 0.15s; white-space: nowrap; display: flex; align-items: center; gap: 7px; }
+.nav-tab .step-badge { width: 20px; height: 20px; border-radius: 50%; background: var(--light-gray); color: var(--gray); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.nav-tab.active { color: var(--red); border-bottom-color: var(--red); }
+.nav-tab.active .step-badge { background: var(--red); color: white; }
+
+/* ── Main ── */
+.main { max-width: 900px; margin: 0 auto; padding: 28px 32px 60px; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── Step header ── */
+.step-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.step-num-big { width: 48px; height: 48px; border-radius: 50%; background: var(--red); color: white; font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-info { flex: 1; }
+.step-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+.step-flow { display: flex; align-items: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.step-flow-item { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 10px; background: var(--light-gray); color: #555; }
+.step-flow-item.active-flow { background: var(--light-red); color: var(--red); }
+.step-flow-arrow { font-size: 11px; color: #ccc; }
+
+/* ── Section divider ── */
+.divider { display: flex; align-items: center; gap: 10px; margin: 28px 0 20px; }
+.divider-label { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); white-space: nowrap; }
+.divider-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ── Collapsible theory ── */
+.theory-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 12px 16px; background: var(--white); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; transition: all 0.15s; user-select: none; }
+.theory-toggle:hover { border-color: #ccc; }
+.theory-toggle-icon { font-size: 13px; color: var(--gray); }
+.theory-toggle-label { font-size: 13px; font-weight: 600; color: var(--black); flex: 1; }
+.theory-toggle-hint { font-size: 11px; color: var(--gray); }
+.theory-toggle-arrow { font-size: 11px; color: var(--gray); transition: transform 0.2s; }
+.theory-toggle.open .theory-toggle-arrow { transform: rotate(180deg); }
+.theory-body { display: none; margin-bottom: 16px; }
+.theory-toggle.open + .theory-body { display: block; }
+
+/* ── Cards in theory ── */
+.theory-card-list { display: flex; flex-direction: column; gap: 10px; }
+.t-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.t-card-header { display: flex; align-items: center; gap: 10px; padding: 13px 16px; cursor: pointer; }
+.t-card-num { width: 26px; height: 26px; border-radius: 50%; background: var(--red); color: white; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.t-card-name { font-size: 14px; font-weight: 600; flex: 1; }
+.t-card-tag { font-size: 10px; font-weight: 600; color: var(--red); background: var(--light-red); padding: 2px 7px; border-radius: 8px; }
+.t-card-arrow { font-size: 11px; color: var(--gray); transition: transform 0.2s; }
+.t-card.open .t-card-arrow { transform: rotate(180deg); }
+.t-card-body { padding: 0 16px 14px; display: none; border-top: 1px solid var(--border); }
+.t-card.open .t-card-body { display: block; padding-top: 12px; }
+.t-desc { font-size: 12px; color: #555; line-height: 1.7; margin-bottom: 10px; }
+.t-label { font-size: 10px; font-weight: 600; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; margin: 8px 0 5px; }
+.t-template { background: var(--bg); border-radius: 7px; padding: 8px 12px; font-size: 12px; color: var(--black); font-weight: 500; margin-bottom: 8px; }
+.t-eg-list { display: flex; flex-direction: column; gap: 5px; }
+.t-eg { font-size: 12px; color: var(--gray); padding: 5px 10px; background: var(--bg); border-radius: 5px; border-left: 3px solid var(--red); }
+.t-scene { margin-top: 10px; padding: 8px 12px; background: var(--light-red); border-radius: 7px; font-size: 12px; color: var(--dark-red); line-height: 1.6; }
+.t-scene-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; color: var(--red); }
+
+/* ── Principle cards ── */
+.principle-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin-bottom: 10px; }
+.principle-title { font-size: 14px; font-weight: 700; margin-bottom: 7px; display: flex; align-items: center; gap: 7px; }
+.principle-body { font-size: 12px; color: #555; line-height: 1.8; }
+.principle-body li { margin-left: 16px; margin-bottom: 3px; }
+.principle-body strong { color: var(--black); }
+
+/* ── Operate zone ── */
+.operate-zone { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 20px; }
+.operate-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.operate-title .op-step { width: 22px; height: 22px; border-radius: 50%; background: var(--black); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 11px; font-weight: 600; color: var(--gray); letter-spacing: 0.8px; text-transform: uppercase; }
+select, textarea, input[type="text"] {
+  border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px;
+  font-size: 13px; font-family: inherit; color: var(--black);
+  background: var(--bg); outline: none; transition: border-color 0.15s;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center;
+}
+select:focus, textarea:focus, input[type="text"]:focus { border-color: var(--red); background-color: var(--white); }
+textarea { resize: vertical; min-height: 80px; background-image: none; line-height: 1.6; }
+input[type="text"] { background-image: none; }
+
+.prompt-preview { background: #F8F8F6; border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-top: 16px; }
+.prompt-preview-label { font-size: 10px; font-weight: 600; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.prompt-preview-text { font-size: 12px; color: #333; line-height: 2; font-family: "SF Mono", "Fira Code", monospace; white-space: pre-wrap; word-break: break-all; }
+.prompt-preview-text .hl { color: var(--red); font-weight: 600; }
+.prompt-preview-text .hl2 { color: var(--blue); font-weight: 600; }
+.prompt-preview-text .hl-fill { background: var(--light-red); color: var(--dark-red); border-radius: 3px; padding: 0 3px; font-weight: 600; }
+
+.btn-row { display: flex; gap: 10px; margin-top: 16px; }
+.btn-copy { flex: 1; padding: 11px; background: var(--red); color: white; border: none; border-radius: 9px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+.btn-copy:hover { background: var(--dark-red); }
+.btn-copy:active { transform: scale(0.98); }
+.btn-secondary { padding: 11px 18px; background: var(--bg); color: var(--gray); border: 1px solid var(--border); border-radius: 9px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.btn-secondary:hover { border-color: #ccc; color: var(--black); }
+
+/* ── Confirmed topic box ── */
+.confirmed-zone { background: var(--light-red); border: 1.5px solid #f5c0bd; border-radius: 14px; padding: 20px 24px; margin-bottom: 20px; }
+.confirmed-label { font-size: 11px; font-weight: 700; color: var(--red); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.confirmed-label .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+.confirmed-input { width: 100%; border: 1.5px solid #f5c0bd; border-radius: 8px; padding: 10px 14px; font-size: 13px; font-family: inherit; color: var(--black); background: var(--white); outline: none; line-height: 1.6; resize: none; min-height: 70px; }
+.confirmed-input:focus { border-color: var(--red); }
+.confirmed-hint { font-size: 11px; color: var(--dark-red); margin-top: 8px; opacity: 0.8; }
+.goto-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 8px 16px; background: var(--red); color: white; border: none; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+.goto-btn:hover { background: var(--dark-red); }
+
+/* ── Tab2 topic display ── */
+.topic-display { background: var(--light-red); border: 1.5px solid #f5c0bd; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 12px; }
+.topic-display-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.topic-display-content { flex: 1; }
+.topic-display-label { font-size: 10px; font-weight: 700; color: var(--red); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+.topic-display-text { font-size: 13px; color: var(--black); font-weight: 500; line-height: 1.6; min-height: 20px; }
+.topic-display-empty { font-size: 13px; color: #ccc; font-style: italic; }
+
+/* ── AIDA flow ── */
+.aida-flow { display: flex; flex-direction: column; gap: 0; margin-bottom: 16px; }
+.aida-item { display: flex; gap: 14px; padding: 16px; background: var(--white); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 6px; }
+.aida-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.aida-letter { width: 32px; height: 32px; border-radius: 50%; background: var(--red); color: white; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.aida-line { width: 2px; background: var(--border); flex: 1; margin: 5px 0; min-height: 14px; }
+.aida-item:last-child .aida-line { display: none; }
+.aida-right { flex: 1; }
+.aida-tag { font-size: 10px; font-weight: 700; color: var(--red); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+.aida-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+.aida-desc { font-size: 12px; color: var(--gray); line-height: 1.6; margin-bottom: 6px; }
+.aida-eg { font-size: 12px; background: var(--bg); padding: 6px 10px; border-radius: 6px; color: var(--black); border-left: 3px solid var(--red); }
+
+/* ── Compare table ── */
+.compare-table { width: 100%; border-collapse: collapse; font-size: 12px; background: var(--white); border-radius: 10px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 16px; }
+.compare-table th { background: var(--black); color: white; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 11px; letter-spacing: 0.5px; }
+.compare-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:nth-child(even) td { background: #FAFAF8; }
+.badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 6px; margin-left: 4px; }
+.badge-rec { background: var(--light-red); color: var(--red); }
+
+/* ── Spec two-col ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.spec-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.spec-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+.spec-item { font-size: 12px; color: #555; line-height: 1.9; padding-left: 12px; position: relative; }
+.spec-item::before { content: "—"; position: absolute; left: 0; color: #ccc; }
+.spec-item.bad { color: var(--dark-red); }
+.spec-item.bad::before { content: "✕"; color: var(--red); }
+
+/* ── Toast ── */
+.toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--black); color: white; font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: 20px; opacity: 0; transition: all 0.25s; pointer-events: none; z-index: 999; white-space: nowrap; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 768px) {
+  .main { padding: 16px 16px 60px; }
+  .form-row { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .header-sub { display: none; }
+}
+
+.back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--black); text-decoration: none; padding: 6px 14px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--bg); transition: all 0.15s; }
+.back-btn:hover { border-color: var(--red); color: var(--red); background: var(--light-red); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-logo">MOJi品宣</span>
+  <span class="header-title">脚本工作流</span>
+  <a class="back-btn" href="index.html">← 返回工作台</a><span class="header-sub" style="margin-left:12px">选题 · 确认 · 脚本输出</span>
+</div>
+
+<div class="nav">
+  <div class="nav-tab active" onclick="switchTab('topic', this)">
+    <span class="step-badge">1</span> 脚本选题
+  </div>
+  <div class="nav-tab" onclick="switchTab('output', this)">
+    <span class="step-badge">2</span> 脚本输出
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════════════════════ TAB 1 ═══════════════════════════════ -->
+<div id="tab-topic" class="section active">
+
+  <div class="step-header">
+    <div class="step-num-big">1</div>
+    <div class="step-info">
+      <div class="step-title">脚本选题</div>
+      <div class="step-desc">先了解选题方法论，再用AI生成选题方案，人工确认后传入步骤二。</div>
+      <div class="step-flow">
+        <span class="step-flow-item active-flow">📖 理解方法论</span>
+        <span class="step-flow-arrow">→</span>
+        <span class="step-flow-item active-flow">⚙️ 配置参数</span>
+        <span class="step-flow-arrow">→</span>
+        <span class="step-flow-item active-flow">🤖 AI生成选题</span>
+        <span class="step-flow-arrow">→</span>
+        <span class="step-flow-item active-flow">✅ 确认选题</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 方法论 ── -->
+  <div class="divider"><span class="divider-label">方法论参考</span><div class="divider-line"></div><span style="font-size:11px;color:#ccc">展开阅读，了解后再操作</span></div>
+
+  <!-- 受众 -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">🎯</span>
+    <span class="theory-toggle-label">受众锁定</span>
+    <span class="theory-toggle-hint">4个核心子群</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <div class="principle-card">
+      <div class="principle-body">
+        MOJi核心用户：<strong>18–35岁、正在学或想学日语的中文用户</strong>。每期选题先判断面向哪个子群——
+        <ul style="margin-top:8px">
+          <li><strong>入门/零基础</strong>：焦虑感强，被「快速入门」「不用死记硬背」驱动</li>
+          <li><strong>备考党（N5–N1）</strong>：目标明确有压力，被「效率」「不忘词」「精准刷题」驱动</li>
+          <li><strong>兴趣学习者</strong>：喜欢日本文化/动漫/影视，被「沉浸式」「真实场景」「开口说」驱动</li>
+          <li><strong>留学/工作向</strong>：有实际使用需求，被「到日本用得上」「实战口语」驱动</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 四种切角 -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">✂️</span>
+    <span class="theory-toggle-label">四种选题切角</span>
+    <span class="theory-toggle-hint">点击各切角查看说明</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <div class="theory-card-list">
+
+      <div class="t-card" onclick="toggleTCard(this)">
+        <div class="t-card-header">
+          <div class="t-card-num">1</div>
+          <div class="t-card-name">反转式</div>
+          <div class="t-card-tag">高点击</div>
+          <div class="t-card-arrow">▼</div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-desc">否定用户已有认知或习惯，制造「我一直做错了？」的瞬间。答案在视频里，钩子必须反常识。</div>
+          <div class="t-label">逻辑模板</div>
+          <div class="t-template">「用户以为X是对的」→「其实X是错的/有更好方式」→「MOJi是那个更好的方式」</div>
+          <div class="t-label">选题例子</div>
+          <div class="t-eg-list">
+            <div class="t-eg">别用眼睛背日语单词——耳朵才是主力</div>
+            <div class="t-eg">说错了又怎样？这里没有人评判你</div>
+          </div>
+          <div class="t-scene"><div class="t-scene-label">适用产品</div>MOJi辞書（记单词方法）、MOJiKana（写法）、MOJi会话（开口练习）</div>
+        </div>
+      </div>
+
+      <div class="t-card" onclick="toggleTCard(this)">
+        <div class="t-card-header">
+          <div class="t-card-num">2</div>
+          <div class="t-card-name">干货式</div>
+          <div class="t-card-tag">收藏高</div>
+          <div class="t-card-arrow">▼</div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-desc">直接给有用信息，用户看完有收获感愿意收藏。标题必须带具体数字或可操作性，不能模糊。</div>
+          <div class="t-label">逻辑模板</div>
+          <div class="t-template">「[X个方法/步骤]」→ 逐条展示功能 → 结尾可收藏复用</div>
+          <div class="t-label">选题例子</div>
+          <div class="t-eg-list">
+            <div class="t-eg">N3备考3步走：MOJi这样用才不浪费</div>
+            <div class="t-eg">MOJi辞書5个隐藏功能，90%用户不知道</div>
+          </div>
+          <div class="t-scene"><div class="t-scene-label">适用产品</div>MOJi辞書（词单/背词演示）、MOJi阅读（阅读流程）、MOJiTest（刷题技巧）</div>
+        </div>
+      </div>
+
+      <div class="t-card" onclick="toggleTCard(this)">
+        <div class="t-card-header">
+          <div class="t-card-num">3</div>
+          <div class="t-card-name">痛点式</div>
+          <div class="t-card-tag">转化强</div>
+          <div class="t-card-arrow">▼</div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-desc">精准戳中用户学日语过程中某个具体痛苦，再给出MOJi的解决方案。痛点越具体，共鸣越深。</div>
+          <div class="t-label">逻辑模板</div>
+          <div class="t-template">「[具体痛苦场景]」→「你不是一个人」→「MOJi帮你解决了这个」</div>
+          <div class="t-label">选题例子</div>
+          <div class="t-eg-list">
+            <div class="t-eg">背了三遍还是忘——你可能缺这一步</div>
+            <div class="t-eg">不敢开口说日语？AI陪你练到敢为止</div>
+          </div>
+          <div class="t-scene"><div class="t-scene-label">注意</div>痛点必须真实，不能夸大或虚构，需基于产品实际功能</div>
+        </div>
+      </div>
+
+      <div class="t-card" onclick="toggleTCard(this)">
+        <div class="t-card-header">
+          <div class="t-card-num">4</div>
+          <div class="t-card-name">场景式</div>
+          <div class="t-card-tag">代入感强</div>
+          <div class="t-card-arrow">▼</div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-desc">把用户放进具体生活/学习场景里，感受「这说的就是我」。场景要真实可辨认，画面感要强。</div>
+          <div class="t-label">逻辑模板</div>
+          <div class="t-template">「[你在哪里 + 遇到了什么]」→ 功能出现 → 「问题解决了」</div>
+          <div class="t-label">选题例子</div>
+          <div class="t-eg-list">
+            <div class="t-eg">在日本餐厅，菜单看不懂怎么办</div>
+            <div class="t-eg">通勤20分钟，怎么把日语塞进去</div>
+          </div>
+          <div class="t-scene"><div class="t-scene-label">适用产品</div>MOJi会话（旅游/留学场景）、MOJi阅读（通勤/睡前）、MOJi辞書（查词场景）</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 主线原则 -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">📌</span>
+    <span class="theory-toggle-label">选题主线原则</span>
+    <span class="theory-toggle-hint">3条核心规则</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <div class="principle-card">
+      <div class="principle-title">一期视频，只说一件事</div>
+      <div class="principle-body">核心卖点必须在选题阶段锁定，且只有一个。多功能并列 = 用户记不住任何一个。<br>
+      判断方法：能否用一句话说出这期的核心？<br>
+      ✓「这期讲MOJi辞書的影子跟读，解决发音不准」<br>
+      ✗「这期讲查词、收藏、背词、AI问答和影子跟读」</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-title">选题决定封面，封面决定标题</div>
+      <div class="principle-body">三者必须在同一条叙事线上。<br>
+      反转式选题 → 行为质疑/悬念质疑型封面 → 标题接封面钩子推进<br>
+      痛点式选题 → 痛点+回报型封面 → 标题先共鸣再给解法</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-title">选题前检查</div>
+      <div class="principle-body">
+        <ul>
+          <li>内容基于真实产品功能，不夸大不虚构</li>
+          <li>目标受众是哪个子群，切角对他们有没有击中</li>
+          <li>核心卖点能用一句话说清楚</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 操作区 ── -->
+  <div class="divider"><span class="divider-label">操作区</span><div class="divider-line"></div></div>
+
+  <div class="operate-zone">
+    <div class="operate-title">
+      <span class="op-step">1</span> 配置本期参数
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">产品</label>
+        <select id="sel-product" onchange="buildPrompt1()">
+          <option value="">— 选择产品 —</option>
+          <option value="MOJi辞書">MOJi辞書</option>
+          <option value="MOJi阅读">MOJi阅读</option>
+          <option value="MOJi会话">MOJi会话</option>
+          <option value="MOJiKana">MOJiKana</option>
+          <option value="MOJiTest">MOJiTest</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">目标受众</label>
+        <select id="sel-audience" onchange="buildPrompt1()">
+          <option value="">— 选择受众 —</option>
+          <option value="日语学习者（通用）">日语学习者（通用）</option>
+          <option value="入门/零基础用户">入门/零基础用户</option>
+          <option value="备考党（N5–N1）">备考党（N5–N1）</option>
+          <option value="兴趣学习者（文化/动漫/影视）">兴趣学习者（文化/动漫/影视）</option>
+          <option value="留学/工作向用户">留学/工作向用户</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">切角偏好（可不选）</label>
+        <select id="sel-angle" onchange="buildPrompt1()">
+          <option value="">— AI自行判断 —</option>
+          <option value="反转式">反转式（高点击）</option>
+          <option value="干货式">干货式（收藏高）</option>
+          <option value="痛点式">痛点式（转化强）</option>
+          <option value="场景式">场景式（代入感强）</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">本期核心功能（可选）</label>
+        <input type="text" id="inp-feature" placeholder="如：影子跟读、AI对话、假名书写…" oninput="buildPrompt1()">
+      </div>
+    </div>
+
+    <div class="operate-title" style="margin-top:20px">
+      <span class="op-step">2</span> 复制指令 → 连同产品手册HTML一起发给AI
+    </div>
+
+    <div class="prompt-preview">
+      <div class="prompt-preview-label">生成的AI指令预览</div>
+      <div class="prompt-preview-text" id="prompt1-text">请先选择产品和受众，指令将自动生成。</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-copy" onclick="copyPrompt1()">📋 复制指令</button>
+    </div>
+
+    <div style="margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--gray);line-height:1.7;">
+      💡 <strong style="color:var(--black)">使用方式：</strong>复制上方指令，打开新的AI对话，先粘贴产品手册HTML文件内容，再粘贴此指令发送，AI将返回3个选题方案。
+    </div>
+  </div>
+
+
+
+</div>
+
+
+<!-- ═══════════════════════════════ TAB 2 ═══════════════════════════════ -->
+<div id="tab-output" class="section">
+
+  <div class="step-header">
+    <div class="step-num-big">2</div>
+    <div class="step-info">
+      <div class="step-title">脚本输出</div>
+      <div class="step-desc">基于已确认的选题，了解叙事结构方法论，再用AI生成完整脚本。</div>
+      <div class="step-flow">
+        <span class="step-flow-item active-flow">📌 确认选题</span>
+        <span class="step-flow-arrow">→</span>
+        <span class="step-flow-item active-flow">📖 了解叙事结构</span>
+        <span class="step-flow-arrow">→</span>
+        <span class="step-flow-item active-flow">⚙️ 选叙事类型</span>
+        <span class="step-flow-arrow">→</span>
+        <span class="step-flow-item active-flow">🤖 AI生成脚本</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 方法论 ── -->
+  <div class="divider"><span class="divider-label">方法论参考</span><div class="divider-line"></div></div>
+
+  <!-- AIDA -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">📐</span>
+    <span class="theory-toggle-label">叙事结构：AIDA模型</span>
+    <span class="theory-toggle-hint">所有脚本的基础框架</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <div class="aida-flow">
+      <div class="aida-item">
+        <div class="aida-left"><div class="aida-letter">A</div><div class="aida-line"></div></div>
+        <div class="aida-right">
+          <div class="aida-tag">ATTENTION · 前3秒</div>
+          <div class="aida-title">钩子——让用户停下来</div>
+          <div class="aida-desc">开头用强钩子，不解释背景，直接进入反常识/痛点/场景。用户通常不会给超过3秒。</div>
+          <div class="aida-eg">✓「别用眼睛背日语单词」「说错了又怎样」<br>✗「大家好，今天来给大家介绍……」</div>
+        </div>
+      </div>
+      <div class="aida-item">
+        <div class="aida-left"><div class="aida-letter">I</div><div class="aida-line"></div></div>
+        <div class="aida-right">
+          <div class="aida-tag">INTEREST · 3–15秒</div>
+          <div class="aida-title">冲突——让用户想点进去</div>
+          <div class="aida-desc">把问题放大，给用户「我要知道答案」的理由。不要在这里给答案，让用户感受「这说的就是我」。</div>
+          <div class="aida-eg">「背了三遍，第四遍还是空白——你以为是意志力问题，其实是方法问题」</div>
+        </div>
+      </div>
+      <div class="aida-item">
+        <div class="aida-left"><div class="aida-letter">D</div><div class="aida-line"></div></div>
+        <div class="aida-right">
+          <div class="aida-tag">DESIRE · 中段</div>
+          <div class="aida-title">演示——用功能解决冲突</div>
+          <div class="aida-desc">展示功能，但不是列清单，是用功能解决前面提出的冲突。每个功能点对应「这解决了我哪个痛苦」。</div>
+          <div class="aida-eg">「影子跟读让你跟着真人发音逐音节纠正——不靠意志力，靠听觉肌肉记忆」</div>
+        </div>
+      </div>
+      <div class="aida-item">
+        <div class="aida-left"><div class="aida-letter">A</div><div class="aida-line"></div></div>
+        <div class="aida-right">
+          <div class="aida-tag">ACTION · 结尾</div>
+          <div class="aida-title">转化——呼应开头，引导行动</div>
+          <div class="aida-desc">结尾回扣开头钩子，给闭合感。转化语轻，不要强硬推销。</div>
+          <div class="aida-eg">「试试用耳朵背——评论区告诉我你背完了几个词」</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 叙事类型 -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">🗂️</span>
+    <span class="theory-toggle-label">三种叙事类型</span>
+    <span class="theory-toggle-hint">选一种对应你的选题切角</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <table class="compare-table">
+      <thead>
+        <tr><th>类型</th><th>结构</th><th>适用切角</th><th>注意</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>问题驱动型</strong><span class="badge badge-rec">推荐</span></td>
+          <td>提出问题 → 功能回答 → 结尾回扣</td>
+          <td>反转式 / 痛点式</td>
+          <td>问题必须真实，不能捏造</td>
+        </tr>
+        <tr>
+          <td><strong>场景沉浸型</strong><span class="badge badge-rec">推荐</span></td>
+          <td>进入场景 → 遇困难 → 功能出现 → 解决</td>
+          <td>场景式</td>
+          <td>场景要具体，不能是「学日语的时候」</td>
+        </tr>
+        <tr>
+          <td><strong>功能清单型</strong></td>
+          <td>数字引出 → 逐条展示 → 收藏引导</td>
+          <td>干货式</td>
+          <td>各条之间要有逻辑联系，不能纯堆砌</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 脚本写作原则 -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">🧠</span>
+    <span class="theory-toggle-label">脚本写作原则</span>
+    <span class="theory-toggle-hint">4条留住用户的核心规则</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <div class="principle-card">
+      <div class="principle-title">① 每段结尾有钩子，牵引下一段</div>
+      <div class="principle-body">每段旁白不用句号收尾，用问句或省略号留悬念。用户看完一段，需要有理由看下一段。<br>
+      ✓「他们在聊什么？」「还有个地方，很多人没注意到——」<br>
+      ✗「你想找的感觉，这里都有。」（句号收尾，用户可以走了）</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-title">② 开头钩子与后续内容不重复同一情绪</div>
+      <div class="principle-body">钩子说了结论，后面再说同一个结论，用户2秒跳出。<br>
+      钩子的作用是制造「咦？」，不是给答案。答案留在中段功能展示里。<br>
+      ✓ 钩子：「一个人学日语，累吗？」→ 中段：给出MOJi圈这个答案<br>
+      ✗ 钩子：「一个人学日语撑不下去」→ 下一句：「一个人扛太难了」（重复）</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-title">③ 功能展示路径：用户心理 → 触发动作 → 功能出现</div>
+      <div class="principle-body">不是功能带着用户走，而是用户的情绪和需求触发功能出现。<br>
+      每个功能点对应一个心理状态，顺序跟着用户的真实使用路径走。<br>
+      ✓ 想放弃了（心理）→ 打开MOJi圈（动作）→ 看到在线人数（功能）<br>
+      ✗ 先介绍发帖，再介绍标签，再介绍船友榜（功能清单顺序）</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-title">④ 画面与旁白情绪对应</div>
+      <div class="principle-body">画面在说一件事，旁白在说另一件，用户会出戏。<br>
+      画面的视觉情绪和旁白的文字情绪要一致。<br>
+      ✓ 猫咪趴桌上睡着（视觉：累）+ 旁白：「背着背着就睡着了」<br>
+      ✗ 猫咪发呆（视觉：孤独）+ 旁白：「累吗？」（情绪不对）</div>
+    </div>
+  </div>
+
+  <!-- 旁白规范 -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">🎙️</span>
+    <span class="theory-toggle-label">旁白规范</span>
+    <span class="theory-toggle-hint">要做到 vs 避免</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <div class="two-col">
+      <div class="spec-card">
+        <div class="spec-title">✅ 要做到</div>
+        <div class="spec-item">说人话，不用书面语或产品用语</div>
+        <div class="spec-item">每句≤20字，念出来不超过4秒</div>
+        <div class="spec-item">功能名嵌入句子，不单独念出</div>
+        <div class="spec-item">有停顿节奏，便于配合录屏剪辑</div>
+        <div class="spec-item">首尾闭环，结尾回扣开头钩子</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-title">❌ 避免</div>
+        <div class="spec-item bad">开头有「大家好」「今天给大家」</div>
+        <div class="spec-item bad">一句话超过30字，气口难断</div>
+        <div class="spec-item bad">功能点没有对应画面，旁白在飘</div>
+        <div class="spec-item bad">连续三句结尾都是感叹号</div>
+        <div class="spec-item bad">产品说明书语气：「MOJi辞書的词汇记忆功能支持……」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 操作区 ── -->
+  <div class="divider"><span class="divider-label">操作区</span><div class="divider-line"></div></div>
+
+  <div class="operate-zone">
+    <div class="operate-title">
+      <span class="op-step">1</span> 填入已确认选题 + 选择叙事类型
+    </div>
+
+    <div style="margin-bottom:16px;padding:10px 14px;background:#FFF0EF;border-radius:8px;font-size:12px;color:#CC2A20;">💡 已确认选题来自 <strong>Tab1 脚本选题</strong>——请先完成步骤一再填写。</div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="form-label">已确认选题（从步骤一AI结果中填入）</label>
+      <textarea id="confirmed-topic" placeholder="例：反转式 · MOJi辞書 · 备考党&#10;核心：别用眼睛背日语单词——影子跟读让你用耳朵记住发音" oninput="buildPrompt2()" style="min-height:70px"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">叙事类型</label>
+        <select id="sel-narrative" onchange="buildPrompt2()">
+          <option value="">— AI自行判断 —</option>
+          <option value="问题驱动型">问题驱动型（反转/痛点切角）</option>
+          <option value="场景沉浸型">场景沉浸型（场景切角）</option>
+          <option value="功能清单型">功能清单型（干货切角）</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">目标视频时长</label>
+        <select id="sel-duration" onchange="buildPrompt2()">
+          <option value="60–90秒">60–90秒（精简版）</option>
+          <option value="90–120秒" selected>90–120秒（标准版）</option>
+          <option value="120–150秒">120–150秒（完整版）</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="operate-title" style="margin-top:20px">
+      <span class="op-step">2</span> 复制指令 → 连同产品手册HTML一起发给AI
+    </div>
+
+    <div class="prompt-preview">
+      <div class="prompt-preview-label">生成的AI指令预览</div>
+      <div class="prompt-preview-text" id="prompt2-text">请填入已确认选题并选择叙事类型，指令将自动生成。</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-copy" onclick="copyPrompt2()">📋 复制指令</button>
+    </div>
+
+    <div style="margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--gray);line-height:1.7;">
+      💡 <strong style="color:var(--black)">使用方式：</strong>复制上方指令，打开新的AI对话，先粘贴产品手册HTML，再粘贴此指令发送。AI将返回三列表格格式脚本（时间轴 · 画面/录屏 · 旁白&文案）。
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /main -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Tab switch ──
+function switchTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ── Theory toggle ──
+function toggleTheory(el) {
+  el.classList.toggle('open');
+}
+
+// ── T-card toggle ──
+function toggleTCard(card) {
+  const isOpen = card.classList.contains('open');
+  card.closest('.theory-card-list').querySelectorAll('.t-card').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+
+// ── Sync topic from Tab1 to Tab2 ──
+function syncTopic() {
+  const val = document.getElementById('confirmed-topic').value.trim();
+  const display = document.getElementById('topic-display-text');
+  if (val) {
+    display.innerHTML = val.replace(/\n/g, '<br>');
+  } else {
+    display.innerHTML = '<span class="topic-display-empty">暂无已确认选题，请先完成步骤一</span>';
+  }
+  buildPrompt2();
+}
+
+function gotoOutput() {
+  const outputTab = document.querySelector('.nav-tab:nth-child(2)');
+  switchTab('output', outputTab);
+  syncTopic();
+}
+
+// ── Build Prompt 1 ──
+function buildPrompt1() {
+  const product = document.getElementById('sel-product').value;
+  const audience = document.getElementById('sel-audience').value;
+  const angle = document.getElementById('sel-angle').value;
+  const feature = document.getElementById('inp-feature').value.trim();
+
+  if (!product || !audience) {
+    document.getElementById('prompt1-text').innerHTML = '请先选择产品和受众，指令将自动生成。';
+    return;
+  }
+
+  let angleStr = angle ? `\n切角偏好：${angle}` : '\n切角：AI自行从反转式/干货式/痛点式/场景式中判断最合适的';
+  let featureStr = feature ? `\n本期核心功能：${feature}` : '';
+
+  const prompt = `你是MOJi品宣脚本策划专家。我将在此消息中同时提供产品手册HTML文件，请仔细阅读其中关于【${product}】的功能说明。
+
+本期参数：
+产品：${product}
+目标受众：${audience}${angleStr}${featureStr}
+
+请完成以下任务：
+
+第一步：从产品手册中提炼【${product}】最适合本期受众的1-2个核心功能点（必须基于手册内容，不可虚构）。
+
+第二步：基于以下选题方法论，生成3个选题方案：
+· 反转式：否定用户认知，制造「我一直做错了？」的瞬间
+· 干货式：直接给有用信息，标题带具体数字或可操作性
+· 痛点式：精准戳中痛苦，再给出产品解决方案
+· 场景式：把用户放进具体生活/学习场景
+
+每个选题方案包含：
+1. 切角类型
+2. 核心卖点（一句话）
+3. 封面钩子建议（≤15字）
+4. 适合的受众子群说明
+
+第三步：对3个方案做简短对比，说明各自的优劣势。
+
+约束：
+· 内容必须基于产品手册中的真实功能，不可推断或虚构
+· 目标用户：${audience}，18-35岁中文用户
+· 平台：小红书竖版视频`;
+
+  document.getElementById('prompt1-text').innerHTML = escapeHtml(prompt)
+    .replace(/【.*?】/g, m => `<span class="hl-fill">${m}</span>`)
+    .replace(/(第[一二三]步：)/g, '<span class="hl2">$1</span>');
+}
+
+// ── Build Prompt 2 ──
+function buildPrompt2() {
+  const topic = document.getElementById('confirmed-topic').value.trim();
+  const narrative = document.getElementById('sel-narrative').value;
+  const duration = document.getElementById('sel-duration').value;
+
+  if (!topic) {
+    document.getElementById('prompt2-text').innerHTML = '请填入已确认选题，指令将自动生成。';
+    return;
+  }
+
+  const narrativeAI = !narrative;
+  const narrativeLine = narrativeAI
+    ? '叙事类型：请根据选题切角自行判断最合适的叙事类型（问题驱动型/场景沉浸型/功能清单型），并在脚本开头注明你的选择及理由（1-2句）。'
+    : `叙事类型：${narrative}`;
+
+  const narrativeReq = narrativeAI
+    ? `叙事结构要求：
+· 根据选题自行选择最合适的叙事类型
+· 问题驱动型：提出问题 → 功能回答 → 结尾回扣
+· 场景沉浸型：进入场景 → 遇困难 → 功能出现 → 解决
+· 功能清单型：数字引出 → 逐条展示 → 收藏引导`
+    : `叙事结构要求（${narrative}）：
+${narrative === '问题驱动型' ? '· 开头：提出具体问题/反常识判断\n· 中段：用功能逐步回答问题\n· 结尾：回扣问题，给出闭合感' : ''}${narrative === '场景沉浸型' ? '· 开头：进入具体场景（时间/地点/情境）\n· 中段：遇到困难 → 功能出现 → 问题解决\n· 结尾：场景收尾，呼应开头' : ''}${narrative === '功能清单型' ? '· 开头：数字引出（「X个你不知道的…」）\n· 中段：逐条展示，每条有独立价值\n· 结尾：总结+收藏引导' : ''}`;
+
+  const prompt = `你是MOJi品宣脚本写作专家。我将在此消息中同时提供产品手册HTML文件，请仔细阅读相关产品功能说明。
+
+本期选题：
+${topic}
+
+${narrativeLine}
+目标时长：${duration}
+
+请按AIDA结构输出完整脚本，格式为三列表格：
+· 列1：时间轴（起止秒数）
+· 列2：画面/录屏内容（手指操作路径 + 界面说明，精确到点击位置）
+· 列3：旁白&文案（口播台词 + 动态字幕标注）
+
+${narrativeReq}
+
+旁白规范：
+· 每句≤20字，口语化，不用书面语
+· 开头避免「大家好」「今天给大家」
+· 功能名嵌入句子，不单独列举
+· 每段结尾用问句或省略号牵引下一段，避免句号收尾
+· 首尾闭环：结尾回扣开头钩子
+
+输出完成后请自检：
+□ AIDA四段完整
+□ 旁白与画面时间同步
+□ 每段结尾是否有钩子牵引
+□ 画面与旁白情绪是否对应
+□ 首尾是否闭环
+□ 转化引导是否自然
+
+约束：功能描述必须基于产品手册真实内容，不可推断或虚构。`;
+
+  document.getElementById('prompt2-text').innerHTML = escapeHtml(prompt)
+    .replace(/(本期选题：\n)([\s\S]*?)(\n\n叙事类型)/, (m, p1, p2, p3) =>
+      p1 + `<span class="hl-fill">${p2}</span>` + p3)
+    .replace(/(第[一二三]步：)/g, '<span class="hl2">$1</span>');
+}
+
+// ── Copy ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function copyPrompt1() {
+  const product = document.getElementById('sel-product').value;
+  const audience = document.getElementById('sel-audience').value;
+  if (!product || !audience) { showToast('请先选择产品和受众'); return; }
+  const text = document.getElementById('prompt1-text').innerText;
+  navigator.clipboard.writeText(text).then(() => showToast('指令已复制 ✓'));
+}
+
+function copyPrompt2() {
+  const topic = document.getElementById('confirmed-topic').value.trim();
+  if (!topic) { showToast('请先填入已确认选题'); return; }
+  const text = document.getElementById('prompt2-text').innerText;
+  navigator.clipboard.writeText(text).then(() => showToast('指令已复制 ✓'));
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+// Init
+buildPrompt1();
+buildPrompt2();
+</script>
+</body>
+</html>

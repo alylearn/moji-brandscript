@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOJi 品宣工作台</title>
+<style>
+:root {
+  --red: #E8342A;
+  --dark-red: #CC2A20;
+  --light-red: #FFF0EF;
+  --black: #1A1A1A;
+  --gray: #888888;
+  --bg: #F7F5F0;
+  --white: #FFFFFF;
+  --border: #E5E5E2;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; background: var(--bg); color: var(--black); min-height: 100vh; display: flex; flex-direction: column; }
+
+.header { background: var(--white); border-bottom: 2px solid var(--red); padding: 20px 40px; display: flex; align-items: center; gap: 14px; }
+.header-logo { background: var(--red); color: white; font-size: 13px; font-weight: 700; padding: 5px 14px; border-radius: 20px; }
+.header-title { font-size: 18px; font-weight: 700; }
+.header-sub { font-size: 12px; color: var(--gray); margin-left: auto; }
+
+.main { flex: 1; max-width: 860px; margin: 0 auto; padding: 56px 32px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+.hero { width: 100%; }
+.cards { width: 100%; }
+.workflow-hint { width: 100%; }
+
+.hero { text-align: left; margin-bottom: 56px; }
+.hero-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+.hero-title { font-size: 32px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; }
+.hero-title span { color: var(--red); }
+.hero-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
+
+.flow-row { display: flex; align-items: center; gap: 0; margin-bottom: 48px; }
+.flow-step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.flow-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); }
+.flow-line { flex: 1; height: 2px; background: var(--border); }
+.flow-line.colored { background: var(--red); opacity: 0.3; }
+.flow-label { font-size: 11px; color: var(--gray); text-align: center; }
+
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.cards-ref { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
+.card-ref { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 20px; transition: all 0.2s; position: relative; overflow: hidden; cursor: pointer; }
+.card-ref:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,52,42,0.08); }
+.card-ref::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); opacity: 0; transition: opacity 0.2s; }
+.card-ref:hover::before { opacity: 1; }
+.card-ref-icon { font-size: 28px; flex-shrink: 0; }
+.card-ref-body { flex: 1; }
+.card-ref-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; }
+.card-ref-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.card-ref-desc { font-size: 12px; color: var(--gray); line-height: 1.6; }
+.card-ref-link { font-size: 12px; font-weight: 600; color: var(--red); flex-shrink: 0; }
+
+.card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 28px 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0; transition: all 0.2s; position: relative; overflow: hidden; cursor: pointer; }
+.card:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(232,52,42,0.1); }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); opacity: 0; transition: opacity 0.2s; }
+.card:hover::before { opacity: 1; }
+
+.card-step { font-size: 10px; font-weight: 700; color: var(--red); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
+.card-step-num { width: 20px; height: 20px; border-radius: 50%; background: var(--red); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.card-icon { font-size: 28px; margin-bottom: 12px; }
+.card-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.card-desc { font-size: 12px; color: var(--gray); line-height: 1.7; flex: 1; margin-bottom: 20px; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; }
+.card-tag { font-size: 11px; background: var(--bg); border: 1px solid var(--border); padding: 2px 8px; border-radius: 20px; color: #555; }
+.card-link { display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--red); margin-top: auto; }
+.card-link-arrow { font-size: 14px; transition: transform 0.15s; }
+.card:hover .card-link-arrow { transform: translateX(4px); }
+
+.workflow-hint { text-align: center; margin-top: 40px; padding: 20px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; }
+.workflow-hint-title { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.workflow-hint-desc { font-size: 12px; color: var(--gray); line-height: 1.8; }
+.workflow-hint-flow { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.wf-item { font-size: 12px; font-weight: 500; padding: 4px 12px; background: var(--light-red); color: var(--red); border-radius: 20px; }
+.wf-arrow { font-size: 12px; color: #ccc; }
+
+.footer { text-align: center; padding: 24px; font-size: 11px; color: #ccc; }
+
+@media (max-width: 720px) {
+  .cards { grid-template-columns: 1fr; }
+  .hero-title { font-size: 24px; }
+  .main { padding: 36px 20px; }
+  .header { padding: 16px 20px; }
+  .header-sub { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-logo">MOJi品宣</span>
+  <span class="header-title">视频制作工作台</span>
+  <span class="header-sub">封面方法论 · 脚本工作流 · 小红书文案</span>
+</div>
+
+<div class="main">
+
+  <div class="hero" style="margin-bottom:28px">
+    <div class="hero-title">从选题到发布<br><span>一套工作流搞定</span></div>
+    <div class="hero-desc" style="max-width:100%;margin:0;text-align:left">三个工具按顺序使用，每步都有方法论参考和AI指令生成，适合实习生独立完成品宣内容制作。</div>
+  </div>
+
+  <div class="workflow-hint" style="margin-bottom:40px;text-align:left">
+    <div class="workflow-hint-title">标准工作流顺序</div>
+    <div class="workflow-hint-desc">每期内容按以下顺序推进，确保封面、脚本、文案叙事线一致</div>
+    <div class="workflow-hint-flow" style="justify-content:flex-start">
+      <span class="wf-item">📋 脚本选题</span>
+      <span class="wf-arrow">→</span>
+      <span class="wf-item">🤖 AI生成方案</span>
+      <span class="wf-arrow">→</span>
+      <span class="wf-item">✅ 人工确认选题</span>
+      <span class="wf-arrow">→</span>
+      <span class="wf-item">📝 AI生成脚本</span>
+      <span class="wf-arrow">→</span>
+      <span class="wf-item">🎬 视频制作</span>
+      <span class="wf-arrow">→</span>
+      <span class="wf-item">🎨 封面文案+配图</span>
+      <span class="wf-arrow">→</span>
+      <span class="wf-item">✍️ 标题+正文</span>
+    </div>
+  </div>
+
+  <div class="cards">
+
+    <a class="card" href="moji_script.html">
+      <div class="card-step"><span class="card-step-num">1</span>第一步</div>
+      <div class="card-icon">📋</div>
+      <div class="card-title">脚本工作流</div>
+      <div class="card-desc">选题方向方法论 + AI生成选题方案，确认后生成完整脚本。两步完成从选题到脚本。</div>
+      <div class="card-tags">
+        <span class="card-tag">选题方法论</span>
+        <span class="card-tag">AIDA结构</span>
+        <span class="card-tag">AI指令生成</span>
+      </div>
+      <div class="card-link">打开 <span class="card-link-arrow">→</span></div>
+    </a>
+
+    <a class="card" href="moji_cover.html">
+      <div class="card-step"><span class="card-step-num">2</span>第二步</div>
+      <div class="card-icon">🎨</div>
+      <div class="card-title">封面方法论</div>
+      <div class="card-desc">12种文案公式、封面设计规范、叙事动线、AI生图指令。脚本确认后出封面。</div>
+      <div class="card-tags">
+        <span class="card-tag">12种公式</span>
+        <span class="card-tag">设计规范</span>
+        <span class="card-tag">AI生图指令</span>
+      </div>
+      <div class="card-link">打开 <span class="card-link-arrow">→</span></div>
+    </a>
+
+    <a class="card" href="moji_copywriting.html">
+      <div class="card-step"><span class="card-step-num">3</span>第三步</div>
+      <div class="card-icon">✍️</div>
+      <div class="card-title">小红书文案</div>
+      <div class="card-desc">基于已确认选题，生成标题备选和正文文案。三位一体检验保证封面→标题→正文叙事线不断。</div>
+      <div class="card-tags">
+        <span class="card-tag">三位一体</span>
+        <span class="card-tag">标题铁律</span>
+        <span class="card-tag">正文结构</span>
+      </div>
+      <div class="card-link">打开 <span class="card-link-arrow">→</span></div>
+    </a>
+
+  </div>
+
+  <div class="cards-ref">
+    <a class="card-ref" href="moji_benchmark.html">
+      <div class="card-ref-icon">🔍</div>
+      <div class="card-ref-body">
+        <div class="card-ref-label">参考资源</div>
+        <div class="card-ref-title">对标账号参考库</div>
+        <div class="card-ref-desc">参考答案阅览室 · 无痛单词 — 标题规律、封面风格、内容策略分析，每期策划前参考使用。</div>
+      </div>
+      <div class="card-ref-link">查看 →</div>
+    </a>
+  </div>
+
+</div>
+
+<div class="footer">MOJi 品宣工作台 · 内部使用</div>
+
+</body>
+</html>
