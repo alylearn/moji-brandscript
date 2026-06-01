@@ -344,6 +344,26 @@ input[type="text"] { background-image: none; }
         </div>
       </div>
 
+      <div class="t-card" onclick="toggleTCard(this)">
+        <div class="t-card-header">
+          <div class="t-card-num">5</div>
+          <div class="t-card-name">测评诊断式</div>
+          <div class="t-card-tag">让用户自己撞见短板</div>
+          <div class="t-card-arrow">▼</div>
+        </div>
+        <div class="t-card-body">
+          <div class="t-desc">不直接说用户哪里弱，而是用一个测试/诊断让用户自己测出来，激起「我居然这么差？」的不甘。结论由用户自己得出，比你说更可信。</div>
+          <div class="t-label">逻辑模板</div>
+          <div class="t-template">「敢不敢测一下你的X」→ 用户测出意外结果 → 「想补就用MOJi」</div>
+          <div class="t-label">选题例子</div>
+          <div class="t-eg-list">
+            <div class="t-eg">你的日语词汇量，到底有多少"水分"？</div>
+            <div class="t-eg">不靠汉字，你的词汇量还剩多少</div>
+          </div>
+          <div class="t-scene"><div class="t-scene-label">适用产品</div>MOJi辞書（词汇量测试）、MOJiTest（水平诊断）。注意：测试要真能测出落差，不能是走过场</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -422,12 +442,19 @@ input[type="text"] { background-image: none; }
           <option value="干货式">干货式（收藏高）</option>
           <option value="痛点式">痛点式（转化强）</option>
           <option value="场景式">场景式（代入感强）</option>
+          <option value="测评诊断式">测评诊断式（让用户自测短板）</option>
         </select>
       </div>
       <div class="form-group">
         <label class="form-label">本期核心功能（可选）</label>
         <input type="text" id="inp-feature" placeholder="如：影子跟读、AI对话、假名书写…" oninput="buildPrompt1()">
       </div>
+    </div>
+
+    <div class="form-group" style="margin-top:14px">
+      <label class="form-label">用户评价 / 用户痛点<span style="font-weight:400;color:var(--gray)">（可选）</span></label>
+      <div style="font-size:11px;color:var(--gray);line-height:1.6;margin:-2px 0 8px">去小红书、抖音搜这个功能，把搜索词、评论或差评里的用户原话贴进来，也可以是用户学日语的痛点。AI 会照着这些吐槽和痛点想选题。一行一条。</div>
+      <textarea id="inp-complaint" placeholder="例：moji背单词默认模式难用 / 想背的词不在词库里 / N1过了还是看不懂片假名" oninput="buildPrompt1()" style="min-height:64px"></textarea>
     </div>
 
     <div class="operate-title" style="margin-top:20px">
@@ -476,14 +503,68 @@ input[type="text"] { background-image: none; }
   <!-- ── 方法论 ── -->
   <div class="divider"><span class="divider-label">方法论参考</span><div class="divider-line"></div></div>
 
-  <!-- AIDA -->
-  <div class="theory-toggle" onclick="toggleTheory(this)">
-    <span class="theory-toggle-icon">📐</span>
-    <span class="theory-toggle-label">叙事结构：AIDA模型</span>
-    <span class="theory-toggle-hint">所有脚本的基础框架</span>
+  <!-- 痛点直给型（轻结构）· 默认 -->
+  <div class="theory-toggle open" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">⚡</span>
+    <span class="theory-toggle-label">叙事结构：痛点直给型（默认）</span>
+    <span class="theory-toggle-hint">只要能找出一个单一尖锐痛点就用它 · 数据最好的三条都是这个结构</span>
     <span class="theory-toggle-arrow">▼</span>
   </div>
   <div class="theory-body">
+    <div style="background:#FFF0EF;border-radius:8px;padding:12px 14px;font-size:12px;color:#CC2A20;line-height:1.8;margin-bottom:14px">
+      复盘结论（三条高数据视频 vs 两条低数据视频）：高数据的全是「钩子 → 痛点直给 → 连续操作演示 → 具体CTA」的轻结构；低数据的全是 AIDA 逐步铺垫或多功能总览。<strong>只要本期能拎出一个单一尖锐痛点当入口，就默认走这一套（哪怕涉及多个功能，也用这一个痛点把它们串起来），不要套 AIDA 的「兴趣放大 / 欲望铺垫」中段。</strong>
+    </div>
+    <div class="aida-flow">
+      <div class="aida-item">
+        <div class="aida-left"><div class="aida-letter">钩</div><div class="aida-line"></div></div>
+        <div class="aida-right">
+          <div class="aida-tag">前3秒 · 直接进</div>
+          <div class="aida-title">钩子——质问 / 报错 / 结果先行</div>
+          <div class="aida-desc">第一句就是质问、用户吐槽、或「太爽了」的结果，不铺垫、不报数据、不下产品定义。</div>
+          <div class="aida-eg">✓「用MOJi背了好几遍还是不会？」「是你一直在用最没用的方式背」「谁懂啊，太爽了吧」<br>✗「有20%的用户……」「其实就是一款日语学习RPG」（数据/定义慢热）</div>
+        </div>
+      </div>
+      <div class="aida-item">
+        <div class="aida-left"><div class="aida-letter">痛</div><div class="aida-line"></div></div>
+        <div class="aida-right">
+          <div class="aida-tag">紧接钩子 · 一句带过</div>
+          <div class="aida-title">痛点直给——说清「为什么现在的方式错」</div>
+          <div class="aida-desc">一两句说明问题出在哪，锋利度对准「默认设置/方法/模式」，不对准用户本人。不要把痛点反复放大铺陈。</div>
+          <div class="aida-eg">「但选对了≠记住了」「大多数人只用了第一种，还用的是默认设置」</div>
+        </div>
+      </div>
+      <div class="aida-item">
+        <div class="aida-left"><div class="aida-letter">演</div><div class="aida-line"></div></div>
+        <div class="aida-right">
+          <div class="aida-tag">中段主体 · 连续路径</div>
+          <div class="aida-title">操作演示——用户看得到下一步点哪</div>
+          <div class="aida-desc">真实录屏，一步接一步的连续操作路径（首页→背词→小铅笔→自选题型…），不是功能罗列、不是多功能跳转。</div>
+          <div class="aida-eg">「首页点背词 → 右下角点小铅笔 → 进入题型设置 → 换成看单词选假名」</div>
+        </div>
+      </div>
+      <div class="aida-item">
+        <div class="aida-left"><div class="aida-letter">收</div><div class="aida-line"></div></div>
+        <div class="aida-right">
+          <div class="aida-tag">结尾 · 具体动作</div>
+          <div class="aida-title">CTA——给一个能立刻做的动作</div>
+          <div class="aida-desc">收尾给具体行动并回扣开头，不要泛泛「试试看 / 评论区留言」。</div>
+          <div class="aida-eg">✓「收藏这条，今天就去改设置」「来MOJi辞書测一次」<br>✗「还不快试试」「成功通关！」（泛收束）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AIDA -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">📐</span>
+    <span class="theory-toggle-label">叙事结构：AIDA模型（兜底）</span>
+    <span class="theory-toggle-hint">真·产品总览、拎不出单一入口痛点时才用</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <div style="background:var(--bg);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--gray);line-height:1.7;margin-bottom:14px">
+      AIDA 的「兴趣放大 / 欲望铺垫」中段，只在确实是产品总览、或多功能并列、拎不出一个单一入口痛点时才用——它在我们的样本里唯一的战绩是输（慢热开场的「听发音」、多功能总览的「认识MOJi」）。能找出单一痛点的，优先走上面的「痛点直给型」。
+    </div>
     <div class="aida-flow">
       <div class="aida-item">
         <div class="aida-left"><div class="aida-letter">A</div><div class="aida-line"></div></div>
@@ -527,8 +608,8 @@ input[type="text"] { background-image: none; }
   <!-- 叙事类型 -->
   <div class="theory-toggle" onclick="toggleTheory(this)">
     <span class="theory-toggle-icon">🗂️</span>
-    <span class="theory-toggle-label">三种叙事类型</span>
-    <span class="theory-toggle-hint">选一种对应你的选题切角</span>
+    <span class="theory-toggle-label">四种叙事类型</span>
+    <span class="theory-toggle-hint">能拎出单一痛点就用痛点直给型，其余按题型选</span>
     <span class="theory-toggle-arrow">▼</span>
   </div>
   <div class="theory-body">
@@ -538,15 +619,21 @@ input[type="text"] { background-image: none; }
       </thead>
       <tbody>
         <tr>
-          <td><strong>问题驱动型</strong><span class="badge badge-rec">推荐</span></td>
+          <td><strong>痛点直给型</strong><span class="badge badge-rec">默认</span></td>
+          <td>钩子 → 痛点直给 → 连续操作演示 → 具体CTA（轻结构，无铺垫段）</td>
+          <td>有单一尖锐痛点就用（含多功能，用一个痛点串起来）</td>
+          <td>痛点对准模式/方法，不对准用户；不套 AIDA 铺垫</td>
+        </tr>
+        <tr>
+          <td><strong>问题驱动型</strong></td>
           <td>提出问题 → 功能回答 → 结尾回扣</td>
-          <td>反转式 / 痛点式</td>
+          <td>反转式 / 痛点式（需要多说几句时）</td>
           <td>问题必须真实，不能捏造</td>
         </tr>
         <tr>
-          <td><strong>场景沉浸型</strong><span class="badge badge-rec">推荐</span></td>
+          <td><strong>场景沉浸型</strong></td>
           <td>进入场景 → 遇困难 → 功能出现 → 解决</td>
-          <td>场景式</td>
+          <td>场景式（多功能/情绪向）</td>
           <td>场景要具体，不能是「学日语的时候」</td>
         </tr>
         <tr>
@@ -568,10 +655,12 @@ input[type="text"] { background-image: none; }
   </div>
   <div class="theory-body">
     <div class="principle-card">
-      <div class="principle-title">① 每段结尾有钩子，牵引下一段</div>
-      <div class="principle-body">每段旁白不用句号收尾，用问句或省略号留悬念。用户看完一段，需要有理由看下一段。<br>
-      ✓「他们在聊什么？」「还有个地方，很多人没注意到——」<br>
-      ✗「你想找的感觉，这里都有。」（句号收尾，用户可以走了）</div>
+      <div class="principle-title">① 中段牵引，结论句可以顿住</div>
+      <div class="principle-body">中段每句不用句号收尾，用问句或省略号留悬念，让用户有理由看下一段。<br>
+      但关键结论句/punchline 反而要用句号或感叹号顿住，制造重音——这是高数据视频的共同做法，别一刀切。<br>
+      ✓ 中段：「他们在聊什么？」「还有个地方，很多人没注意到——」<br>
+      ✓ 结论句：「是你一直在用最没用的方式背。」「太爽了吧！」（故意顿住，砸下来）<br>
+      ✗ 中段普通陈述句用句号：「你想找的感觉，这里都有。」（用户可以走了）</div>
     </div>
     <div class="principle-card">
       <div class="principle-title">② 开头钩子与后续内容不重复同一情绪</div>
@@ -607,20 +696,50 @@ input[type="text"] { background-image: none; }
     <div class="two-col">
       <div class="spec-card">
         <div class="spec-title">✅ 要做到</div>
+        <div class="spec-item">第一句用质问或结果先行（你会日语？/ 谁懂啊 / 背了好几遍还是不会？）</div>
         <div class="spec-item">说人话，不用书面语或产品用语</div>
-        <div class="spec-item">每句≤20字，念出来不超过4秒</div>
+        <div class="spec-item">短句为主，大量3-8字碎句推进，单句别超15字（高数据样本平均约7字）</div>
         <div class="spec-item">功能名嵌入句子，不单独念出</div>
         <div class="spec-item">有停顿节奏，便于配合录屏剪辑</div>
         <div class="spec-item">首尾闭环，结尾回扣开头钩子</div>
       </div>
       <div class="spec-card">
         <div class="spec-title">❌ 避免</div>
-        <div class="spec-item bad">开头有「大家好」「今天给大家」</div>
+        <div class="spec-item bad">开头是数据陈述/产品定义/寒暄（「有20%的用户」「其实就是一款…」「大家好」）</div>
+        <div class="spec-item bad">产品名当段落标签一个个罗列（反例：Kana / 辞書 / 阅读 逐个报名）</div>
         <div class="spec-item bad">一句话超过30字，气口难断</div>
         <div class="spec-item bad">功能点没有对应画面，旁白在飘</div>
-        <div class="spec-item bad">连续三句结尾都是感叹号</div>
         <div class="spec-item bad">产品说明书语气：「MOJi辞書的词汇记忆功能支持……」</div>
       </div>
+    </div>
+  </div>
+
+  <!-- 画面呈现方式 -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">🎬</span>
+    <span class="theory-toggle-label">画面呈现方式</span>
+    <span class="theory-toggle-hint">实拍真机 / 录屏样机 / 纯动画</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <div style="background:#FFF0EF;border-radius:8px;padding:12px 14px;font-size:12px;color:#CC2A20;line-height:1.8;margin-bottom:14px">
+      三条高数据视频正好各用一种，数据排序：实拍真机（102赞）> 录屏样机（69赞）> 纯动画（53赞）。纯动画那条的封面也是唯一的插画图、同样最低——「离真实 App 画面越远，数据越低」在封面和视频里一致。<strong>默认偏实拍真机，纯动画谨慎用。</strong>（每种各一条样本，可能也有选题本身的因素，是倾向不是铁律。）
+    </div>
+    <div class="principle-card">
+      <div class="principle-title">实拍真机 <span class="badge badge-rec">推荐</span></div>
+      <div class="principle-body">拿相机拍真实设备屏幕（手机/电脑/平板），画面有设备、手、真实环境，像真人真的在用。任何功能都能用，<strong>包括纯软件设置/题型</strong>。→ 自创背词列表，数据最高。<br>适合：想要自来水/真实感，或多端展示（手机·电脑·平板都能用）。</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-title">录屏样机</div>
+      <div class="principle-body">软件内干净录屏，套进设备样机框，画面干净、信息清楚、制作最省事。→ 默认背词。<br>适合：操作步骤多、需要看清每一步点哪。</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-title">纯动画 <span class="badge" style="background:#FFE9E7;color:#CC2A20">谨慎</span></div>
+      <div class="principle-body">不用真实界面，用插画/动效/符号表达（放大镜、假名飘动那种）。视觉最自由，但离「真实证据」最远，数据也最低。→ 词汇量测试。<br>适合：抽象概念、或确实没有可拍的界面时，谨慎用。</div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-title">AI判断</div>
+      <div class="principle-body">不指定，让 AI 按选题和功能自己选一种并说明理由：默认优先实拍真机；操作步骤多→录屏样机；抽象概念/无界面可拍→纯动画。</div>
     </div>
   </div>
 
@@ -643,6 +762,7 @@ input[type="text"] { background-image: none; }
         <label class="form-label">叙事类型</label>
         <select id="sel-narrative" onchange="buildPrompt2()">
           <option value="">— AI自行判断 —</option>
+          <option value="痛点直给型" selected>痛点直给型（默认 · 轻结构）</option>
           <option value="问题驱动型">问题驱动型（反转/痛点切角）</option>
           <option value="场景沉浸型">场景沉浸型（场景切角）</option>
           <option value="功能清单型">功能清单型（干货切角）</option>
@@ -656,6 +776,19 @@ input[type="text"] { background-image: none; }
           <option value="120–150秒">120–150秒（完整版）</option>
         </select>
       </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">画面呈现方式</label>
+        <select id="sel-visual" onchange="buildPrompt2()">
+          <option value="实拍真机" selected>实拍真机（推荐 · 数据最高）</option>
+          <option value="录屏样机">录屏样机</option>
+          <option value="纯动画">纯动画（谨慎）</option>
+          <option value="">AI判断</option>
+        </select>
+      </div>
+      <div class="form-group"></div>
     </div>
 
     <div class="operate-title" style="margin-top:20px">
@@ -727,36 +860,53 @@ function buildPrompt1() {
   const audience = document.getElementById('sel-audience').value;
   const angle = document.getElementById('sel-angle').value;
   const feature = document.getElementById('inp-feature').value.trim();
+  const complaint = document.getElementById('inp-complaint').value.trim();
 
   if (!product || !audience) {
     document.getElementById('prompt1-text').innerHTML = '请先选择产品和受众，指令将自动生成。';
     return;
   }
 
-  let angleStr = angle ? `\n切角偏好：${angle}` : '\n切角：AI自行从反转式/干货式/痛点式/场景式中判断最合适的';
+  let angleStr = angle ? `\n切角偏好：${angle}` : '\n切角：AI自行从反转式/干货式/痛点式/场景式/测评诊断式中判断最合适的';
   let featureStr = feature ? `\n本期核心功能：${feature}` : '';
+  let complaintStr = complaint
+    ? `\n真实用户吐槽/搜索词（选题优先回答这些）：\n${complaint}`
+    : '';
+
+  const sourceStep = complaint
+    ? `第一步：选题来源——优先回答上面这些真实吐槽/搜索词。先判断每条吐槽背后用户的「错误做法/认知误区」是什么，再从产品手册里找到能纠正它的功能（必须基于手册，不可虚构）。`
+    : `第一步：选题来源——先从真实用户吐槽/搜索/误区出发（小红书搜索词、评论区抱怨、被用错的默认设置），想清楚【${product}】的用户「正在哪件事上用错/浪费时间」，再从产品手册里找到能纠正它的功能（必须基于手册，不可虚构）。不要从「我们想推哪个功能」正推。`;
 
   const prompt = `你是MOJi品宣脚本策划专家。我将在此消息中同时提供产品手册HTML文件，请仔细阅读其中关于【${product}】的功能说明。
 
 本期参数：
 产品：${product}
-目标受众：${audience}${angleStr}${featureStr}
+目标受众：${audience}${angleStr}${featureStr}${complaintStr}
 
 请完成以下任务：
 
-第一步：从产品手册中提炼【${product}】最适合本期受众的1-2个核心功能点（必须基于手册内容，不可虚构）。
+${sourceStep}
 
 第二步：基于以下选题方法论，生成3个选题方案：
 · 反转式：否定用户认知，制造「我一直做错了？」的瞬间
 · 干货式：直接给有用信息，标题带具体数字或可操作性
 · 痛点式：精准戳中痛苦，再给出产品解决方案
 · 场景式：把用户放进具体生活/学习场景
+· 测评诊断式：用一个测试/诊断让用户自己测出短板，再给解法
+
+高数据复盘约束（每个方案都要满足）：
+· 选题是在回答一个真实存在的用户误区/吐槽，不是单纯介绍功能
+· 只打一个痛点，不并列多个功能
+· 锋利度对准「默认设置/方法/模式」，不对准用户本人（可以说「这个模式在浪费你时间」，不说「是你太笨」）
+· 开头钩子用质问或结果先行，不用数据陈述/产品定义/慢热场景
+· 这个痛点对应的功能要能现场演示出连续操作路径（说得出「先点哪再点哪」）
 
 每个选题方案包含：
 1. 切角类型
 2. 核心卖点（一句话）
 3. 封面钩子建议（≤15字）
 4. 适合的受众子群说明
+5. 用户误区 / 证据画面 / 操作路径 / 可预答的评论区问题（各一句）
 
 第三步：对3个方案做简短对比，说明各自的优劣势。
 
@@ -775,25 +925,32 @@ function buildPrompt2() {
   const topic = document.getElementById('confirmed-topic').value.trim();
   const narrative = document.getElementById('sel-narrative').value;
   const duration = document.getElementById('sel-duration').value;
+  const visual = document.getElementById('sel-visual').value;
 
   if (!topic) {
     document.getElementById('prompt2-text').innerHTML = '请填入已确认选题，指令将自动生成。';
     return;
   }
 
+  const visualReq = visual === '实拍真机'
+    ? '画面呈现方式：实拍真机——列2按「拿相机拍真实设备屏幕（手机/电脑/平板）」来写，体现设备、手、真实环境，像真人在用，不是干净录屏；多端功能可跨设备展示。'
+    : visual === '录屏样机'
+    ? '画面呈现方式：录屏样机——列2按「软件内干净录屏 + 套设备样机框」来写，画面干净，精确到点击位置。'
+    : visual === '纯动画'
+    ? '画面呈现方式：纯动画——列2按「插画/动效/符号」来写，不依赖真实界面；先确认本期选题适合抽象表达（不适合就改用实拍真机）。'
+    : '画面呈现方式：你自己在「实拍真机/录屏样机/纯动画」里选一种并说明理由——默认优先实拍真机；操作步骤多→录屏样机；抽象概念、无界面可拍→纯动画。';
+
   const narrativeAI = !narrative;
   const narrativeLine = narrativeAI
-    ? '叙事类型：请根据选题切角自行判断最合适的叙事类型（问题驱动型/场景沉浸型/功能清单型），并在脚本开头注明你的选择及理由（1-2句）。'
+    ? '叙事类型：默认用「痛点直给型」——只要本期能拎出一个单一尖锐痛点当入口就用它，哪怕涉及多个功能，也用这一个痛点把它们串起来。只有确实是产品总览、多功能并列、拎不出单一入口痛点时，才退到 AIDA 铺垫/问题驱动/场景沉浸/功能清单。请先说明你的判断（1-2句）。'
     : `叙事类型：${narrative}`;
 
   const narrativeReq = narrativeAI
     ? `叙事结构要求：
-· 根据选题自行选择最合适的叙事类型
-· 问题驱动型：提出问题 → 功能回答 → 结尾回扣
-· 场景沉浸型：进入场景 → 遇困难 → 功能出现 → 解决
-· 功能清单型：数字引出 → 逐条展示 → 收藏引导`
+· 默认：痛点直给型 → 钩子(质问/报错/结果先行) → 痛点直给(为什么现在的方式错，一句带过) → 连续操作演示 → 具体CTA。不套 AIDA 的兴趣放大/欲望铺垫中段。
+· 仅当是产品总览/多功能并列、拎不出单一入口痛点：才用 AIDA → 钩子 → 兴趣放大 → 功能演示 → 转化`
     : `叙事结构要求（${narrative}）：
-${narrative === '问题驱动型' ? '· 开头：提出具体问题/反常识判断\n· 中段：用功能逐步回答问题\n· 结尾：回扣问题，给出闭合感' : ''}${narrative === '场景沉浸型' ? '· 开头：进入具体场景（时间/地点/情境）\n· 中段：遇到困难 → 功能出现 → 问题解决\n· 结尾：场景收尾，呼应开头' : ''}${narrative === '功能清单型' ? '· 开头：数字引出（「X个你不知道的…」）\n· 中段：逐条展示，每条有独立价值\n· 结尾：总结+收藏引导' : ''}`;
+${narrative === '痛点直给型' ? '· 钩子：第一句用质问/用户吐槽/结果先行，不铺垫、不报数据、不下产品定义\n· 痛点直给：一两句说清「为什么现在的方式错」，锋利度对准模式/方法、不对准用户本人，不反复放大\n· 操作演示：真实录屏，一步接一步的连续操作路径（说得出先点哪再点哪）\n· CTA：给一个能立刻做的具体动作并回扣开头，不要泛泛「试试看/留言」' : ''}${narrative === '问题驱动型' ? '· 开头：提出具体问题/反常识判断\n· 中段：用功能逐步回答问题\n· 结尾：回扣问题，给出闭合感' : ''}${narrative === '场景沉浸型' ? '· 开头：进入具体场景（时间/地点/情境）\n· 中段：遇到困难 → 功能出现 → 问题解决\n· 结尾：场景收尾，呼应开头' : ''}${narrative === '功能清单型' ? '· 开头：数字引出（「X个你不知道的…」）\n· 中段：逐条展示，每条有独立价值\n· 结尾：总结+收藏引导' : ''}`;
 
   const prompt = `你是MOJi品宣脚本写作专家。我将在此消息中同时提供产品手册HTML文件，请仔细阅读相关产品功能说明。
 
@@ -802,28 +959,29 @@ ${topic}
 
 ${narrativeLine}
 目标时长：${duration}
+${visualReq}
 
-请按AIDA结构输出完整脚本，格式为三列表格：
+请按上面的「叙事结构要求」输出完整脚本，格式为三列表格：
 · 列1：时间轴（起止秒数）
-· 列2：画面/录屏内容（手指操作路径 + 界面说明，精确到点击位置）
+· 列2：画面内容（按上面的画面呈现方式写：操作路径 + 界面/实拍说明，精确到点击位置）
 · 列3：旁白&文案（口播台词 + 动态字幕标注）
 
 ${narrativeReq}
 
 旁白规范：
-· 每句≤20字，口语化，不用书面语
-· 开头避免「大家好」「今天给大家」
-· 功能名嵌入句子，不单独列举
-· 每段结尾用问句或省略号牵引下一段，避免句号收尾
+· 第一句用质问或结果先行，不用数据陈述/产品定义/寒暄（不要「大家好」「有X%的用户」「其实就是一款…」）
+· 短句为主，大量3-8字碎句推进，单句别超15字，口语化、不用书面语
+· 功能名嵌入句子，不单独列举，更不要把产品名当段落标签逐个报
+· 中段用问句或省略号牵引下一句；关键结论句/punchline 可以用句号或感叹号顿住制造重音
 · 首尾闭环：结尾回扣开头钩子
 
 输出完成后请自检：
-□ AIDA四段完整
+□ 第一句是不是质问/结果先行（不是数据/定义/寒暄）
+□ 全片是不是只打一个痛点、且对准模式而非用户
+□ 中段是不是连续操作路径（说得出先点哪再点哪）
 □ 旁白与画面时间同步
-□ 每段结尾是否有钩子牵引
-□ 画面与旁白情绪是否对应
-□ 首尾是否闭环
-□ 转化引导是否自然
+□ 结尾是不是具体可执行动作、并回扣开头
+□ 功能名是否嵌在句子里（没有单独罗列产品名）
 
 约束：功能描述必须基于产品手册真实内容，不可推断或虚构。`;
 

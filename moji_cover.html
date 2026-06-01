@@ -508,6 +508,9 @@ body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; 
         ✓ 好看（界面颜色丰富、元素少而精）→ <strong>直接用真实App截图套样机</strong><br>
         ✗ 不好看（设置页、文字列表、灰色界面）→ <strong>GPT生成插画化元素</strong>，提取核心符号放大<br><br>
         <strong>判断标准：</strong>不是选最好看的界面，而是选最能证明标题里那句收益、反差或结果的界面
+        <div style="margin-top:12px;padding:10px 12px;background:#FFF0EF;border-radius:8px;font-size:12px;color:#CC2A20;line-height:1.8">
+          复盘补充：三条高数据视频里，用真实App画面/用户吐槽截图当封面的（自创背词、默认背词）数据明显高于纯插画图的（词汇量测试）。所以——<strong>能用真实画面就别追求插画精致感，连丑界面、用户吐槽截图都行，只要它能证明标题那句话</strong>。大字也要围绕单一判断、越短越狠（如「是你一直在用最没用的方式背」「一键生成背词列表」）。
+        </div>
       </div>
     </div>
 
@@ -718,6 +721,7 @@ body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; 
     <div style="font-size:22px;font-weight:700;color:var(--black);margin-bottom:14px">2. 文案确认后，AI生成封面图</div>
     <div style="font-size:13px;color:var(--gray);line-height:1.8;margin-bottom:16px">填写下方字段后点击「生成指令」，直接复制给 GPT Image2。</div>
     <div style="font-size:13px;color:var(--dark-red);line-height:1.8;margin-bottom:16px;background:var(--light-red);border-radius:10px;padding:12px 16px">💡 第一次生图时，主视觉可以不填或只填封面类型，让 GPT 自己判断画面提供灵感；满意方向后再回来补细节、锁定风格迭代。有参考图风格的，直接上传给 GPT，比文字描述省一半时间。</div>
+    <div style="font-size:13px;color:var(--dark-red);line-height:1.8;margin-bottom:16px;background:var(--light-red);border-radius:10px;padding:12px 16px">📊 <strong>主视觉优先级（高数据复盘）：</strong>能用真实 App 画面/截图就优先用，界面朴素、甚至用户吐槽截图都行，只要能证明标题——真实画面的数据高于纯插画。只有界面实在没法看时才退到插画化（D型/GPT生成）。别为了好看把证据做没了。</div>
 
     <!-- 表单区 -->
     <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:14px">
@@ -892,7 +896,7 @@ function buildImagePrompt() {
   const line2Desc = redword ? `「${line2}」其中「${redword}」为红色 #E8342A，其余黑色，字重900，字号与第一行一致` : `「${line2}」黑色 #1A1A1A，字重900，字号与第一行一致`;
   const mainVisual = isTypeD
     ? `主视觉（下方65%）：无手机样机，根据文案内容生成相关插画，扁平线条风格，底部超出画面裁切`
-    : `主视觉（下方65%）：${typeVal}，底部超出画面裁切，屏幕内显示${appscreen}`;
+    : `主视觉（下方65%）：${typeVal}，底部超出画面裁切，屏幕内显示${appscreen}（按真实App截图风格呈现，写实、像手机实拍截图，不要美化成插画——真实界面比精致插画更能取信，界面朴素甚至带用户吐槽截图都没关系，只要能证明标题那句话）`;
 
   const prompt = `生成一张竖屏3:4比例的小红书视频封面图，风格参考MOJi系列小红书账号封面——大字压在手机画面上方，文字和手机融为一体，无分割感。
 
