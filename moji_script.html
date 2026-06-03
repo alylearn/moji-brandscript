@@ -453,7 +453,7 @@ input[type="text"] { background-image: none; }
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">产品</label>
+        <label class="form-label">产品 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span></label>
         <select id="sel-product" onchange="buildPrompt1()">
           <option value="">— 选择产品 —</option>
           <option value="MOJi辞書">MOJi辞書</option>
@@ -464,9 +464,9 @@ input[type="text"] { background-image: none; }
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">目标受众</label>
+        <label class="form-label">目标受众<span style="font-weight:400;color:var(--gray)">（可选）</span></label>
         <select id="sel-audience" onchange="buildPrompt1()">
-          <option value="">— 选择受众 —</option>
+          <option value="">— AI 自行推测 —</option>
           <option value="日语学习者（通用）">日语学习者（通用）</option>
           <option value="入门/零基础用户">入门/零基础用户</option>
           <option value="备考党（N5–N1）">备考党（N5–N1）</option>
@@ -478,7 +478,7 @@ input[type="text"] { background-image: none; }
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">切角偏好（可不选）</label>
+        <label class="form-label">切角偏好<span style="font-weight:400;color:var(--gray)">（可选）</span></label>
         <select id="sel-angle" onchange="buildPrompt1()">
           <option value="">— AI自行判断 —</option>
           <option value="反转式">反转式（高点击）</option>
@@ -490,19 +490,19 @@ input[type="text"] { background-image: none; }
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">本期核心功能（可选）</label>
+        <label class="form-label">本期核心功能<span style="font-weight:400;color:var(--gray)">（可选）</span></label>
         <input type="text" id="inp-feature" placeholder="如：影子跟读、AI对话、假名书写…" oninput="buildPrompt1()">
       </div>
     </div>
 
     <div class="form-group" style="margin-top:14px">
       <label class="form-label">用户评价 / 用户痛点<span style="font-weight:400;color:var(--gray)">（可选）</span></label>
-      <div style="font-size:11px;color:var(--gray);line-height:1.6;margin:-2px 0 8px">去小红书、抖音搜这个功能，把搜索词、评论或差评里的用户原话贴进来，也可以是用户学日语的痛点。AI 会照着这些吐槽和痛点想选题。一行一条。</div>
+      <div style="font-size:11px;color:var(--gray);line-height:1.6;margin:-2px 0 8px">去小红书、抖音搜这个功能，把搜索词、评论或差评里的用户原话贴进来，也可以是用户学日语的痛点。AI 会照着这些吐槽和痛点想选题。一行一条。<strong>留空也 OK——AI 会自己从产品功能推测可能的用户误区。</strong></div>
       <textarea id="inp-complaint" placeholder="例：moji背单词默认模式难用 / 想背的词不在词库里 / N1过了还是看不懂片假名" oninput="buildPrompt1()" style="min-height:64px"></textarea>
     </div>
 
     <div class="operate-title" style="margin-top:20px">
-      <span class="op-step">2</span> 复制指令 → 连同产品手册HTML一起发给AI
+      <span class="op-step">2</span> 复制指令 → 发给已挂载产品手册的 AI
     </div>
 
     <div class="prompt-preview">
@@ -789,15 +789,15 @@ input[type="text"] { background-image: none; }
       <span class="op-step">1</span> 填入已确认选题 + 选择叙事类型
     </div>
 
-    <div style="margin-bottom:16px;padding:10px 14px;background:#FFF0EF;border-radius:8px;font-size:12px;color:#CC2A20;">💡 已确认选题来自 <strong>Tab1 脚本选题</strong>——请先完成步骤一再填写。</div>
+    <div style="margin-bottom:16px;padding:10px 14px;background:#FFF0EF;border-radius:8px;font-size:12px;color:#CC2A20;">💡 从 <strong>Tab1 AI 给的 3 个方案中挑 1 个</strong>，整理成「切角·产品·受众 + 核心一句话」粘进来。</div>
     <div class="form-group" style="margin-bottom:14px">
-      <label class="form-label">已确认选题（从步骤一AI结果中填入）</label>
+      <label class="form-label">已确认选题 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span></label>
       <textarea id="confirmed-topic" placeholder="例：反转式 · MOJi辞書 · 备考党&#10;核心：别用眼睛背日语单词——影子跟读让你用耳朵记住发音" oninput="buildPrompt2()" style="min-height:70px"></textarea>
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">叙事类型</label>
+        <label class="form-label">叙事类型<span style="font-weight:400;color:var(--gray)">（可选）</span></label>
         <select id="sel-narrative" onchange="buildPrompt2()">
           <option value="">— AI自行判断 —</option>
           <option value="痛点直给型" selected>痛点直给型（默认 · 轻结构）</option>
@@ -807,7 +807,7 @@ input[type="text"] { background-image: none; }
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">目标视频时长</label>
+        <label class="form-label">目标视频时长<span style="font-weight:400;color:var(--gray)">（可选 · 默认 90-120 秒）</span></label>
         <select id="sel-duration" onchange="buildPrompt2()">
           <option value="60–90秒">60–90秒（精简版）</option>
           <option value="90–120秒" selected>90–120秒（标准版）</option>
@@ -818,7 +818,7 @@ input[type="text"] { background-image: none; }
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">画面呈现方式</label>
+        <label class="form-label">画面呈现方式<span style="font-weight:400;color:var(--gray)">（可选 · 默认实拍真机）</span></label>
         <select id="sel-visual" onchange="buildPrompt2()">
           <option value="实拍真机" selected>实拍真机（推荐 · 数据最高）</option>
           <option value="录屏样机">录屏样机</option>
@@ -830,7 +830,7 @@ input[type="text"] { background-image: none; }
     </div>
 
     <div class="operate-title" style="margin-top:20px">
-      <span class="op-step">2</span> 复制指令 → 连同产品手册HTML一起发给AI
+      <span class="op-step">2</span> 复制指令 → 发给已挂载产品手册的 AI
     </div>
 
     <div class="prompt-preview">
@@ -900,14 +900,16 @@ function buildPrompt1() {
   const feature = document.getElementById('inp-feature').value.trim();
   const complaint = document.getElementById('inp-complaint').value.trim();
 
-  if (!product || !audience) {
-    document.getElementById('prompt1-text').innerHTML = '请先选择产品和受众，指令将自动生成。';
+  if (!product) {
+    document.getElementById('prompt1-text').innerHTML = '请先选择产品（必填），指令将自动生成。';
     return;
   }
 
   const isCollection = angle === '汇总干货型';
 
-  let angleStr = angle ? `\n切角偏好：${angle}` : '\n切角：AI自行从反转式/干货式/痛点式/场景式/测评诊断式中判断最合适的（汇总干货型需用户明确指定才用，AI 不主动选）';
+  const isAutoAngle = !angle;
+  let angleStr = angle ? `\n切角偏好：${angle}` : '\n切角：AI自行从 6 种切角（反转式/干货式/痛点式/场景式/测评诊断式/汇总干货型）中为每个方案分别挑最合适的，并明确标注。';
+  let audienceStr = audience ? `\n目标受众：${audience}` : `\n目标受众：AI 自行从产品功能/吐槽推测合适的受众子群`;
   let featureStr = feature ? `\n本期核心功能：${feature}` : '';
   let complaintStr = complaint
     ? `\n真实用户吐槽/搜索词（选题优先回答这些）：\n${complaint}`
@@ -923,6 +925,13 @@ function buildPrompt1() {
     ? `· 汇总干货型：数字+合集形式（「8个___必会方法」「5个隐藏技巧」），靠被搜索/被收藏拉量。参考来源是哈尔的数码屋等跨品类合集账号；MOJi 还没出过同类内容，先跑两条看自己的数据再回来校准。两种子型，每个方案必须明确选一个：
   A. APP 拉新型——通用方法占大头，MOJi 作为「这个方法用 MOJi 怎么落地」出现 1-2 次，位置放前面或中间都行，不必卡末段。目标：拉到还没用 MOJi 的人。
   B. APP 复购/留存型——整条视频几乎都是 MOJi 自己的功能或用法，节奏一致、不单独推销。目标：让已用 MOJi 的用户更会用、提粘性。`
+    : isAutoAngle
+    ? `· 反转式：否定用户认知，制造「我一直做错了？」的瞬间
+· 干货式：直接给有用信息，标题带具体数字或可操作性
+· 痛点式：精准戳中痛苦，再给出产品解决方案
+· 场景式：把用户放进具体生活/学习场景
+· 测评诊断式：用一个测试/诊断让用户自己测出短板，再给解法
+· 汇总干货型：数字+合集形式（「8个___必会方法」「5个隐藏技巧」），靠被搜索/被收藏拉量。若选此种，需明确子型：A. APP 拉新型（通用方法占大头，MOJi 出现 1-2 次）/ B. APP 复购/留存型（几乎都是 MOJi 自己的功能）`
     : `· 反转式：否定用户认知，制造「我一直做错了？」的瞬间
 · 干货式：直接给有用信息，标题带具体数字或可操作性
 · 痛点式：精准戳中痛苦，再给出产品解决方案
@@ -938,6 +947,11 @@ function buildPrompt1() {
 · 数字（如 5 个、8 个等）放标题，开头不强制前 3 秒报总数，结尾回扣即可
 · 即使是汇总型也要避免「数据陈述/产品定义」式慢热开头
 · 涉及的所有功能/方法必须基于产品手册的真实内容，不可虚构、不可编凑`
+    : isAutoAngle
+    ? `约束（按你为每个方案选定的切角分别走）：
+· 若该方案是汇总干货型：明确子型（A. 拉新 / B. 复购）+ 数字放标题 + 不强制前 3 秒报总数 + 避免数据陈述/产品定义式慢热开头
+· 若该方案是其他 5 种切角之一：选题是回答真实用户误区/吐槽（不是单纯介绍功能）+ 只打一个痛点 + 锋利度对准模式不对用户 + 钩子用质问/结果先行
+· 通用：涉及功能必须基于产品手册真实内容，不可虚构`
     : `高数据复盘约束（每个方案都要满足）：
 · 选题是在回答一个真实存在的用户误区/吐槽，不是单纯介绍功能
 · 只打一个痛点，不并列多个功能
@@ -955,6 +969,23 @@ function buildPrompt1() {
 4. 技巧/方法清单（每条 1 行，条数按选题灵活定）
 5. 植入密度估算 + 哪几条提到 MOJi、怎么提
 6. 适合受众子群说明`
+    : isAutoAngle
+    ? `每个选题方案包含（字段按所选切角分组——同一次输出里 3 个方案各走对应组）：
+
+【若切角=汇总干货型】
+1. 切角类型 + 子型（A. APP 拉新型 / B. APP 复购/留存型）+ 为什么选这个
+2. 合集主题（一句话，如「8个 N1 必会背单词方法」）
+3. 两个标题版本：a) 钩子型（≤15字）b) 教程/搜索型
+4. 技巧/方法清单（每条 1 行）
+5. 植入密度估算 + 哪几条提到 MOJi、怎么提
+6. 适合受众子群说明
+
+【若切角=其他 5 种】
+1. 切角类型
+2. 核心卖点（一句话）
+3. 两个标题版本：a) 钩子型（≤15字）b) 教程/搜索型
+4. 适合的受众子群说明
+5. 用户误区 / 证据画面 / 操作路径 / 可预答的评论区问题（各一句）`
     : `每个选题方案包含：
 1. 切角类型
 2. 核心卖点（一句话）
@@ -964,11 +995,14 @@ function buildPrompt1() {
 4. 适合的受众子群说明
 5. 用户误区 / 证据画面 / 操作路径 / 可预答的评论区问题（各一句）`;
 
-  const prompt = `你是MOJi品宣脚本策划专家。我将在此消息中同时提供产品手册HTML文件，请仔细阅读其中关于【${product}】的功能说明。
+  const audienceConstraint = audience
+    ? `· 目标用户：${audience}，18-35岁中文用户`
+    : `· 目标用户：18-35岁中文用户（具体受众子群在每个方案的「适合受众子群说明」字段中由你说明）`;
+
+  const prompt = `你是MOJi品宣脚本策划专家。请参考你 AI 工具项目里已上传的产品手册 moji_manual.html，仔细阅读其中关于【${product}】的功能说明。
 
 本期参数：
-产品：${product}
-目标受众：${audience}${angleStr}${featureStr}${complaintStr}
+产品：${product}${audienceStr}${angleStr}${featureStr}${complaintStr}
 
 请完成以下任务：
 
@@ -985,8 +1019,10 @@ ${outputFields}
 
 约束：
 · 内容必须基于产品手册中的真实功能，不可推断或虚构
-· 目标用户：${audience}，18-35岁中文用户
-· 平台：小红书竖版视频`;
+${audienceConstraint}
+· 平台：小红书竖版视频
+
+需要更多方案？直接对我说「再给 3 个」即可。`;
 
   document.getElementById('prompt1-text').innerHTML = escapeHtml(prompt)
     .replace(/【.*?】/g, m => `<span class="hl-fill">${m}</span>`)
@@ -1025,7 +1061,7 @@ function buildPrompt2() {
     : `叙事结构要求（${narrative}）：
 ${narrative === '痛点直给型' ? '· 钩子：第一句用质问/用户吐槽/结果先行，不铺垫、不报数据、不下产品定义\n· 痛点直给：一两句说清「为什么现在的方式错」，锋利度对准模式/方法、不对准用户本人，不反复放大\n· 操作演示：真实录屏，一步接一步的连续操作路径（说得出先点哪再点哪）\n· CTA：给一个能立刻做的具体动作并回扣开头，不要泛泛「试试看/留言」' : ''}${narrative === '问题驱动型' ? '· 开头：提出具体问题/反常识判断\n· 中段：用功能逐步回答问题\n· 结尾：回扣问题，给出闭合感' : ''}${narrative === '场景沉浸型' ? '· 开头：进入具体场景（时间/地点/情境）\n· 中段：遇到困难 → 功能出现 → 问题解决\n· 结尾：场景收尾，呼应开头' : ''}${narrative === '功能清单型' ? '· 开头：数字引出（「X个你不知道的…」）\n· 中段：逐条展示，每条有独立价值\n· 结尾：总结+收藏引导' : ''}`;
 
-  const prompt = `你是MOJi品宣脚本写作专家。我将在此消息中同时提供产品手册HTML文件，请仔细阅读相关产品功能说明。
+  const prompt = `你是MOJi品宣脚本写作专家。请参考你 AI 工具项目里已上传的产品手册 moji_manual.html，仔细阅读相关产品功能说明。
 
 本期选题：
 ${topic}
@@ -1056,7 +1092,9 @@ ${narrativeReq}
 □ 结尾是不是具体可执行动作、并回扣开头
 □ 功能名是否嵌在句子里（没有单独罗列产品名）
 
-约束：功能描述必须基于产品手册真实内容，不可推断或虚构。`;
+约束：功能描述必须基于产品手册真实内容，不可推断或虚构。
+
+如有需要修订的段落，直接告诉我「第 X 段时间轴/画面/旁白改成 Y」即可，不必整段重写。`;
 
   document.getElementById('prompt2-text').innerHTML = escapeHtml(prompt)
     .replace(/(本期选题：\n)([\s\S]*?)(\n\n叙事类型)/, (m, p1, p2, p3) =>

@@ -78,6 +78,13 @@ body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; 
 .wf-item { font-size: 12px; font-weight: 500; padding: 4px 12px; background: var(--light-red); color: var(--red); border-radius: 20px; }
 .wf-arrow { font-size: 12px; color: #ccc; }
 
+.prep-box { background: var(--white); border: 1.5px solid var(--red); border-radius: 12px; padding: 18px 22px; margin-bottom: 28px; }
+.prep-title { font-size: 13px; font-weight: 700; color: var(--red); margin-bottom: 10px; letter-spacing: 0.5px; }
+.prep-list { font-size: 13px; color: var(--black); line-height: 1.9; padding-left: 22px; margin: 0; }
+.prep-list li { margin-bottom: 2px; }
+.prep-list code { background: var(--bg); padding: 1px 6px; border-radius: 4px; font-size: 12px; color: var(--red); }
+.prep-note { font-size: 11px; color: var(--gray); line-height: 1.7; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+
 .footer { text-align: center; padding: 24px; font-size: 11px; color: #ccc; }
 
 @media (max-width: 720px) {
@@ -102,6 +109,16 @@ body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; 
   <div class="hero" style="margin-bottom:28px">
     <div class="hero-title">从选题到发布<br><span>一套工作流搞定</span></div>
     <div class="hero-desc" style="max-width:100%;margin:0;text-align:left">三个工具按顺序使用，每步都有方法论参考和AI指令生成，适合实习生独立完成品宣内容制作。</div>
+  </div>
+
+  <div class="prep-box">
+    <div class="prep-title">使用前准备（只做一次）</div>
+    <ol class="prep-list">
+      <li><strong>挑一个习惯用的 AI 工具</strong>建项目/文件夹：Claude、GPT、豆包、DeepSeek 都可以</li>
+      <li><strong>上传 <code>moji_manual.html</code></strong>（产品手册）作为这个项目的知识库</li>
+      <li>之后所有 AI 指令都在这个项目里跑，AI 会自动引用产品手册——不用每次重传</li>
+    </ol>
+    <div class="prep-note">⚠️ 品宣工作台本身（这几个 HTML）<strong>不用</strong>上传给 AI——它是给你看的 UI，AI 拿到的只是工作台生成的指令文字。</div>
   </div>
 
   <div class="workflow-hint" style="margin-bottom:40px;text-align:left">

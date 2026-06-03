@@ -711,7 +711,7 @@ body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; 
       <div class="prompt-text" id="copywriting-prompt-text">
 你是MOJi系列产品的小红书视频封面文案专家。<br><br>
 
-输入：产品手册 HTML + 这期视频脚本。<br><br>
+输入：产品手册（参考你 AI 工具项目里已上传的 moji_manual.html）+ 这期视频脚本（粘文字 / 上传截图均可）。<br><br>
 
 请按以下步骤输出：<br><br>
 
@@ -751,6 +751,7 @@ body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; 
     <!-- 表单区 -->
     <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:14px">
       <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:var(--gray);text-transform:uppercase;margin-bottom:4px">填写封面信息</div>
+      <div style="font-size:11px;color:var(--gray);line-height:1.6;margin:2px 0 14px">把上一步 AI 给的某个文案备选，主标题逐行粘进来，副标题/标红词同理。除了「主标题第一行」和「封面类型」必填，其他都可以留空。</div>
       <!-- 文案区 -->
       <div style="margin-bottom:16px">
         <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">副标题 <span style="font-weight:400;color:var(--gray)">（可选）</span></div>
@@ -758,11 +759,11 @@ body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; 
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
         <div>
-          <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">主标题第一行</div>
+          <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">主标题第一行 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span></div>
           <input id="ig-line1" type="text" placeholder="如：别用眼睛背单词" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
         </div>
         <div>
-          <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">主标题第二行</div>
+          <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">主标题第二行 <span style="font-weight:400;color:var(--gray)">（可选）</span></div>
           <input id="ig-line2" type="text" placeholder="如：听了才记得住" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
         </div>
       </div>
@@ -771,13 +772,13 @@ body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; 
         <input id="ig-line3" type="text" placeholder="如需第三行则填写，否则留空" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
       </div>
       <div style="margin-bottom:20px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">标红词 <span style="font-weight:400;color:var(--gray)">（多个用顿号分隔）</span></div>
+        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">标红词 <span style="font-weight:400;color:var(--gray)">（可选 · 多个用顿号分隔）</span></div>
         <input id="ig-redword" type="text" placeholder="如：记得住" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
       </div>
 
       <!-- 封面类型 -->
       <div style="margin-bottom:20px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:8px">封面类型</div>
+        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:8px">封面类型 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="ig-type-group">
           <label class="ig-type-option" data-val="A型=正面直立手机大字压屏" onclick="onTypeSelect(this)">
             <input type="radio" name="ig-type" value="A型=正面直立手机大字压屏" style="display:none">
@@ -808,13 +809,13 @@ body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; 
 
       <!-- App界面描述 -->
       <div id="ig-appscreen-wrap" style="margin-bottom:20px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">App 界面描述</div>
+        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">App 界面描述 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span><span style="font-weight:400;color:var(--gray);font-size:11px;margin-left:6px">（D 型纯标题除外）</span></div>
         <input id="ig-appscreen" type="text" placeholder="如：MOJi辞書单词详情页 / MOJi阅读文章页 / MOJi会话AI对话界面" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
       </div>
 
       <!-- 产品Logo -->
       <div style="margin-bottom:8px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:8px">产品 Logo</div>
+        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:8px">产品 Logo <span style="font-weight:400;color:var(--gray)">（可选）</span></div>
         <div style="display:flex;flex-wrap:wrap;gap:8px" id="ig-logo-group">
           <label class="ig-logo-option"><input type="radio" name="ig-logo" value="MOJi辞書" style="display:none"><span class="ig-logo-label">MOJi辞書</span></label>
           <label class="ig-logo-option"><input type="radio" name="ig-logo" value="MOJi阅读" style="display:none"><span class="ig-logo-label">MOJi阅读</span></label>
