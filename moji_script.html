@@ -539,17 +539,17 @@ input[type="text"] { background-image: none; }
         <div class="aida-left"><div class="aida-letter">钩</div><div class="aida-line"></div></div>
         <div class="aida-right">
           <div class="aida-tag">前3秒 · 直接进</div>
-          <div class="aida-title">钩子——质问 / 报错 / 结果先行</div>
-          <div class="aida-desc">第一句就是质问、用户吐槽、或「太爽了」的结果，不铺垫、不报数据、不下产品定义。</div>
-          <div class="aida-eg">✓「用MOJi背了好几遍还是不会？」「是你一直在用最没用的方式背」「谁懂啊，太爽了吧」<br>✗「有20%的用户……」「其实就是一款日语学习RPG」（数据/定义慢热）</div>
+          <div class="aida-title">钩子——6种可选，挑一种直接进</div>
+          <div class="aida-desc">第一句就进内容，不铺垫、不报数据、不下产品定义、不寒暄。</div>
+          <div class="aida-eg">① 互动指令：「这个发音，你记住了吗？」「来，跟我背一个词」<br>② 质问否定：「别用最没用的方式背单词了」「你还在死记硬背？」<br>③ 结果先行：「谁懂啊，背词终于不忘了」「太爽了吧」<br>④ 对比反差：「之前背一个忘一个，现在看一遍就记住」<br>⑤ 身份标签：「给N2怎么都过不了的人」「备考党看这条」<br>⑥ 数字利益：「3个设置改完，背词效率翻倍」「1分钟学会」<br><br>✗「有20%的用户……」「其实就是一款日语学习RPG」「大家好」（数据/定义/寒暄慢热）</div>
         </div>
       </div>
       <div class="aida-item">
         <div class="aida-left"><div class="aida-letter">痛</div><div class="aida-line"></div></div>
         <div class="aida-right">
-          <div class="aida-tag">紧接钩子 · 一句带过</div>
+          <div class="aida-tag">紧接钩子 · 合计不超8秒</div>
           <div class="aida-title">痛点直给——说清「为什么现在的方式错」</div>
-          <div class="aida-desc">一两句说明问题出在哪，锋利度对准「默认设置/方法/模式」，不对准用户本人。不要把痛点反复放大铺陈。</div>
+          <div class="aida-desc">一两句说明问题出在哪，锋利度对准「默认设置/方法/模式」，不对准用户本人。<strong>钩子+痛点合计不超过8秒，第8秒必须出现App界面/操作画面。超过8秒还没出画面=失败。</strong></div>
           <div class="aida-eg">「但选对了≠记住了」「大多数人只用了第一种，还用的是默认设置」</div>
         </div>
       </div>
@@ -710,7 +710,8 @@ input[type="text"] { background-image: none; }
     <div class="two-col">
       <div class="spec-card">
         <div class="spec-title">✅ 要做到</div>
-        <div class="spec-item">第一句用质问或结果先行（你会日语？/ 谁懂啊 / 背了好几遍还是不会？）</div>
+        <div class="spec-item">第一句从6种钩子里选一种直接进：互动指令 / 质问否定 / 结果先行 / 对比反差 / 身份标签 / 数字利益</div>
+        <div class="spec-item">钩子+痛点合计不超8秒，第8秒必须出现App画面</div>
         <div class="spec-item">说人话，不用书面语或产品用语</div>
         <div class="spec-item">短句为主，大量3-8字碎句推进，单句别超15字（高数据样本平均约7字）</div>
         <div class="spec-item">功能名嵌入句子，不单独念出</div>
@@ -768,19 +769,20 @@ input[type="text"] { background-image: none; }
     <div style="margin-bottom:16px;padding:10px 14px;background:#FFF0EF;border-radius:8px;font-size:12px;color:#CC2A20;">💡 从 <strong>Tab1 AI 给的 3 个方案中挑 1 个</strong>，整理成「切角·产品·受众 + 核心一句话」粘进来。</div>
     <div class="form-group" style="margin-bottom:14px">
       <label class="form-label">已确认选题 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span></label>
-      <textarea id="confirmed-topic" placeholder="例：反转式 · MOJi辞書 · 备考党&#10;核心：别用眼睛背日语单词——影子跟读让你用耳朵记住发音" oninput="buildPrompt2()" style="min-height:70px"></textarea>
+      <textarea id="confirmed-topic" placeholder="例：反转式 · MOJi辞書 · 备考党&#10;核心：别用眼睛背日语单词——影子跟读让你用耳朵记住发音" oninput="autoMatchNarrative(); buildPrompt2()" style="min-height:70px"></textarea>
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">叙事类型<span style="font-weight:400;color:var(--gray)">（可选）</span></label>
+        <label class="form-label">叙事类型<span style="font-weight:400;color:var(--gray)">（根据选题切角自动匹配）</span></label>
         <select id="sel-narrative" onchange="buildPrompt2()">
           <option value="">— AI自行判断 —</option>
-          <option value="痛点直给型" selected>痛点直给型（默认 · 轻结构）</option>
-          <option value="问题驱动型">问题驱动型（反转/痛点切角）</option>
-          <option value="场景沉浸型">场景沉浸型（场景切角）</option>
-          <option value="功能清单型">功能清单型（干货切角）</option>
+          <option value="痛点直给型" selected>痛点直给型（痛点式/测评诊断式）</option>
+          <option value="问题驱动型">问题驱动型（反转式）</option>
+          <option value="场景沉浸型">场景沉浸型（场景式）</option>
+          <option value="功能清单型">功能清单型（干货式/汇总干货型）</option>
         </select>
+        <div id="narrative-hint" style="font-size:11px;color:var(--red);margin-top:3px;display:none"></div>
       </div>
       <div class="form-group">
         <label class="form-label">目标视频时长<span style="font-weight:400;color:var(--gray)">（可选 · 默认 90-120 秒）</span></label>
@@ -821,6 +823,10 @@ input[type="text"] { background-image: none; }
     <div style="margin-top:12px;padding:10px 14px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--gray);line-height:1.7;">
       💡 <strong style="color:var(--black)">使用方式：</strong>复制上方指令，打开新的AI对话，先粘贴产品手册HTML，再粘贴此指令发送。AI将返回三列表格格式脚本（时间轴 · 画面/录屏 · 旁白&文案）。
     </div>
+    <div style="margin-top:8px;padding:10px 14px;background:var(--bg);border-radius:8px;font-size:12px;color:var(--gray);line-height:1.7;">
+      🔄 <strong style="color:var(--black)">不满意？</strong>用这个句式迭代：「[哪个部分] + [什么问题] + [改成什么]」<br>
+      例：「开头太长了，压缩到一句话3秒内」「第二段语气太书面，改成口语短句」「功能名不要单独念出来，嵌到句子里」
+    </div>
   </div>
 
 </div>
@@ -831,6 +837,27 @@ input[type="text"] { background-image: none; }
 
 <script>
 // ── Tab switch ──
+function autoMatchNarrative() {
+  const topic = document.getElementById('confirmed-topic').value;
+  const sel = document.getElementById('sel-narrative');
+  const hint = document.getElementById('narrative-hint');
+  const map = [
+    { keywords: ['反转式'], value: '问题驱动型', label: '反转式 → 问题驱动型' },
+    { keywords: ['痛点式', '测评诊断式', '测评式'], value: '痛点直给型', label: '痛点式/测评诊断式 → 痛点直给型' },
+    { keywords: ['场景式'], value: '场景沉浸型', label: '场景式 → 场景沉浸型' },
+    { keywords: ['干货式', '汇总干货', '汇总型'], value: '功能清单型', label: '干货式/汇总干货型 → 功能清单型' },
+  ];
+  for (const m of map) {
+    if (m.keywords.some(k => topic.includes(k))) {
+      sel.value = m.value;
+      hint.textContent = '✓ 已自动匹配：' + m.label;
+      hint.style.display = 'block';
+      return;
+    }
+  }
+  hint.style.display = 'none';
+}
+
 function switchTab(id, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -1032,10 +1059,10 @@ function buildPrompt2() {
 
   const narrativeReq = narrativeAI
     ? `叙事结构要求：
-· 默认：痛点直给型 → 钩子(质问/报错/结果先行) → 痛点直给(为什么现在的方式错，一句带过) → 连续操作演示 → 具体CTA。不套 AIDA 的兴趣放大/欲望铺垫中段。
+· 默认：痛点直给型 → 钩子(6种可选：互动指令/质问否定/结果先行/对比反差/身份标签/数字利益) → 痛点直给(为什么现在的方式错) → 连续操作演示 → 具体CTA。钩子+痛点合计不超8秒，第8秒必须出现App画面。不套 AIDA 的兴趣放大/欲望铺垫中段。
 · 仅当是产品总览/多功能并列、拎不出单一入口痛点：才用 AIDA → 钩子 → 兴趣放大 → 功能演示 → 转化`
     : `叙事结构要求（${narrative}）：
-${narrative === '痛点直给型' ? '· 钩子：第一句用质问/用户吐槽/结果先行，不铺垫、不报数据、不下产品定义\n· 痛点直给：一两句说清「为什么现在的方式错」，锋利度对准模式/方法、不对准用户本人，不反复放大\n· 操作演示：真实录屏，一步接一步的连续操作路径（说得出先点哪再点哪）\n· CTA：给一个能立刻做的具体动作并回扣开头，不要泛泛「试试看/留言」' : ''}${narrative === '问题驱动型' ? '· 开头：提出具体问题/反常识判断\n· 中段：用功能逐步回答问题\n· 结尾：回扣问题，给出闭合感' : ''}${narrative === '场景沉浸型' ? '· 开头：进入具体场景（时间/地点/情境）\n· 中段：遇到困难 → 功能出现 → 问题解决\n· 结尾：场景收尾，呼应开头' : ''}${narrative === '功能清单型' ? '· 开头：数字引出（「X个你不知道的…」）\n· 中段：逐条展示，每条有独立价值\n· 结尾：总结+收藏引导' : ''}`;
+${narrative === '痛点直给型' ? '· 钩子：从6种钩子选一种直接进（互动指令/质问否定/结果先行/对比反差/身份标签/数字利益），不铺垫、不报数据、不下产品定义\n· 痛点直给：一两句说清「为什么现在的方式错」，锋利度对准模式/方法、不对准用户本人。钩子+痛点合计不超过8秒，第8秒必须出现App画面\n· 操作演示：真实录屏，一步接一步的连续操作路径（说得出先点哪再点哪）\n· CTA：给一个能立刻做的具体动作并回扣开头，不要泛泛「试试看/留言」' : ''}${narrative === '问题驱动型' ? '· 开头：提出具体问题/反常识判断\n· 中段：用功能逐步回答问题\n· 结尾：回扣问题，给出闭合感' : ''}${narrative === '场景沉浸型' ? '· 开头：进入具体场景（时间/地点/情境）\n· 中段：遇到困难 → 功能出现 → 问题解决\n· 结尾：场景收尾，呼应开头' : ''}${narrative === '功能清单型' ? '· 开头：数字引出（「X个你不知道的…」）\n· 中段：逐条展示，每条有独立价值\n· 结尾：总结+收藏引导' : ''}`;
 
   const prompt = `你是MOJi品宣脚本写作专家。请参考你 AI 工具项目里已上传的产品手册 moji_manual.html，仔细阅读相关产品功能说明。
 
@@ -1054,14 +1081,16 @@ ${visualReq}
 ${narrativeReq}
 
 旁白规范：
-· 第一句用质问或结果先行，不用数据陈述/产品定义/寒暄（不要「大家好」「有X%的用户」「其实就是一款…」）
+· 第一句从6种钩子里选一种直接进：互动指令（来，跟我背一个词）/ 质问否定（别再死记硬背了）/ 结果先行（谁懂啊太爽了）/ 对比反差（之前XX现在XX）/ 身份标签（给N2过不了的人）/ 数字利益（3个设置改完效率翻倍）。不用数据陈述/产品定义/寒暄
+· 硬约束：钩子+痛点合计不超过8秒，第8秒必须出现App界面/操作画面。超过8秒还没出画面=失败，必须压缩
 · 短句为主，大量3-8字碎句推进，单句别超15字，口语化、不用书面语
 · 功能名嵌入句子，不单独列举，更不要把产品名当段落标签逐个报
 · 中段用问句或省略号牵引下一句；关键结论句/punchline 可以用句号或感叹号顿住制造重音
 · 首尾闭环：结尾回扣开头钩子
 
 输出完成后请自检：
-□ 第一句是不是质问/结果先行（不是数据/定义/寒暄）
+□ 第一句是不是6种钩子之一（不是数据/定义/寒暄）
+□ 钩子+痛点是否在8秒内结束、第8秒已出现App画面
 □ 全片是不是只打一个痛点、且对准模式而非用户
 □ 中段是不是连续操作路径（说得出先点哪再点哪）
 □ 旁白与画面时间同步

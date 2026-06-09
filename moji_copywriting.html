@@ -361,9 +361,9 @@ input[type="text"] { }
 
     <div class="form-row" style="margin-bottom:0">
       <div class="form-group">
-        <label class="form-label">封面公式类型 <span style="font-weight:400;font-size:11px;color:var(--red);text-transform:none;letter-spacing:0">必填</span><span style="font-weight:400;color:var(--gray);text-transform:none;letter-spacing:0;font-size:11px;margin-left:6px">（用 moji_cover 里选定的那个）</span></label>
+        <label class="form-label">封面公式类型 <span style="font-weight:400;color:var(--gray);text-transform:none;letter-spacing:0;font-size:11px">（可选 · 不确定就让AI判断）</span></label>
         <select id="t1-formula" onchange="buildPromptTitle()">
-          <option value="">— 选择封面公式 —</option>
+          <option value="">— AI根据选题自行判断 —</option>
           <option value="悬念质疑型">悬念质疑型</option>
           <option value="结果冲击型">结果冲击型</option>
           <option value="数字锚定型">数字锚定型</option>
@@ -397,7 +397,7 @@ input[type="text"] { }
 
     <div class="prompt-preview">
       <div class="prompt-preview-label">生成的AI指令预览</div>
-      <div class="prompt-preview-text" id="prompt-title-text">请填入已确认选题并选择封面公式类型，指令将自动生成。</div>
+      <div class="prompt-preview-text" id="prompt-title-text">请填入已确认选题，指令将自动生成。</div>
     </div>
 
     <div class="btn-row">
@@ -406,6 +406,10 @@ input[type="text"] { }
 
     <div class="usage-tip">
       💡 <strong style="color:var(--black)">使用方式：</strong>复制指令，打开新AI对话，发送后AI返回3个标题备选。人工选定后填入步骤二。
+    </div>
+    <div class="usage-tip" style="margin-top:6px">
+      🔄 <strong style="color:var(--black)">不满意？</strong>用这个句式迭代：「[哪个部分] + [什么问题] + [改成什么]」<br>
+      例：「第2个标题太长了，压缩到15字以内」「语气再口语一点，像朋友聊天」
     </div>
   </div>
 
@@ -572,6 +576,10 @@ input[type="text"] { }
     <div class="usage-tip">
       💡 <strong style="color:var(--black)">使用方式：</strong>复制指令发给AI，AI返回正文文案+话题标签。收到后检查叙事线是否连贯（封面钩子→标题→正文第一句），有断裂自行修正第一句。
     </div>
+    <div class="usage-tip" style="margin-top:6px">
+      🔄 <strong style="color:var(--black)">不满意？</strong>用这个句式迭代：「[哪个部分] + [什么问题] + [改成什么]」<br>
+      例：「正文第一句和标题断裂了，改成接住标题的钩子」「结尾引导太硬了，改成软引导」
+    </div>
   </div>
 
 </div>
@@ -614,7 +622,7 @@ function buildPromptTitle() {
   const audience = document.getElementById('t1-audience').value;
 
   if (!topic || !formula) {
-    document.getElementById('prompt-title-text').innerHTML = '请填入已确认选题并选择封面公式类型，指令将自动生成。';
+    document.getElementById('prompt-title-text').innerHTML = '请填入已确认选题，指令将自动生成。';
     return;
   }
 
@@ -624,7 +632,7 @@ function buildPromptTitle() {
 
 本期参数：
 选题：${topic}
-封面公式类型：${formula}${audienceStr}
+${formula ? "封面公式类型：" + formula : "封面公式类型：AI根据选题自行判断"}${audienceStr}
 
 请基于以下标题铁律，生成3个标题备选：
 
@@ -711,7 +719,7 @@ function copyPromptTitle() {
   const topic = document.getElementById('t1-topic').value.trim();
   const formula = document.getElementById('t1-formula').value;
   if (!topic) { showToast('请先填入已确认选题'); return; }
-  if (!formula) { showToast('请先选择封面公式类型'); return; }
+  // formula is optional now
   const text = document.getElementById('prompt-title-text').innerText;
   navigator.clipboard.writeText(text).then(() => showToast('指令已复制 ✓'));
 }

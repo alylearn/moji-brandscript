@@ -117,18 +117,29 @@
 </div>
 
 <div class="nav">
-  <div class="nav-tab active" onclick="switchTab('formula', this)"><span class="step-badge">1</span>封面文案公式</div>
-  <div class="nav-tab" onclick="switchTab('design', this)"><span class="step-badge">2</span>封面设计规范</div>
-  <div class="nav-tab" onclick="switchTab('flow', this)"><span class="step-badge">3</span>封面叙事逻辑</div>
-  <div class="nav-tab" onclick="switchTab('ai', this)"><span class="step-badge">4</span>AI使用指令</div>
+  <div class="nav-tab active" onclick="switchTab('formula', this)"><span class="step-badge">1</span>封面标题-方法论</div>
+  <div class="nav-tab" onclick="switchTab('design', this)"><span class="step-badge">2</span>设计规范</div>
+  <div class="nav-tab" onclick="switchTab('flow', this)"><span class="step-badge">3</span>封面叙事参考</div>
+  <div class="nav-tab" onclick="switchTab('ai', this)"><span class="step-badge">4</span>封面生成</div>
 </div>
 
 <div class="main">
 
 <!-- 文案公式 -->
 <div id="tab-formula" class="section active">
-  <div class="section-title">封面文案公式</div>
+  <div class="section-title">封面标题-方法论</div>
   <div class="section-sub">基于影视飓风、无痛单词、参考答案阅览室、Gemini分析、实战迭代总结。每期选1-2种最匹配脚本核心卖点的公式使用。</div>
+
+  <!-- 选题切角→封面公式映射 -->
+  <div style="background:var(--light-red);border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:12px;line-height:1.8">
+    <strong style="color:var(--red)">选题切角 → 推荐封面公式</strong><br>
+    反转式 → 悬念质疑型 / 行为质疑型<br>
+    痛点式 → 痛点+回报型 / 行为质疑型<br>
+    干货式 → 数字锚定型<br>
+    场景式 → 身份代入型 / 结果冲击型<br>
+    测评诊断式 → 悬念质疑型 / FOMO信息差型<br>
+    汇总干货型 → 数字锚定型
+  </div>
   <div class="formula-list">
 
     <div class="formula-card" onclick="toggleFormula(this)">
@@ -521,8 +532,11 @@
 
 <!-- 叙事动线 -->
 <div id="tab-flow" class="section">
-  <div class="section-title">封面叙事动线</div>
+  <div class="section-title">封面叙事参考</div>
   <div class="section-sub">先定标题，再定配图。封面不是把字和图拼在一起，而是让用户先被文案拦住，再被结果或反差勾住，最后被画面证明这件事值得点进去。</div>
+  <div style="font-size:11px;color:var(--gray);background:var(--light-gray);border-radius:8px;padding:8px 12px;margin-bottom:14px;line-height:1.6">
+    💡 这里的"叙事"指封面画面的视觉层次（钩子→冲突→证据），和脚本工作台里的"叙事类型"（痛点直给/问题驱动等）是不同维度。
+  </div>
 
   <div style="display:flex;flex-direction:column;gap:14px">
     <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px">
@@ -679,174 +693,141 @@
 
 <!-- AI使用指令 -->
 <div id="tab-ai" class="section">
-  <div class="section-title">AI使用指令</div>
-  <div class="section-sub">定封面文案 → AI提供封面参考图 → 人工作图</div>
+  <div class="section-title">封面生成</div>
+  <div class="section-sub">选字段 → 生成指令 → 复制给AI出图</div>
 
-  <div style="margin-bottom:28px">
-    <div style="font-size:22px;font-weight:700;color:var(--black);margin-bottom:14px">1. 先出封面文案</div>
-    <div style="margin-bottom:16px;padding:16px 18px;background:#FFF0EF;border:2px solid #E8342A;border-radius:12px;font-size:14px;color:#B42318;line-height:1.9;box-shadow:0 6px 18px rgba(232,52,42,0.08);">⚠️ <strong>先做这一步：</strong>先把对应产品的手册 HTML 文件上传给 AI，再复制下面的 Prompt。<br>如果跳过这一步，AI 很容易凭空补功能、乱写卖点，后面出的文案和图片都会跑偏。</div>
-    <div class="prompt-box" id="copywriting-prompt-box">
-      <div class="prompt-section-label">封面文案生成提示词</div>
-      <div style="font-size:12px;color:var(--gray);margin-bottom:10px">推荐工具：Claude、gemini、gpt等</div>
-      <div class="prompt-text" id="copywriting-prompt-text">
-你是MOJi系列产品的小红书视频封面文案专家。<br><br>
+  <div style="font-size:12px;color:var(--dark-red);line-height:1.7;background:var(--light-red);border-radius:10px;padding:12px 16px;margin-bottom:16px">
+    💡 第一次生图可以少填几项让AI自由发挥找灵感，满意方向后再补细节迭代。有参考图的直接上传给AI更快。
+  </div>
 
-输入：产品手册（参考你 AI 工具项目里已上传的 moji_manual.html）+ 这期视频脚本（粘文字 / 上传截图均可）。<br><br>
+  <!-- 产品 -->
+  <div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">产品</div>
+    <select id="gen-product" style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
+      <option value="MOJi辞書">MOJi辞書</option>
+      <option value="MOJi会话">MOJi会话</option>
+      <option value="MOJiKana">MOJiKana</option>
+      <option value="MOJiTest">MOJiTest</option>
+      <option value="MOJi小课堂">MOJi小课堂</option>
+      <option value="MOJi阅读">MOJi阅读</option>
+    </select>
+  </div>
 
-请按以下步骤输出：<br><br>
-
-<span class="hl2">第一步：</span>从脚本提炼这期的核心卖点（一句话）。<br><br>
-
-<span class="hl2">第二步：</span>从下列 12 种公式选 1-2 种最匹配的，并说明选公式的理由：<br>
-1. 悬念质疑型：「[反常识行为/现象] + 问号」——答案出人意料，靠信息缺口驱动<br>
-2. 结果冲击型：「[具体事件/结果]，不解释原因」<br>
-3. 数字锚定型：「[具体数字] + [结果/行为]」<br>
-4. 身份代入型：「[具体人群标签] + [他们的处境/行为]」<br>
-5. 行为质疑型：「[别/不要] + [用户习以为常的错误行为]」<br>
-6. 痛点+回报型：「[戳中痛点] + [极致量化回报]」<br>
-7. FOMO信息差型：「[你在吃亏] + [别人掌握了你不知道的]」<br>
-8. 群体对比型：「[凭什么/为什么] + [他们做到了你没做到的]」<br>
-9. 认知重构型：「[用户对X的固有认知] + 原来可以[完全不同的Y]」<br>
-10. 干货问句型：「如何/为什么 + [用户有明确需求的问题]」——承诺有答案，靠实用价值驱动（与第1种区分：质疑型无答案预期）<br>
-11. 时间锚定型：「假如你从[时间节点]开始……」「[备考/季节节点] + [行动]」<br>
-12. 热点借势型：「[热点词/事件] + [与产品/学习的关联]」<br><br>
-
-<span class="hl2">第三步：</span>基于选定公式，生成 3 个封面文案备选，每个包含：<br>
-- 主标题（1-3 行，按情绪节奏定行数，每行尽量短；标出建议加红的核心词）<br>
-- 副标题（可选——若主标题已情绪完整可省略；需要时用于：A=锁定内容或人群，如「日语学习工具全图鉴」/ B=降低门槛制造好奇，如「原来学日语这么简单」）<br>
-- 叙事动线注解：钩子（停下来）→ 收益/反差（想点进去）→ 证据（点进去看答案）<br><br>
-
-<span class="hl2">目标用户：</span>正在学日语或想学日语的中文用户，18-35 岁<br>
-<span class="hl2">平台：</span>小红书，竖版 3:4 封面图
-      </div>
-      <div class="copy-btn" onclick="copyPrompt()">复制指令</div>
+  <!-- 有标题/无标题 -->
+  <div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">封面文案</div>
+    <div style="display:flex;gap:0;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:8px">
+      <button class="gen-toggle active" onclick="setGenTitle(true,this)" style="flex:1;padding:8px 0;text-align:center;font-size:13px;font-weight:600;cursor:pointer;background:var(--red);color:white;border:none;font-family:inherit">有标题</button>
+      <button class="gen-toggle" onclick="setGenTitle(false,this)" style="flex:1;padding:8px 0;text-align:center;font-size:13px;font-weight:600;cursor:pointer;background:var(--white);color:var(--gray);border:none;font-family:inherit">无标题</button>
+    </div>
+    <div id="gen-no-title-hint" style="display:none;background:var(--light-red);border-radius:8px;padding:10px 14px;font-size:11px;color:var(--dark-red);line-height:1.6;margin-bottom:8px">
+      ⚠️ 无标题型：封面只做视觉吸引+产品识别，笔记标题承担全部钩子叙事。适用：App界面本身够说明、UGC感强时。
     </div>
   </div>
 
-  <div style="margin-bottom:28px">
-    <div style="font-size:22px;font-weight:700;color:var(--black);margin-bottom:14px">2. 文案确认后，AI生成封面图</div>
-    <div style="font-size:13px;color:var(--gray);line-height:1.8;margin-bottom:16px">填写下方字段后点击「生成指令」，直接复制给 GPT Image2。</div>
-    <div style="font-size:13px;color:var(--dark-red);line-height:1.8;margin-bottom:16px;background:var(--light-red);border-radius:10px;padding:12px 16px">💡 第一次生图时，主视觉可以不填或只填封面类型，让 GPT 自己判断画面提供灵感；满意方向后再回来补细节、锁定风格迭代。有参考图风格的，直接上传给 GPT，比文字描述省一半时间。</div>
-
-    <!-- 表单区 -->
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:14px">
-      <div style="font-size:12px;font-weight:700;letter-spacing:1px;color:var(--gray);text-transform:uppercase;margin-bottom:4px">填写封面信息</div>
-      <div style="font-size:11px;color:var(--gray);line-height:1.6;margin:2px 0 14px">把上一步 AI 给的某个文案备选，主标题逐行粘进来，副标题/标红词同理。除了「主标题第一行」和「封面类型」必填，其他都可以留空。</div>
-      <!-- 文案区 -->
-      <div style="margin-bottom:16px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">副标题 <span style="font-weight:400;color:var(--gray)">（可选）</span></div>
-        <input id="ig-subtitle" type="text" placeholder="如：日语学习工具全图鉴 / 原来学日语这么简单" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-        <div>
-          <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">主标题第一行 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span></div>
-          <input id="ig-line1" type="text" placeholder="如：别用眼睛背单词" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
-        </div>
-        <div>
-          <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">主标题第二行 <span style="font-weight:400;color:var(--gray)">（可选）</span></div>
-          <input id="ig-line2" type="text" placeholder="如：听了才记得住" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
-        </div>
-      </div>
-      <div style="margin-bottom:12px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">主标题第三行 <span style="font-weight:400;color:var(--gray)">（可选）</span></div>
-        <input id="ig-line3" type="text" placeholder="如需第三行则填写，否则留空" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-      <div style="margin-bottom:20px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">标红词 <span style="font-weight:400;color:var(--gray)">（可选 · 多个用顿号分隔）</span></div>
-        <input id="ig-redword" type="text" placeholder="如：记得住" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-
-      <!-- 封面类型 -->
-      <div style="margin-bottom:20px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:8px">封面类型 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="ig-type-group">
-          <label class="ig-type-option" data-val="A型=正面直立手机大字压屏" onclick="onTypeSelect(this)">
-            <input type="radio" name="ig-type" value="A型=正面直立手机大字压屏" style="display:none">
-            <div class="ig-type-label"><span style="font-weight:700;color:var(--red)">A型</span><span style="color:var(--gray);font-size:11px;margin-left:6px">正面直立手机·大字压屏</span></div>
-          </label>
-          <label class="ig-type-option" data-val="B型=3D透视倾斜15度单手机" onclick="onTypeSelect(this)">
-            <input type="radio" name="ig-type" value="B型=3D透视倾斜15度单手机" style="display:none">
-            <div class="ig-type-label"><span style="font-weight:700;color:var(--red)">B型</span><span style="color:var(--gray);font-size:11px;margin-left:6px">3D透视倾斜15度</span></div>
-          </label>
-          <label class="ig-type-option" data-val="C型=双手机并排对比" onclick="onTypeSelect(this)">
-            <input type="radio" name="ig-type" value="C型=双手机并排对比" style="display:none">
-            <div class="ig-type-label"><span style="font-weight:700;color:var(--red)">C型</span><span style="color:var(--gray);font-size:11px;margin-left:6px">双手机并排对比</span></div>
-          </label>
-          <label class="ig-type-option" data-val="D型=纯大字无手机样机" onclick="onTypeSelect(this)">
-            <input type="radio" name="ig-type" value="D型=纯大字无手机样机" style="display:none">
-            <div class="ig-type-label"><span style="font-weight:700;color:var(--red)">D型</span><span style="color:var(--gray);font-size:11px;margin-left:6px">纯大字·无手机样机</span></div>
-          </label>
-          <label class="ig-type-option" data-val="E型=手机局部特写+标注框" onclick="onTypeSelect(this)">
-            <input type="radio" name="ig-type" value="E型=手机局部特写+标注框" style="display:none">
-            <div class="ig-type-label"><span style="font-weight:700;color:var(--red)">E型</span><span style="color:var(--gray);font-size:11px;margin-left:6px">手机局部特写+标注框</span></div>
-          </label>
-          <label class="ig-type-option" data-val="F型=实拍真机环境" onclick="onTypeSelect(this)">
-            <input type="radio" name="ig-type" value="F型=实拍真机环境" style="display:none">
-            <div class="ig-type-label"><span style="font-weight:700;color:var(--red)">F型</span><span style="color:var(--gray);font-size:11px;margin-left:6px">实拍真机环境（推荐）</span></div>
-          </label>
-        </div>
-      </div>
-
-      <!-- App界面描述 -->
-      <div id="ig-appscreen-wrap" style="margin-bottom:20px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">App 界面描述 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span><span style="font-weight:400;color:var(--gray);font-size:11px;margin-left:6px">（D 型纯标题除外）</span></div>
-        <input id="ig-appscreen" type="text" placeholder="如：MOJi辞書单词详情页 / MOJi阅读文章页 / MOJi会话AI对话界面" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;transition:border-color 0.15s" onfocus="this.style.borderColor='#E8342A'" onblur="this.style.borderColor='var(--border)'">
-      </div>
-
-      <!-- 产品Logo -->
-      <div style="margin-bottom:8px">
-        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:8px">产品 Logo <span style="font-weight:400;color:var(--gray)">（可选）</span></div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px" id="ig-logo-group">
-          <label class="ig-logo-option"><input type="radio" name="ig-logo" value="MOJi辞書" style="display:none"><span class="ig-logo-label">MOJi辞書</span></label>
-          <label class="ig-logo-option"><input type="radio" name="ig-logo" value="MOJi阅读" style="display:none"><span class="ig-logo-label">MOJi阅读</span></label>
-          <label class="ig-logo-option"><input type="radio" name="ig-logo" value="MOJi会话" style="display:none"><span class="ig-logo-label">MOJi会话</span></label>
-          <label class="ig-logo-option"><input type="radio" name="ig-logo" value="MOJiKana" style="display:none"><span class="ig-logo-label">MOJiKana</span></label>
-          <label class="ig-logo-option"><input type="radio" name="ig-logo" value="MOJiTest" style="display:none"><span class="ig-logo-label">MOJiTest</span></label>
-        </div>
-      </div>
+  <!-- 有标题时的字段 -->
+  <div id="gen-title-fields">
+    <!-- 封面公式 -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">封面公式</div>
+      <div style="font-size:11px;color:var(--gray);margin-bottom:6px">不确定就让AI判断，想指定就下拉选。完整说明见Tab1方法论</div>
+      <select id="gen-formula" style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
+        <option value="">— AI根据选题自行判断 —</option>
+        <option value="悬念质疑型">悬念质疑型</option>
+        <option value="结果冲击型">结果冲击型</option>
+        <option value="数字锚定型">数字锚定型</option>
+        <option value="身份代入型">身份代入型</option>
+        <option value="行为质疑型">行为质疑型</option>
+        <option value="痛点+回报型">痛点+回报型</option>
+        <option value="FOMO信息差型">FOMO信息差型</option>
+        <option value="群体对比型">群体对比型</option>
+        <option value="认知重构型">认知重构型</option>
+        <option value="干货问句型">干货问句型</option>
+        <option value="时间锚定型">时间锚定型</option>
+        <option value="热点借势型">热点借势型</option>
+      </select>
     </div>
 
-    <!-- 生成按钮 -->
-    <button onclick="buildImagePrompt()" style="width:100%;padding:13px;background:var(--red);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:0.3px;transition:background 0.15s" onmouseover="this.style.background='var(--dark-red)'" onmouseout="this.style.background='var(--red)'">生成生图指令</button>
-
-    <!-- 输出区 -->
-    <div id="image-prompt-box" style="display:none;margin-top:14px">
-      <div class="prompt-box">
-        <div class="prompt-section-label">封面生图提示词 · 推荐工具：GPT Image2</div>
-        <div class="prompt-text" id="image-prompt-text" style="white-space:pre-wrap;user-select:text"></div>
-        <div class="copy-btn" onclick="copyImagePrompt()">复制生图指令</div>
+    <!-- 标题文案 -->
+    <div style="margin-bottom:14px">
+      <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">主标题第一行 <span style="font-weight:400;font-size:11px;color:var(--red)">必填</span></div>
+      <input type="text" id="gen-line1" placeholder="例：凭什么" style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:14px">
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">第二行</div>
+        <input type="text" id="gen-line2" placeholder="例：他们背了不忘" style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
+      </div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">标红词</div>
+        <input type="text" id="gen-redword" placeholder="例：他们背了不忘" style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:14px">
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">第三行</div>
+        <input type="text" id="gen-line3" placeholder="可选" style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
+      </div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">副标题</div>
+        <input type="text" id="gen-subtitle" placeholder="可选" style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
       </div>
     </div>
   </div>
 
-<style>
-.flow-collapse-body { display:none; }
-.open .flow-collapse-body { display:block; }
-.open .flow-collapse-arrow { transform:rotate(180deg); }
-.ig-type-option { cursor:pointer; }
-.ig-type-label { padding:9px 14px; border:1.5px solid var(--border); border-radius:8px; font-size:12px; display:flex; align-items:center; transition:all 0.15s; background:var(--white); }
-.ig-type-option input:checked + .ig-type-label { border-color:var(--red); background:var(--light-red); }
-.ig-type-option:hover .ig-type-label { border-color:#ccc; }
-.ig-logo-option { cursor:pointer; }
-.ig-logo-label { display:inline-block; padding:6px 14px; border:1.5px solid var(--border); border-radius:20px; font-size:12px; font-weight:600; transition:all 0.15s; background:var(--white); color:var(--black); }
-.ig-logo-option input:checked + .ig-logo-label { border-color:var(--red); background:var(--red); color:white; }
-.ig-logo-option:hover .ig-logo-label { border-color:#ccc; }
-</style>
-
-  <div style="margin-bottom:28px">
-    <div style="font-size:22px;font-weight:700;color:var(--black);margin-bottom:14px">3. AI生图为灵感，人工作图</div>
-    <div class="prompt-box" style="background:#FAFAFA">
-      <div style="font-size:12px;color:var(--gray);margin-bottom:10px">推荐工具：可画、ps、adobe ai</div>
-      <div style="font-size:13px;color:#333;line-height:1.9">
-        <div><strong>如何判断ai生图能否作为最终参考版本：</strong></div>
-        <div>1. 从文字到图，第一眼看整体的时候是不是在说一件事？叙事逻辑是否完整？</div>
-        <div>2. 你自己刷到这个封面，会让你停下来，有想点进去的欲望吗？</div>
-      </div>
+  <!-- 样机 -->
+  <div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">样机形态</div>
+    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px" id="gen-mockup-pills">
+      <button class="gen-pill active" onclick="selectGenPill(this)" data-val="正面直立" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--red);background:var(--light-red);color:var(--red);cursor:pointer;font-family:inherit">正面直立</button>
+      <button class="gen-pill" onclick="selectGenPill(this)" data-val="倾斜15度" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:#555;cursor:pointer;font-family:inherit">倾斜15°</button>
+      <button class="gen-pill" onclick="selectGenPill(this)" data-val="半样机裁切" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:#555;cursor:pointer;font-family:inherit">半样机</button>
+      <button class="gen-pill" onclick="selectGenPill(this)" data-val="无样机" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:#555;cursor:pointer;font-family:inherit">无样机</button>
     </div>
+    <div id="gen-mockup-hint" style="font-size:11px;color:var(--gray);line-height:1.5">正面直立：最稳，界面内容看得清，功能演示首选</div>
   </div>
 
+  <!-- 背景 -->
+  <div style="margin-bottom:16px">
+    <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">背景类型</div>
+    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px" id="gen-bg-pills">
+      <button class="gen-pill active" onclick="selectGenPill(this)" data-val="纯色浅底" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--red);background:var(--light-red);color:var(--red);cursor:pointer;font-family:inherit">纯色浅底</button>
+      <button class="gen-pill" onclick="selectGenPill(this)" data-val="纯色深底" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:#555;cursor:pointer;font-family:inherit">纯色深底</button>
+      <button class="gen-pill" onclick="selectGenPill(this)" data-val="产品固定背景图" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:#555;cursor:pointer;font-family:inherit">产品背景图</button>
+      <button class="gen-pill" onclick="selectGenPill(this)" data-val="实拍场景" style="font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);color:#555;cursor:pointer;font-family:inherit">实拍场景</button>
+    </div>
+    <div id="gen-bg-hint" style="font-size:11px;color:var(--gray);line-height:1.5">纯色浅底：最安全，标题黑字，适合大多数内容</div>
+  </div>
 
-</div>
+  <!-- App界面描述 -->
+  <div style="margin-bottom:20px">
+    <div style="font-size:12px;font-weight:600;color:var(--black);margin-bottom:6px">App界面描述</div>
+    <div style="font-size:11px;color:var(--gray);margin-bottom:6px">样机里显示什么画面？越具体AI出图越准</div>
+    <textarea id="gen-appscreen" placeholder="例：MOJi辞書单词详情页，显示「齋す」的释义、例句区和用户评论区" style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit;min-height:60px;resize:vertical"></textarea>
+  </div>
+
+  <!-- 生成按钮 -->
+  <button onclick="genCoverPrompt()" style="width:100%;padding:14px;background:var(--red);color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit">📋 生成封面指令</button>
+
+  <div id="gen-prompt-box" style="display:none;margin-top:14px">
+    <div style="background:var(--light-gray);border-radius:12px;padding:16px;position:relative">
+      <button onclick="copyGenPrompt()" style="position:absolute;top:12px;right:12px;font-size:12px;font-weight:600;padding:4px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);cursor:pointer;font-family:inherit" id="gen-copy-btn">复制指令</button>
+      <div style="font-size:11px;font-weight:600;color:var(--gray);margin-bottom:8px">生成的AI指令预览</div>
+      <div id="gen-prompt-text" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:var(--black);user-select:text"></div>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--gray);text-align:center">复制指令 → 打开AI对话 → 发送出图 → 可画精修</div>
+
+    <div style="margin-top:12px;background:var(--light-gray);border-radius:10px;padding:12px 16px;font-size:11px;line-height:1.7;color:#555">
+      <strong>AI出图不满意？</strong> 用这个句式迭代：「[哪个部分] + [什么问题] + [改成什么]」<br>
+      例：「样机角度换成倾斜15度」「背景太亮了，换成深色」「标题字再大一点」
+    </div>
+
+    <div style="margin-top:10px;background:var(--light-gray);border-radius:10px;padding:12px 16px;font-size:11px;line-height:1.7;color:#555">
+      <strong>拿到图后检查：</strong><br>
+      · 把封面缩小到手机屏幕1/4大小（模拟信息流），大字还能不能读<br>
+      · 遮住标题只看图，能不能猜到视频讲什么——能猜到说明图文一致
+    </div>
+  </div>
 
 </div>
 
@@ -941,6 +922,111 @@ function copyImagePrompt() {
     btn.style.background = 'var(--red)';
     btn.style.color = 'white';
     setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 1500);
+  });
+}
+
+// ── 封面生成 Tab4 ──
+let genHasTitle = true;
+
+function setGenTitle(hasTitle, btn) {
+  genHasTitle = hasTitle;
+  document.querySelectorAll('.gen-toggle').forEach(b => { b.style.background = 'var(--white)'; b.style.color = 'var(--gray)'; });
+  btn.style.background = 'var(--red)'; btn.style.color = 'white';
+  document.getElementById('gen-title-fields').style.display = hasTitle ? '' : 'none';
+  document.getElementById('gen-no-title-hint').style.display = hasTitle ? 'none' : 'block';
+}
+
+function selectGenPill(el) {
+  el.parentElement.querySelectorAll('.gen-pill').forEach(p => { p.style.borderColor = 'var(--border)'; p.style.background = 'var(--white)'; p.style.color = '#555'; });
+  el.style.borderColor = 'var(--red)'; el.style.background = 'var(--light-red)'; el.style.color = 'var(--red)';
+  const gid = el.parentElement.id;
+  const val = el.getAttribute('data-val');
+  const mockHints = { '正面直立':'正面直立：最稳，界面内容看得清，功能演示首选', '倾斜15度':'倾斜15°：有动感，单功能演示想要冲击力时', '半样机裁切':'半样机：只露局部，强调某个细节功能时', '无样机':'无样机：纯大字+插画，文案本身已足够成立时' };
+  const bgHints = { '纯色浅底':'纯色浅底：最安全，标题黑字，适合大多数内容', '纯色深底':'纯色深底：信息流高对比突围，标题白字，参考识日风格', '产品固定背景图':'产品背景图：品牌感强，辞書/Kana/阅读有现成图，适合无标题型', '实拍场景':'实拍场景：UGC感最强，真实桌面/手持，多端展示类' };
+  if (gid === 'gen-mockup-pills' && mockHints[val]) document.getElementById('gen-mockup-hint').textContent = mockHints[val];
+  if (gid === 'gen-bg-pills' && bgHints[val]) document.getElementById('gen-bg-hint').textContent = bgHints[val];
+}
+
+function getGenPill(groupId) {
+  const el = document.querySelector('#' + groupId + ' .gen-pill[style*="var(--red)"]');
+  return el ? el.getAttribute('data-val') : '';
+}
+
+const genProductColors = {
+  'MOJi辞書':   { light:'#F7F5F0', dark:'#2C2C2C' },
+  'MOJi会话':   { light:'#FFF8ED', dark:'#8B4500' },
+  'MOJiKana':   { light:'#EFF6FF', dark:'#2D6A2E' },
+  'MOJiTest':   { light:'#FFF0EF', dark:'#8B1A1A' },
+  'MOJi小课堂': { light:'#FFF0EF', dark:'#8B1A1A' },
+  'MOJi阅读':   { light:'#F9F9F9', dark:'#1C3A2E' },
+};
+const genFixedBg = {
+  'MOJi辞書': '辞書品宣背景图（日式辞典封面拼贴，黑灰色调）',
+  'MOJiKana': 'Kana品宣背景图（绿色底+假名图案）',
+  'MOJi阅读': 'MOJi阅读品宣背景图（浅灰底+粉红点缀+书页弧线）',
+};
+
+function genCoverPrompt() {
+  const product = document.getElementById('gen-product').value;
+  const pc = genProductColors[product];
+  const mockup = getGenPill('gen-mockup-pills');
+  const bgType = getGenPill('gen-bg-pills');
+  const appscreen = document.getElementById('gen-appscreen').value.trim();
+
+  const missing = [];
+  if (genHasTitle && !document.getElementById('gen-line1').value.trim()) missing.push('主标题第一行');
+  if (mockup !== '无样机' && !appscreen) missing.push('App界面描述');
+  if (missing.length) { alert('请填写：' + missing.join('、')); return; }
+
+  const line1 = genHasTitle ? document.getElementById('gen-line1').value.trim() : '';
+  const line2 = genHasTitle ? document.getElementById('gen-line2').value.trim() : '';
+  const line3 = genHasTitle ? document.getElementById('gen-line3').value.trim() : '';
+  const subtitle = genHasTitle ? document.getElementById('gen-subtitle').value.trim() : '';
+  const redword = genHasTitle ? document.getElementById('gen-redword').value.trim() : '';
+
+  let bgDesc = '', textColor = '#1A1A1A', accentNote = '强调色只用红色 #E8342A';
+  if (bgType === '纯色浅底') { bgDesc = '纯色背景 ' + pc.light; }
+  else if (bgType === '纯色深底') { bgDesc = '纯色深色背景 ' + pc.dark; textColor = '#FFFFFF'; accentNote = '强调色用白色或黄色 #FFD700（深底上红色对比度不够）'; }
+  else if (bgType === '产品固定背景图') { bgDesc = genFixedBg[product] || ('纯色背景 ' + pc.light); if (genFixedBg[product]) { textColor = '#FFFFFF'; accentNote = '根据背景明暗选择文字颜色确保可读性'; } }
+  else if (bgType === '实拍场景') { bgDesc = '实拍真实场景（真实桌面/手持/生活环境）'; }
+
+  let mockupDesc = '';
+  if (mockup === '正面直立') mockupDesc = '手机正面直立，居中偏下，底部超出画面裁切，屏幕显示' + appscreen + '（真实App截图风格，不美化成插画）';
+  else if (mockup === '倾斜15度') mockupDesc = '手机倾斜约15度，带轻微3D透视感，底部裁切，屏幕显示' + appscreen + '（真实截图风格）';
+  else if (mockup === '半样机裁切') mockupDesc = '手机只露出上半部分或右侧，局部裁切，重点展示' + appscreen + '的关键区域';
+  else if (mockup === '无样机') mockupDesc = '无手机样机，根据文案内容生成相关插画或图形元素，扁平线条风格';
+
+  let prompt = '生成一张竖屏3:4比例的小红书视频封面图。\n\n背景：' + bgDesc + '\n\n';
+
+  if (genHasTitle) {
+    const formula = document.getElementById('gen-formula').value;
+    const l2Desc = redword ? '「' + line2 + '」其中「' + redword + '」为红色 #E8342A（深底时改黄色），其余 ' + textColor + '，字重900' : (line2 ? '「' + line2 + '」' + textColor + '，字重900' : '');
+    prompt += '文字区（上方40%，左对齐）：\n';
+    if (subtitle) prompt += '· 副标题：「' + subtitle + '」灰色 #888888（深底时改为半透明白），字号是主标题50%\n';
+    prompt += '· 主标题第一行：「' + line1 + '」' + textColor + '，字重900\n';
+    if (l2Desc) prompt += '· 主标题第二行：' + l2Desc + '\n';
+    if (line3) prompt += '· 主标题第三行：「' + line3 + '」' + textColor + '，字重900\n';
+    prompt += formula ? '\n文案公式风格：' + formula + '\n' : '\n文案公式风格：AI根据选题内容自行判断最合适的情绪方向\n';
+  } else {
+    prompt += '无标题封面：画面不放大字文案，只展示产品界面和品牌元素。\n';
+  }
+
+  prompt += '\n主视觉（下方65%）：' + mockupDesc + '\n';
+  prompt += 'Logo：右上角红色胶囊，白字显示：' + product + '\n\n' + accentNote + '\n';
+  prompt += '\n--- 设计规范 ---\n';
+  prompt += '· 整体扁平设计，无渐变背景，无投影背景\n· 强调色不超过3处\n· 字体圆润粗体风格\n· 真实App截图优先，界面朴素甚至带用户吐槽截图都行\n· 文字与画面融为一体，无分割感\n· 悬浮标注：根据内容自行判断是否需要';
+
+  document.getElementById('gen-prompt-text').textContent = prompt;
+  document.getElementById('gen-prompt-box').style.display = 'block';
+  setTimeout(() => document.getElementById('gen-prompt-box').scrollIntoView({ behavior:'smooth', block:'nearest' }), 50);
+}
+
+function copyGenPrompt() {
+  const text = document.getElementById('gen-prompt-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('gen-copy-btn');
+    btn.textContent = '已复制 ✓'; btn.style.background = 'var(--red)'; btn.style.color = 'white';
+    setTimeout(() => { btn.textContent = '复制指令'; btn.style.background = ''; btn.style.color = ''; }, 1500);
   });
 }
 </script>
