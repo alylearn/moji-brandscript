@@ -49,6 +49,9 @@
 .spec-item::before { content: "—"; position: absolute; left: 0; color: #ccc; }
 .spec-item.red { color: var(--dark-red); }
 .spec-item.red::before { content: "✕"; color: var(--red); }
+.prod-color-btn { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--white); color: #555; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.prod-color-btn:hover { border-color: #bbb; color: var(--black); }
+.prod-color-btn.active { border-color: var(--red); color: var(--red); background: #FFF0EF; }
 .color-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .color-swatch { width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0; }
 .color-info { font-size: 12px; color: #555; }
@@ -464,12 +467,30 @@
 
     <div class="spec-card">
       <div class="spec-title"><span class="spec-icon">🎨</span>配色规范</div>
+
+      <div style="font-size:11px;font-weight:600;color:#aaa;letter-spacing:.04em;margin-bottom:6px;margin-top:2px">全产品通用</div>
       <div class="color-row"><div class="color-swatch" style="background:#E8342A"></div><div class="color-info"><span class="color-hex">#E8342A</span> MOJi红 · 唯一强调色</div></div>
       <div class="color-row"><div class="color-swatch" style="background:#1A1A1A"></div><div class="color-info"><span class="color-hex">#1A1A1A</span> 近黑 · 主标题</div></div>
       <div class="color-row"><div class="color-swatch" style="background:#888888"></div><div class="color-info"><span class="color-hex">#888888</span> 灰色 · 副标题</div></div>
-      <div class="color-row"><div class="color-swatch" style="background:#F7F5F0;border:1px solid #ddd"></div><div class="color-info"><span class="color-hex">#F7F5F0</span> 米白 · 背景</div></div>
+
+      <div style="font-size:11px;font-weight:600;color:#aaa;letter-spacing:.04em;margin-top:10px;margin-bottom:6px">按产品选背景色</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px">
+        <button class="prod-color-btn active" data-bg="#F7F5F0" data-hex="#F7F5F0" data-label="米白 · 通用/辞書" onclick="selectProdColor(this)">辞書</button>
+        <button class="prod-color-btn" data-bg="#FFF8ED" data-hex="#FFF8ED" data-label="暖黄白 · 会话" onclick="selectProdColor(this)">会话</button>
+        <button class="prod-color-btn" data-bg="#EFF6FF" data-hex="#EFF6FF" data-label="浅蓝白 · Kana" onclick="selectProdColor(this)">Kana</button>
+        <button class="prod-color-btn" data-bg="#FFF0EF" data-hex="#FFF0EF" data-label="浅红白 · Test/小课堂" onclick="selectProdColor(this)">Test</button>
+        <button class="prod-color-btn" data-bg="#FFF0EF" data-hex="#FFF0EF" data-label="浅红白 · Test/小课堂" onclick="selectProdColor(this)">小课堂</button>
+        <button class="prod-color-btn" data-bg="#F9F9F9" data-hex="#F9F9F9" data-label="近白 · 阅读" onclick="selectProdColor(this)">阅读</button>
+      </div>
+      <div id="prod-color-display" class="color-row">
+        <div id="prod-color-swatch" class="color-swatch" style="background:#F7F5F0;border:1px solid #ddd"></div>
+        <div class="color-info"><span id="prod-color-hex" class="color-hex">#F7F5F0</span> <span id="prod-color-label">米白 · 通用/辞書</span></div>
+      </div>
+
+      <div style="height:8px"></div>
       <div class="spec-item red">强调色超过3处 → 没有重点</div>
       <div class="spec-item red">渐变背景 → 偏广告感</div>
+      <div class="spec-item" style="color:#555">✓ 纯色深底允许（标题改白字，强调色改黄色/白色）</div>
     </div>
 
     <div class="spec-card">
@@ -832,6 +853,19 @@
 </div>
 
 <script>
+function selectProdColor(btn) {
+  document.querySelectorAll('.prod-color-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const bg = btn.getAttribute('data-bg');
+  const hex = btn.getAttribute('data-hex');
+  const label = btn.getAttribute('data-label');
+  const swatch = document.getElementById('prod-color-swatch');
+  swatch.style.background = bg;
+  swatch.style.border = bg === '#F9F9F9' || bg === '#F7F5F0' ? '1px solid #ddd' : 'none';
+  document.getElementById('prod-color-hex').textContent = hex;
+  document.getElementById('prod-color-label').textContent = label;
+}
+
 function switchTab(id, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
