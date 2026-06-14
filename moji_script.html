@@ -574,7 +574,12 @@ input[type="text"] { background-image: none; }
   </div>
   <div class="theory-body">
     <div style="background:var(--bg);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--gray);line-height:1.7;margin-bottom:14px">
-      用一个核心痛点开场，然后「N个方法解决它」，逐个演示。适合汇总干货型选题或多功能合集。参考：飞书Coze短视频（痛点轰炸→方案引出→逐个演示→CTA）。
+      用一个核心痛点开场，然后「N个方法解决它」，逐个演示。适合汇总干货型选题或多功能合集。<br><br>
+      <strong style="color:var(--black)">参考：飞书Coze短视频（35秒）的关键手法：</strong><br>
+      · <strong>边说边演</strong>——旁白和录屏同步推进，不是"先说完再切画面"<br>
+      · <strong>每个方法带情绪入口</strong>——先给态度/感受，再给操作（如"逼自己戒掉中文！点击听词界面……"）<br>
+      · <strong>方法间用递进串联</strong>——不说"第一、第二、第三"，用挑战升级或因果关系过渡（如"选不出来？再试这个"）<br>
+      · <strong>信息密度极高</strong>——每1-2秒画面必须有变化（大字弹出/界面切换/手势），没有空画面
     </div>
     <div class="aida-flow">
       <div class="aida-item">
@@ -605,6 +610,58 @@ input[type="text"] { background-image: none; }
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- 案例参考 -->
+  <div class="theory-toggle" onclick="toggleTheory(this)">
+    <span class="theory-toggle-icon">📌</span>
+    <span class="theory-toggle-label">案例参考：飞书Coze短视频（35秒 · 方法合集型）</span>
+    <span class="theory-toggle-hint">痛点轰炸→方案→演示→CTA · 节奏极快</span>
+    <span class="theory-toggle-arrow">▼</span>
+  </div>
+  <div class="theory-body">
+    <div style="background:var(--bg);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--gray);line-height:1.8;margin-bottom:14px">
+      <strong style="color:var(--black)">视频定位：</strong>知识博主/工具推广类短视频，抖音/快手风格。<br>
+      <strong style="color:var(--black)">成功公式：</strong><br>
+      · <strong>节奏极快</strong>——35秒内塞入极大信息量，没有一句废话，每句话都有视觉配合<br>
+      · <strong>视觉辅助</strong>——每隔1-2秒就有新的大字/Logo/录屏切入，防止用户视觉疲劳滑走<br>
+      · <strong>情绪闭环</strong>——开头焦虑严肃 → 中间展示功能时震惊高效 → 结尾轻松亢奋
+    </div>
+    <table class="compare-table" style="font-size:12px">
+      <thead>
+        <tr><th style="width:70px">时间轴</th><th style="width:80px">阶段</th><th>画面</th><th>台词</th><th style="width:120px">设计逻辑</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>00:00-00:04</td>
+          <td><strong>痛点轰炸</strong></td>
+          <td>人物镜头，画面上方快速弹出大字：开头没钩子、选题自嗨、风格找不准、账号被限流</td>
+          <td>「开头没钩子，选题自嗨，风格找不准，账号被限流……为什么你拍的短视频没流量？」</td>
+          <td>4个痛点连击建立代入感，定性问题激发求知欲</td>
+        </tr>
+        <tr>
+          <td>00:04-00:08</td>
+          <td><strong>方案引出</strong></td>
+          <td>画面切换明亮场景，弹出Coze Logo + 多维表格Logo</td>
+          <td>「2026年了，专业的短视频博主都在用Coze+多维表格搞定选题和创作。」</td>
+          <td>年份+专业博主=权威感+时代紧迫感</td>
+        </tr>
+        <tr>
+          <td>00:08-00:22</td>
+          <td><strong>功能演示</strong></td>
+          <td>分屏：上方人物头像框，下方手机端录屏→切电脑端表格自动填充</td>
+          <td>「在对话框里发条指令，一键抓取全网爆款数据……再也不用人工找对标了。AI自动拆解爆款原因，批量生成二创文案，效率直接拉满！」</td>
+          <td>边说边演，操作极简（发条指令），视觉震撼（表格瞬间填满）</td>
+        </tr>
+        <tr>
+          <td>00:26-00:35</td>
+          <td><strong>CTA</strong></td>
+          <td>价格页面，手势指向屏幕下方</td>
+          <td>「别再焦虑了，满配AI工作流已经到位。首月只要45元……少喝两杯咖啡，雇一个24小时不睡觉的顶级助理。点击下方链接，立刻领走！」</td>
+          <td>安抚情绪→价格锚定→价值对比→明确行动指引</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- 脚本写作原则 -->
@@ -717,6 +774,7 @@ input[type="text"] { background-image: none; }
       <div class="form-group">
         <label class="form-label">目标视频时长<span style="font-weight:400;color:var(--gray)">（可选 · 默认 90-120 秒）</span></label>
         <select id="sel-duration" onchange="buildPrompt2()">
+          <option value="30–40秒">30–40秒（极简版）</option>
           <option value="60–90秒">60–90秒（精简版）</option>
           <option value="90–120秒" selected>90–120秒（标准版）</option>
           <option value="120–150秒">120–150秒（完整版）</option>
@@ -988,10 +1046,10 @@ function buildPrompt2() {
   const narrativeReq = narrativeAI
     ? `叙事结构要求：
 · A. 单刀直入型：钩子+痛点 → 一条操作路径演示到底 → 具体CTA。适合单功能单痛点。
-· B. 方法合集型：钩子+痛点轰炸 →「N个方法」引出 → 逐个演示（方法之间自然过渡，不机械罗列） → 总结回扣+CTA。适合多方法合集。
+· B. 方法合集型：钩子+痛点轰炸 →「N个方法」引出 → 逐个演示（每个方法先给情绪入口再给操作，方法间用递进串联，不机械罗列） → 总结回扣+CTA。适合多方法合集。
 · 通用约束：前8秒必须出现App画面，结尾给具体可执行CTA并回扣开头。`
     : `叙事结构要求（${narrative}）：
-${narrative === '单刀直入型' ? '· 钩子+痛点切入，一条操作路径演示到底，结尾给具体CTA回扣开头\n· 前8秒必须出现App画面' : ''}${narrative === '方法合集型' ? '· 钩子+痛点轰炸，引出「N个方法」，逐个演示，方法之间自然过渡不机械罗列\n· 结尾总结回扣开头+CTA\n· 前8秒必须出现App画面' : ''}`;
+${narrative === '单刀直入型' ? '· 钩子+痛点切入，一条操作路径演示到底，结尾给具体CTA回扣开头\n· 前8秒必须出现App画面' : ''}${narrative === '方法合集型' ? '· 钩子+痛点轰炸，引出「N个方法」，逐个演示\n· 每个方法先给情绪入口再给操作（如"逼自己戒掉中文！点击……"），方法之间用递进或因果串联，不说"第一、第二、第三"\n· 边说边演，旁白和画面同步推进\n· 结尾总结回扣开头+CTA\n· 前8秒必须出现App画面' : ''}`;
 
   const prompt = `你是MOJi品宣脚本写作专家。请参考你 AI 工具项目里已上传的产品手册 moji_manual.html，仔细阅读相关产品功能说明。
 
