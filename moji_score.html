@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOJi 品宣脚本打分器</title>
+<style>
+:root{--red:#E8342A;--dark-red:#CC2A20;--light-red:#FFF0EF;--black:#1A1A1A;--gray:#888;--light-gray:#F0F0EE;--bg:#F7F5F0;--white:#FFF;--border:#E5E5E2;--green:#34A853;--orange:#F5A623}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif;background:var(--bg);color:var(--black);line-height:1.6;padding-bottom:80px}
+.header{background:var(--white);border-bottom:2px solid var(--red);padding:18px 32px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
+.header-logo{background:var(--red);color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.3px;flex-shrink:0}
+.header-title{font-size:17px;font-weight:700}
+.header-sub{font-size:11px;color:var(--gray);margin-left:auto;white-space:nowrap}
+.main{max-width:760px;margin:0 auto;padding:24px 20px}
+.section{background:var(--white);border-radius:12px;padding:20px;margin-bottom:20px;border:1px solid var(--border)}
+.section h2{font-size:15px;font-weight:700;margin-bottom:4px}
+.section .sub{font-size:12px;color:var(--gray);margin-bottom:12px}
+textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:12px;font-size:14px;font-family:inherit;line-height:1.7;resize:vertical;background:var(--bg);transition:border-color .15s}
+textarea:focus{outline:none;border-color:var(--red)}
+textarea::placeholder{color:#BBB}
+.script-input{min-height:140px}
+.prompt-output{min-height:200px;font-size:12px;line-height:1.6;color:#555}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{padding:10px 24px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:var(--dark-red)}
+.btn-primary.copied{background:var(--green)}
+.btn-secondary{background:none;color:var(--gray);border:1.5px solid var(--border)}
+.btn-secondary:hover{border-color:var(--red);color:var(--red)}
+.rubric-preview{background:var(--bg);border-radius:8px;padding:16px;margin-top:16px;font-size:12px;line-height:1.8;color:#555;display:none}
+.rubric-preview.open{display:block}
+.toggle{font-size:13px;color:var(--gray);cursor:pointer;margin-top:12px;user-select:none}
+.toggle:hover{color:var(--red)}
+.dim-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:2px}
+.dim-label{font-weight:700;color:var(--black);min-width:32px;flex-shrink:0}
+.dim-w{color:var(--red);font-weight:600;min-width:30px}
+.guide-block{margin:10px 0 16px 0;padding-left:12px;border-left:2px solid var(--border)}
+.guide-block .gh{font-weight:700;color:var(--black);margin-bottom:4px;font-size:12px}
+.guide-line{display:flex;gap:6px;font-size:11px;line-height:1.6}
+.guide-s{font-weight:700;min-width:14px;color:var(--black)}
+.note{background:var(--light-red);border-radius:8px;padding:12px;font-size:12px;color:var(--dark-red);margin-top:12px;line-height:1.6}
+@media(max-width:720px){.header{padding:16px 20px}.header-sub{display:none}.main{padding:16px 14px}}
+</style>
+</head>
+<body>
+<div class="header">
+  <span class="header-logo">MOJi</span>
+  <span class="header-title">品宣脚本打分器</span>
+  <span class="header-sub">生成prompt → 粘贴到任意AI → 获取打分</span>
+</div>
+<div class="main">
+
+  <div class="section">
+    <h2>① 粘贴脚本</h2>
+    <div class="sub">口播文案、分镜表、脚本大纲都可以</div>
+    <textarea class="script-input" id="scriptInput" placeholder="把脚本粘贴在这里…"></textarea>
+  </div>
+
+  <div class="section">
+    <h2>② 生成打分 Prompt</h2>
+    <div class="sub">点击生成 → 复制 → 粘贴到 Claude / GPT / 豆包 / DeepSeek</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="genBtn" onclick="generate()">生成打分 Prompt</button>
+      <button class="btn btn-primary" id="copyBtn" onclick="copyPrompt()" style="display:none">复制 Prompt</button>
+      <button class="btn btn-secondary" onclick="resetAll()">清空</button>
+    </div>
+    <textarea class="prompt-output" id="promptOutput" style="display:none" readonly></textarea>
+    <div class="note" id="tipNote" style="display:none">💡 复制后粘贴到任意AI对话框，AI会返回7个维度的打分、综合分和优化建议。</div>
+  </div>
+
+  <div class="section">
+    <h2>📖 评分维度说明</h2>
+    <div class="sub">前置检查（标题-内容一致性）+ 7个打分维度，已内嵌到生成的prompt中</div>
+    <div class="toggle" onclick="toggleRubric()">▸ 展开查看完整评分标准</div>
+    <div class="rubric-preview" id="rubricPreview">
+
+      <div class="guide-block" style="border-left-color:var(--red)">
+        <div class="gh">🔍 前置检查：标题-内容一致性</div>
+        <div class="guide-line"><span class="guide-s">✅</span><span>一致：标题承诺 = 内容交付，继续打分</span></div>
+        <div class="guide-line"><span class="guide-s">⚠️</span><span>部分脱节：指出哪些段落与标题不匹配，给修改方向，继续打分</span></div>
+        <div class="guide-line"><span class="guide-s">❌</span><span>严重脱节：停止打分，直接给重新对齐建议</span></div>
+      </div>
+
+      <div class="guide-block">
+        <div class="gh">HP 钩子强度 ×1.5</div>
+        <div class="guide-line"><span class="guide-s">0</span><span>通用开场（"大家好…"/"今天教大家…"）</span></div>
+        <div class="guide-line"><span class="guide-s">1</span><span>有主题但没张力，不看也不损失什么</span></div>
+        <div class="guide-line"><span class="guide-s">2</span><span>点出了痛点但不够具体</span></div>
+        <div class="guide-line"><span class="guide-s">3</span><span>具体的承诺或反直觉断言，有吸引力</span></div>
+        <div class="guide-line"><span class="guide-s">4</span><span>让用户忍不住想验证的具体画面或问题</span></div>
+        <div class="guide-line"><span class="guide-s">5</span><span>用户无法停止处理——质疑自己、好奇答案、或被反差锁住</span></div>
+      </div>
+
+      <div class="guide-block">
+        <div class="gh">ER 痛点命中 ×1.5</div>
+        <div class="guide-line"><span class="guide-s">0</span><span>纯功能介绍，没触及用户感受</span></div>
+        <div class="guide-line"><span class="guide-s">1</span><span>提到广泛需求（"想学好日语"）</span></div>
+        <div class="guide-line"><span class="guide-s">2</span><span>痛点模糊，勉强对号入座</span></div>
+        <div class="guide-line"><span class="guide-s">3</span><span>中等共鸣——"嗯，我也有过这种感觉"</span></div>
+        <div class="guide-line"><span class="guide-s">4</span><span>准确命中——用户忍不住想点头或截图</span></div>
+        <div class="guide-line"><span class="guide-s">5</span><span>锐利且具体——戳到用户不太愿意承认的事</span></div>
+      </div>
+
+      <div class="guide-block">
+        <div class="gh">FV 功能价值感 ×1.5</div>
+        <div class="guide-line"><span class="guide-s">0</span><span>看完不知道在讲什么</span></div>
+        <div class="guide-line"><span class="guide-s">1</span><span>信息正确但已知，不会收藏</span></div>
+        <div class="guide-line"><span class="guide-s">2</span><span>有小技巧但撑不起独立成视频</span></div>
+        <div class="guide-line"><span class="guide-s">3</span><span>有实际操作价值，用户会想「待会试试」</span></div>
+        <div class="guide-line"><span class="guide-s">4</span><span>方法有认知增量——改变了用户对这件事的理解</span></div>
+        <div class="guide-line"><span class="guide-s">5</span><span>用户会主动分享给朋友——"你知道这个吗？"</span></div>
+      </div>
+
+      <div class="guide-block">
+        <div class="gh">SR 热点共振 ×1.0</div>
+        <div class="guide-line"><span class="guide-s">0</span><span>完全不绑定任何时间节点或热门话题</span></div>
+        <div class="guide-line"><span class="guide-s">1</span><span>话题有轻微时效性但不紧迫</span></div>
+        <div class="guide-line"><span class="guide-s">2</span><span>有相关热点但没直接利用</span></div>
+        <div class="guide-line"><span class="guide-s">3</span><span>搭上了正在讨论的话题，有自然流量</span></div>
+        <div class="guide-line"><span class="guide-s">4</span><span>精准绑定高搜索量节点（考前倒计时、新功能上线）</span></div>
+        <div class="guide-line"><span class="guide-s">5</span><span>撞上全平台热点且角度独特</span></div>
+      </div>
+
+      <div class="guide-block">
+        <div class="gh">AB 受众匹配度 ×1.0</div>
+        <div class="guide-line"><span class="guide-s">0</span><span>完全看不出这是给谁的</span></div>
+        <div class="guide-line"><span class="guide-s">1</span><span>泛日语学习者，无细分场景</span></div>
+        <div class="guide-line"><span class="guide-s">2</span><span>能看出目标人群但标题没身份标签</span></div>
+        <div class="guide-line"><span class="guide-s">3</span><span>有清晰身份标签（备考党/零基础/留学党）</span></div>
+        <div class="guide-line"><span class="guide-s">4</span><span>身份标签+场景锁定——"这就是我的处境"</span></div>
+        <div class="guide-line"><span class="guide-s">5</span><span>精准到用户截图发群说"这不就是我"</span></div>
+      </div>
+
+      <div class="guide-block">
+        <div class="gh">QL 可截图/可传播 ×1.0</div>
+        <div class="guide-line"><span class="guide-s">0</span><span>全程无亮点帧，不会想截图</span></div>
+        <div class="guide-line"><span class="guide-s">1</span><span>有用但没有单独可传播的片段</span></div>
+        <div class="guide-line"><span class="guide-s">2</span><span>有还行的画面/句子但不够独立存活</span></div>
+        <div class="guide-line"><span class="guide-s">3</span><span>有一帧/一句话用户会截图存手机</span></div>
+        <div class="guide-line"><span class="guide-s">4</span><span>多个可截图瞬间分布在视频不同位置</span></div>
+        <div class="guide-line"><span class="guide-s">5</span><span>截图本身就能在朋友圈/群里引发讨论</span></div>
+      </div>
+
+      <div class="guide-block">
+        <div class="gh">SAT 反差/意外感 ×1.0</div>
+        <div class="guide-line"><span class="guide-s">0</span><span>全程平铺直叙，没有任何意外</span></div>
+        <div class="guide-line"><span class="guide-s">1</span><span>信息稍有新意但在预期内</span></div>
+        <div class="guide-line"><span class="guide-s">2</span><span>有小转折但力度不够</span></div>
+        <div class="guide-line"><span class="guide-s">3</span><span>有一个让用户「哦？」的瞬间</span></div>
+        <div class="guide-line"><span class="guide-s">4</span><span>有明确认知反转——以为A，看完发现是B</span></div>
+        <div class="guide-line"><span class="guide-s">5</span><span>多层反转或结论完全颠覆用户预期</span></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+const RUBRIC_PROMPT = `你是一个品宣视频脚本评分专家。
+
+## 前置检查：标题-内容一致性
+
+在打分之前，先做一个结构性判断：
+
+1. 找出脚本的标题/选题（通常是第一行或明确标注的标题）
+2. 逐条检查脚本中的每个方法/段落是否在兑现标题的承诺
+3. 如果标题有身份标签（如"中国人""备考党""零基础"），检查每个方法是否都跟该身份相关，还是部分方法换个身份也成立
+
+判定：
+- ✅ 一致：标题承诺 = 内容交付，继续打分
+- ⚠️ 部分脱节：指出哪些段落与标题承诺不匹配，给出具体修改方向（改标题 or 改内容），然后继续打分
+- ❌ 严重脱节：标题和内容基本无关，停止打分，直接给出重新对齐的建议
+
+## 评分维度（7个维度，前置检查通过后执行）
+
+### HP 钩子强度（权重 ×1.5）
+前3秒能不能让用户停下来？
+- 0：通用开场（"大家好…"/"今天教大家…"）
+- 1：有主题但没有张力，不看也不损失什么
+- 2：点出了痛点但不够具体，用户可能留下也可能不
+- 3：具体的承诺或反直觉的断言，有吸引力
+- 4：一个让用户忍不住想验证的具体画面或问题
+- 5：用户无法停止处理——质疑自己、好奇答案、或被反差锁住
+
+### ER 痛点命中（权重 ×1.5）
+用户有没有「这说的就是我」的瞬间？
+- 0：纯功能介绍，没有触及用户的任何感受
+- 1：提到了一个广泛的需求（"想学好日语"）
+- 2：点到了一个痛点但表述模糊，用户勉强能对号入座
+- 3：中等共鸣——"嗯，我也有过这种感觉"
+- 4：准确命中——用户忍不住想点头或截图
+- 5：锐利且具体——戳到了用户不太愿意承认的事
+
+### FV 功能价值感（权重 ×1.5）
+用户看完觉得「学到了/赚到了」还是「就这？」
+- 0：看完不知道在讲什么，没有任何可带走的东西
+- 1：信息正确但已知，用户不会为此收藏
+- 2：有一个小技巧，但力度不够独立成视频
+- 3：有实际操作价值，用户会想「待会试试」
+- 4：方法/技巧有认知增量——改变了用户对这件事的理解
+- 5：用户会主动分享给朋友——"你知道这个吗？"
+
+### SR 热点共振（权重 ×1.0）
+有没有搭上一个当下用户正在讨论的话题节点？
+- 0：完全不绑定任何时间节点或热门话题
+- 1：话题有轻微时效性但不紧迫
+- 2：有相关热点但没有直接利用
+- 3：搭上了一个正在讨论的话题，有自然流量
+- 4：精准绑定一个高搜索量节点（考前倒计时、新功能上线）
+- 5：撞上全平台热点且角度独特（该话题下独一份的内容）
+
+### AB 受众匹配度（权重 ×1.0）
+目标人群看到会不会觉得「这是给我的」？
+- 0：完全看不出这是给谁的
+- 1：泛日语学习者，但没有细分场景
+- 2：能看出目标人群，但标题/封面没有身份标签
+- 3：有清晰的身份标签（备考党/零基础/留学党）
+- 4：身份标签+场景锁定——用户觉得「这就是我的处境」
+- 5：精准到用户截图发群说「这不就是我」
+
+### QL 可截图/可传播（权重 ×1.0）
+有没有一帧画面或一句话值得截图、收藏、或转发？
+- 0：全程无亮点帧，看完不会想截图
+- 1：内容有用但没有单独可传播的片段
+- 2：有一个还行的画面/句子，但不够独立存活
+- 3：有一帧/一句话用户会截图存手机
+- 4：多个可截图瞬间分布在视频不同位置
+- 5：截图本身就能在朋友圈/群里引发讨论
+
+### SAT 反差/意外感（权重 ×1.0）
+视频里有没有一个让用户「没想到」的认知反转？
+- 0：全程平铺直叙，没有任何意外
+- 1：信息稍有新意但在预期内
+- 2：有一个小转折但力度不够
+- 3：有一个让用户「哦？」的瞬间
+- 4：有明确的认知反转——之前以为A，看完发现是B
+- 5：多层反转或结论完全颠覆用户预期
+
+## 综合分公式
+composite = (HP×1.5 + ER×1.5 + FV×1.5 + SR + AB + QL + SAT) / 8.5 × 2.0
+满分10分。
+
+## 判定阈值
+- ≥8.0：✅ 可以拍
+- 6.0-7.9：⚠️ 需要优化——指出哪个维度拖后腿
+- <6.0：❌ 建议重写——指出核心方向问题
+
+## 输出格式（严格按此格式）
+
+📊 品宣脚本打分报告
+━━━━━━━━━━━━━━━━━━
+
+🔍 前置检查：标题-内容一致性
+判定：✅/⚠️/❌
+分析：（如果⚠️或❌，逐条说明哪些内容与标题承诺不匹配，并给出"改标题"或"改内容"两个方向的具体建议）
+
+| 维度 | 分数 | 加权 | 理由 |
+|---|---|---|---|
+| HP 钩子强度 | X/5 | X.X | 一句话理由 |
+| ER 痛点命中 | X/5 | X.X | 一句话理由 |
+| FV 功能价值感 | X/5 | X.X | 一句话理由 |
+| SR 热点共振 | X/5 | X.X | 一句话理由 |
+| AB 受众匹配度 | X/5 | X.X | 一句话理由 |
+| QL 可截图/可传播 | X/5 | X.X | 一句话理由 |
+| SAT 反差/意外感 | X/5 | X.X | 一句话理由 |
+
+综合分：X.XX / 10
+判定：✅/⚠️/❌ + 判定结果
+
+🔧 优化建议：
+针对得分最低的2个维度，各给出1条具体的、可执行的修改建议（不要泛泛而谈，要指出脚本里的具体句子或段落怎么改）。`;
+
+function generate() {
+  const script = document.getElementById('scriptInput').value.trim();
+  if (!script) { alert('请先粘贴脚本'); return; }
+  const fullPrompt = RUBRIC_PROMPT + '\n\n## 待评分脚本\n\n' + script;
+  const output = document.getElementById('promptOutput');
+  output.value = fullPrompt;
+  output.style.display = 'block';
+  document.getElementById('copyBtn').style.display = '';
+  document.getElementById('tipNote').style.display = '';
+}
+
+function copyPrompt() {
+  const output = document.getElementById('promptOutput');
+  const btn = document.getElementById('copyBtn');
+  try {
+    output.select();
+    output.setSelectionRange(0, 99999);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(output.value).then(() => {
+        btn.textContent = '已复制 ✓';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '复制 Prompt'; btn.classList.remove('copied'); }, 2000);
+      }).catch(() => {
+        document.execCommand('copy');
+        btn.textContent = '已复制 ✓';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '复制 Prompt'; btn.classList.remove('copied'); }, 2000);
+      });
+    } else {
+      document.execCommand('copy');
+      btn.textContent = '已复制 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '复制 Prompt'; btn.classList.remove('copied'); }, 2000);
+    }
+  } catch(e) {
+    output.select();
+    alert('请手动 Ctrl+C / Cmd+C 复制');
+  }
+}
+
+function resetAll() {
+  document.getElementById('scriptInput').value = '';
+  document.getElementById('promptOutput').value = '';
+  document.getElementById('promptOutput').style.display = 'none';
+  document.getElementById('copyBtn').style.display = 'none';
+  document.getElementById('tipNote').style.display = 'none';
+}
+
+function toggleRubric() {
+  const el = document.getElementById('rubricPreview');
+  const toggle = el.previousElementSibling;
+  el.classList.toggle('open');
+  toggle.textContent = el.classList.contains('open') ? '▾ 收起评分标准' : '▸ 展开查看完整评分标准';
+}
+</script>
+</body>
+</html>
