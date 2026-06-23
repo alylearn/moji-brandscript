@@ -727,23 +727,23 @@ input[type="text"] { background-image: none; }
   </div>
   <div class="theory-body">
     <div style="background:#FFF0EF;border-radius:8px;padding:12px 14px;font-size:12px;color:#CC2A20;line-height:1.8;margin-bottom:14px">
-      三条高数据视频正好各用一种，数据排序：实拍真机（102赞）> 录屏样机（69赞）> 纯动画（53赞）。纯动画那条的封面也是唯一的插画图、同样最低——「离真实 App 画面越远，数据越低」在封面和视频里一致。<strong>默认偏实拍真机，纯动画作为最后选项。</strong>
+      目前最高赞的3条品宣视频，实拍真机（102赞）> 录屏样机（69赞）> 纯动画（53赞）。
     </div>
     <div class="principle-card">
-      <div class="principle-title">实拍真机 <span class="badge badge-rec">推荐</span></div>
-      <div class="principle-body">拿相机拍真实设备屏幕（手机/电脑/平板），画面有设备、手、真实环境，像真人真的在用。任何功能都能用，<strong>包括纯软件设置/题型</strong>。→ 自创背词列表，数据最高。<br>适合：想要自来水/真实感，或多端展示（手机·电脑·平板都能用）。</div>
+      <div class="principle-title">实拍真机</div>
+      <div class="principle-body">拿相机拍真实设备屏幕（手机/电脑/平板），画面有设备、手、真实环境，像真人真的在用。任何功能都能用，<strong>包括纯软件设置/题型</strong>。→ 自创背词列表（102赞）。<br>适合：想要自来水/真实感，或多端展示（手机·电脑·平板都能用）。</div>
     </div>
     <div class="principle-card">
       <div class="principle-title">录屏样机</div>
       <div class="principle-body">软件内干净录屏，套进设备样机框，画面干净、信息清楚、制作最省事。→ 默认背词。<br>适合：操作步骤多、需要看清每一步点哪。</div>
     </div>
     <div class="principle-card">
-      <div class="principle-title">纯动画 <span class="badge" style="background:#FFE9E7;color:#CC2A20">谨慎</span></div>
-      <div class="principle-body">不用真实界面，用插画/动效/符号表达（放大镜、假名飘动那种）。视觉最自由，但离「真实证据」最远，数据也最低。→ 词汇量测试。<br>适合：抽象概念、或确实没有可拍的界面时，谨慎用。</div>
+      <div class="principle-title">纯动画</div>
+      <div class="principle-body">不用真实界面，用插画/动效/符号表达（放大镜、假名飘动那种）。视觉最自由。→ 词汇量测试。<br>适合：抽象概念、或确实没有可拍的界面时。</div>
     </div>
     <div class="principle-card">
       <div class="principle-title">AI判断</div>
-      <div class="principle-body">不指定，让 AI 按选题和功能自己选一种并说明理由：默认优先实拍真机；操作步骤多→录屏样机；抽象概念/无界面可拍→纯动画。</div>
+      <div class="principle-body">不指定，让 AI 按选题和功能自己选一种并说明理由：操作步骤多→录屏样机；抽象概念/无界面可拍→纯动画。</div>
     </div>
   </div>
 
@@ -784,12 +784,12 @@ input[type="text"] { background-image: none; }
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">画面呈现方式<span style="font-weight:400;color:var(--gray)">（可选 · 默认实拍真机）</span></label>
+        <label class="form-label">画面呈现方式<span style="font-weight:400;color:var(--gray)">（可选）</span></label>
         <select id="sel-visual" onchange="buildPrompt2()">
-          <option value="实拍真机" selected>实拍真机（推荐 · 数据最高）</option>
-          <option value="录屏样机">录屏样机</option>
-          <option value="纯动画">纯动画（谨慎）</option>
           <option value="">AI判断</option>
+          <option value="实拍真机">实拍真机</option>
+          <option value="录屏样机">录屏样机</option>
+          <option value="纯动画">纯动画</option>
         </select>
       </div>
       <div class="form-group"></div>
@@ -1035,8 +1035,8 @@ function buildPrompt2() {
     : visual === '录屏样机'
     ? '画面呈现方式：录屏样机——列2按「软件内干净录屏 + 套设备样机框」来写，画面干净，精确到点击位置。'
     : visual === '纯动画'
-    ? '画面呈现方式：纯动画——列2按「插画/动效/符号」来写，不依赖真实界面；先确认本期选题适合抽象表达（不适合就改用实拍真机）。'
-    : '画面呈现方式：你自己在「实拍真机/录屏样机/纯动画」里选一种并说明理由——默认优先实拍真机；操作步骤多→录屏样机；抽象概念、无界面可拍→纯动画。';
+    ? '画面呈现方式：纯动画——列2按「插画/动效/符号」来写，不依赖真实界面。'
+    : '画面呈现方式：你自己在「实拍真机/录屏样机/纯动画」里选一种并说明理由：操作步骤多→录屏样机；抽象概念/无界面可拍→纯动画。';
 
   const narrativeAI = !narrative;
   const narrativeLine = narrativeAI
