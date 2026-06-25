@@ -131,143 +131,47 @@
 <!-- 文案公式 -->
 <div id="tab-formula" class="section active">
   <div class="section-title">封面标题-方法论</div>
-  <div class="section-sub">基于影视飓风、无痛单词、参考答案阅览室、Gemini分析、实战迭代总结。每期选1-2种最匹配脚本核心卖点的公式使用。</div>
+  <div class="section-sub">基于高赞封面样本归纳（无痛单词×9、哈尔的数码屋×1、MOJi辞書×3、参考答案阅览室）。每期选1个最匹配脚本核心卖点的公式使用。</div>
 
   <!-- 选题切角→封面公式映射 -->
   <div style="background:var(--light-red);border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:12px;line-height:1.8">
-    <strong style="color:var(--red)">选题切角 → 推荐封面公式</strong><br>
-    反转式 → 悬念质疑型 / 行为质疑型<br>
-    痛点式 → 痛点+回报型 / 行为质疑型<br>
-    干货式 → 数字锚定型<br>
-    场景式 → 身份代入型 / 结果冲击型<br>
-    测评诊断式 → 悬念质疑型 / FOMO信息差型<br>
-    汇总干货型 → 数字锚定型
+    <strong style="color:var(--red)">选题切角 → 参考封面公式</strong><br>
+    反转式 → 行为否定型<br>
+    痛点式 → 行为否定型 / 数字冲击型<br>
+    干货式 → 数字冲击型 / 洞见结论型<br>
+    场景式 → 身份锚定型<br>
+    类比说明式 → 类比降门槛型<br>
+    测评诊断式 → 数字冲击型 / 身份锚定型
   </div>
+
+  <!-- 主推公式 -->
+  <div style="font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">主推公式（有高赞样本支撑）</div>
   <div class="formula-list">
 
     <div class="formula-card" onclick="toggleFormula(this)">
       <div class="formula-header">
         <div class="formula-num">1</div>
-        <div class="formula-name">悬念质疑型</div>
+        <div class="formula-name">行为否定型</div>
         <div class="formula-arrow">▼</div>
       </div>
       <div class="formula-body">
-        <div class="formula-desc">提出一个反常识问题，让用户产生「怎么可能」的疑惑，靠信息缺口驱动点击</div>
+        <div class="formula-desc">直接否定用户正在做的错误行为，制造「我一直做错了？」的认知冲突，驱动用户点进去求正确答案。情绪驱动力是焦虑+纠错欲。</div>
         <div class="formula-template">
           <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[反常识行为/现象] + 问号」</div>
+          <div class="formula-template-text">「[千万别/不要] + [用户习以为常的行为]」</div>
         </div>
-        <div class="formula-label">例子</div>
-        <div class="formula-examples">
-          <div class="formula-eg">AI能取代我，那我的意义是？</div>
-          <div class="formula-eg">屏幕越来越快，人眼跟得上吗？</div>
-          <div class="formula-eg">会做什么梦？</div>
-        </div>
-        <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          功能颠覆用户认知时。如「只听声音没有提示，你能选对吗？」
-        </div>
-      </div>
-    </div>
-
-    <div class="formula-card" onclick="toggleFormula(this)">
-      <div class="formula-header">
-        <div class="formula-num">2</div>
-        <div class="formula-name">结果冲击型</div>
-        <div class="formula-arrow">▼</div>
-      </div>
-      <div class="formula-body">
-        <div class="formula-desc">直接说出震惊事实或结果，不解释原因，用户好奇答案自然点进去</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[具体事件/结果]，不解释原因」</div>
-        </div>
-        <div class="formula-label">例子</div>
-        <div class="formula-examples">
-          <div class="formula-eg">拍到了，中国自己的可回收火箭</div>
-          <div class="formula-eg">100克纯金手机壳</div>
-          <div class="formula-eg">这么背单词绝了</div>
-          <div class="formula-eg">造了个背单词的异类</div>
-        </div>
-        <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          用户数据或功能结果足够震惊时。如「用了这个功能，3个月没忘过一个词」
-        </div>
-      </div>
-    </div>
-
-    <div class="formula-card" onclick="toggleFormula(this)">
-      <div class="formula-header">
-        <div class="formula-num">3</div>
-        <div class="formula-name">数字锚定型</div>
-        <div class="formula-arrow">▼</div>
-      </div>
-      <div class="formula-body">
-        <div class="formula-desc">用具体数字制造信息差，数字越具体冲击力越强，用户看到数字会本能停下来</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[具体数字] + [结果/行为]」</div>
-        </div>
-        <div class="formula-label">例子</div>
-        <div class="formula-examples">
-          <div class="formula-eg">16岁，做出让我惊呆的视频</div>
-          <div class="formula-eg">3台高速机VS刘谦手速</div>
-          <div class="formula-eg">1400万粉丝Q&A</div>
-        </div>
-        <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          有具体数据支撑时。如「听觉记忆留存率×3」「20%的用户从不忘词」
-        </div>
-      </div>
-    </div>
-
-    <div class="formula-card" onclick="toggleFormula(this)">
-      <div class="formula-header">
-        <div class="formula-num">4</div>
-        <div class="formula-name">身份代入型</div>
-        <div class="formula-arrow">▼</div>
-      </div>
-      <div class="formula-body">
-        <div class="formula-desc">先给用户贴一个精准标签，用户对号入座自然点击，不需要解释内容是什么</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[具体人群标签] + [他们的处境/行为]」</div>
-        </div>
-        <div class="formula-label">例子</div>
-        <div class="formula-examples">
-          <div class="formula-eg">00后的博主都在做什么？</div>
-          <div class="formula-eg">2026年了，影视飓风是怎么工作的？</div>
-          <div class="formula-eg">四级备考之无痛背单词</div>
-          <div class="formula-eg">意志力薄弱体质推荐试试</div>
-        </div>
-        <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          针对特定日语学习阶段用户。如「N3备考中，背了就忘怎么办」「刚开始学日语的看过来」
-        </div>
-      </div>
-    </div>
-
-    <div class="formula-card" onclick="toggleFormula(this)">
-      <div class="formula-header">
-        <div class="formula-num">5</div>
-        <div class="formula-name">行为质疑型</div>
-        <div class="formula-arrow">▼</div>
-      </div>
-      <div class="formula-body">
-        <div class="formula-desc">直接否定用户现有行为，制造「我一直做错了？」的焦虑，驱动用户想知道正确答案</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[别/不要] + [用户习以为常的错误行为]」</div>
-        </div>
-        <div class="formula-label">例子</div>
+        <div class="formula-label">高赞样本（无痛单词）</div>
         <div class="formula-examples">
           <div class="formula-eg">背单词千万别过脑子</div>
-          <div class="formula-eg">忽然发现越努力越记不住单词</div>
-          <div class="formula-eg">别用眼睛背单词</div>
-          <div class="formula-eg">听机器音背日语，难怪你记不住</div>
+          <div class="formula-eg">不做选择题</div>
+        </div>
+        <div class="formula-label">MOJi参考方向</div>
+        <div class="formula-examples">
+          <div class="formula-eg">别靠汉字猜日语——你的词汇量可能是负数</div>
+          <div class="formula-eg">背了又忘？不是努力不够，是模式选错了</div>
         </div>
         <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
+          <div class="moji-scene-label">适用场景</div>
           用户有明显错误使用习惯时，几乎适用所有功能品宣视频
         </div>
       </div>
@@ -275,181 +179,130 @@
 
     <div class="formula-card" onclick="toggleFormula(this)">
       <div class="formula-header">
-        <div class="formula-num">6</div>
-        <div class="formula-name">痛点+回报型</div>
+        <div class="formula-num">2</div>
+        <div class="formula-name">类比降门槛型</div>
         <div class="formula-arrow">▼</div>
       </div>
       <div class="formula-body">
-        <div class="formula-desc">先戳中用户痛点产生共鸣，再给出量化的极致回报，形成完整的情绪闭环</div>
+        <div class="formula-desc">用用户熟悉的轻松事物来类比学习行为，把「难」变「容易」，降低心理门槛。情绪驱动力是轻松感+好奇心。</div>
         <div class="formula-template">
           <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[戳中痛点] + [极致量化回报]」</div>
+          <div class="formula-template-text">「像[轻松熟悉的事] + 一样 + [学习行为]」</div>
         </div>
-        <div class="formula-label">例子</div>
+        <div class="formula-label">高赞样本（无痛单词）</div>
         <div class="formula-examples">
-          <div class="formula-eg">难怪你背完就忘——效率只有学霸的1/3</div>
+          <div class="formula-eg">像刷短视频一样背单词</div>
+        </div>
+        <div class="formula-label">MOJi参考方向</div>
+        <div class="formula-examples">
+          <div class="formula-eg">像查微信词典一样查日语</div>
+          <div class="formula-eg">像刷feed流一样刷日语词</div>
         </div>
         <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          有明确效率对比数据时，痛点和回报都要具体量化
+          <div class="moji-scene-label">适用场景</div>
+          功能学习门槛低、操作轻量时；想触达对日语有畏惧感的潜在用户
         </div>
       </div>
     </div>
 
     <div class="formula-card" onclick="toggleFormula(this)">
       <div class="formula-header">
-        <div class="formula-num">7</div>
-        <div class="formula-name">FOMO信息差型</div>
+        <div class="formula-num">3</div>
+        <div class="formula-name">数字冲击型</div>
         <div class="formula-arrow">▼</div>
       </div>
       <div class="formula-body">
-        <div class="formula-desc">制造「你正在吃亏」的紧迫感，暗示存在一个掌握秘密的少数群体，用户害怕错过</div>
+        <div class="formula-desc">用具体数字锚定结果或规模，数字越具体冲击力越强。用户看到数字会本能停下来验证真假，信息密度高、可信度强。</div>
         <div class="formula-template">
           <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[你在吃亏] + [别人掌握了你不知道的]」</div>
+          <div class="formula-template-text">「[具体数字] + [时间/数量] + [动作/结果]」</div>
         </div>
-        <div class="formula-label">例子</div>
+        <div class="formula-label">高赞样本</div>
         <div class="formula-examples">
-          <div class="formula-eg">你的效率只有别人1/3</div>
-          <div class="formula-eg">学霸的隐藏操作</div>
+          <div class="formula-eg">10分钟怒刷300词（无痛单词）</div>
+          <div class="formula-eg">MacBook · 8个新手必会隐藏技巧 · 2分钟速通（哈尔的数码屋）</div>
+        </div>
+        <div class="formula-label">MOJi参考方向</div>
+        <div class="formula-examples">
+          <div class="formula-eg">3个模式，背词效率翻倍</div>
+          <div class="formula-eg">每天10分钟，日语阅读量超过90%的人</div>
         </div>
         <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          有用户群体效率差距数据时，强调「少数人知道」的属性
+          <div class="moji-scene-label">适用场景</div>
+          有具体效率/数量数据支撑时；干货合集类视频
         </div>
       </div>
     </div>
 
     <div class="formula-card" onclick="toggleFormula(this)">
       <div class="formula-header">
-        <div class="formula-num">8</div>
-        <div class="formula-name">群体对比型</div>
+        <div class="formula-num">4</div>
+        <div class="formula-name">身份锚定型</div>
         <div class="formula-arrow">▼</div>
       </div>
       <div class="formula-body">
-        <div class="formula-desc">用「凭什么/为什么」制造群体焦虑，暗示用户正在被别人甩开</div>
+        <div class="formula-desc">用人群词精准筛选目标用户，目标用户看到自己的标签会本能点进去，非目标用户自然过滤。不需要解释内容是什么。</div>
         <div class="formula-template">
           <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[凭什么/为什么] + [他们做到了你没做到的]」</div>
+          <div class="formula-template-text">「[具体人群/阶段词] + 之 + [行为]」或「[人群词] + [他们的处境]」</div>
         </div>
-        <div class="formula-label">例子</div>
+        <div class="formula-label">高赞样本（无痛单词）</div>
         <div class="formula-examples">
-          <div class="formula-eg">凭什么他们背了不忘</div>
-          <div class="formula-eg">20%的人在偷用MOJi隐藏模式</div>
+          <div class="formula-eg">四级备考之无痛背单词</div>
+        </div>
+        <div class="formula-label">MOJi参考方向</div>
+        <div class="formula-examples">
+          <div class="formula-eg">N3备考之词汇量自测</div>
+          <div class="formula-eg">零基础学日语，先搞定这件事</div>
         </div>
         <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          有用户群体对比数据时，或功能有「隐藏/少数人知道」属性时
+          <div class="moji-scene-label">适用场景</div>
+          针对特定备考阶段/学习阶段用户；JLPT节点内容；精准人群投放
         </div>
       </div>
     </div>
 
     <div class="formula-card" onclick="toggleFormula(this)">
       <div class="formula-header">
-        <div class="formula-num">9</div>
-        <div class="formula-name">认知重构型</div>
+        <div class="formula-num">5</div>
+        <div class="formula-name">洞见/结论型</div>
         <div class="formula-arrow">▼</div>
       </div>
       <div class="formula-body">
-        <div class="formula-desc">不制造焦虑，制造认知颠覆。用户对X有固有认知，封面给出一个完全不同的Y框架，触发「原来还能这样」的顿悟感。情绪驱动力是惊喜与好奇，而非竞争与恐惧。<br><br>⚠️ 与其他公式的关键区别：内容本身建议提供一个新框架/新视角，而不只是功能介绍。如果视频只是展示功能，用这个公式会让封面和内容脱节。</div>
+        <div class="formula-desc">直接放一个观点或结论，不解释，不推销。读起来像在分享一个你不知道的洞见，而不是卖东西。与其他公式风格差异最大，适合深度内容。</div>
         <div class="formula-template">
           <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[用户对X的固有认知] + 原来可以[完全不同的Y]」</div>
+          <div class="formula-template-text">「[结论句/观点句]」——论断式，不加问号</div>
         </div>
-        <div class="formula-label">例子</div>
+        <div class="formula-label">高赞样本（参考答案阅览室）</div>
         <div class="formula-examples">
-          <div class="formula-eg">学日语，原来是场RPG</div>
-          <div class="formula-eg">背单词，原来可以这么玩</div>
-          <div class="formula-eg">练口语，原来不需要真人</div>
+          <div class="formula-eg">当一个普通人开始大量阅读</div>
+          <div class="formula-eg">提前布局2026：重建你的阅读体系</div>
+        </div>
+        <div class="formula-label">MOJi参考方向</div>
+        <div class="formula-examples">
+          <div class="formula-eg">学日语的人，都在查什么词</div>
+          <div class="formula-eg">真正的日语阅读，从读不懂开始</div>
         </div>
         <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          视频提供了一个全新学习框架时（如RPG比喻、游戏化思路）；产品矩阵介绍类视频；想触达对日语学习有畏惧感但尚未入坑的潜在用户
-        </div>
-
-      </div>
-    </div>
-
-    <div class="formula-card" onclick="toggleFormula(this)">
-      <div class="formula-header">
-        <div class="formula-num">10</div>
-        <div class="formula-name">干货问句型</div>
-        <div class="formula-arrow">▼</div>
-      </div>
-      <div class="formula-body">
-        <div class="formula-desc">承诺有答案的问句。用户看到后不是「怎么可能」的疑惑，而是「我也想知道」的求知欲，点进去奔着解决方案来。<br><br>⚠️ 与「悬念质疑型」的关键区别：悬念质疑型答案出人意料，靠信息缺口驱动；干货问句型答案明确可预期，靠实用价值驱动。同样是问句，驱动机制不同，不可混用。</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「如何 + [用户有明确需求的问题]？」「为什么 + [用户有疑问的现象]？」</div>
-        </div>
-        <div class="formula-label">例子</div>
-        <div class="formula-examples">
-          <div class="formula-eg">如何可持续、低门槛地保持日语输入？</div>
-          <div class="formula-eg">为什么读了很多日语，说不清自己有没有进步？</div>
-          <div class="formula-eg">如何用碎片时间系统练日语阅读？</div>
-        </div>
-        <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          视频内容有明确方法论输出时（阅读计划、背词方法、语法学习路径）；内容定位偏「知识分享」而非「功能介绍」时，参考账号：参考答案阅览室
-        </div>
-      </div>
-    </div>
-
-    <div class="formula-card" onclick="toggleFormula(this)">
-      <div class="formula-header">
-        <div class="formula-num">11</div>
-        <div class="formula-name">时间锚定型</div>
-        <div class="formula-arrow">▼</div>
-      </div>
-      <div class="formula-body">
-        <div class="formula-desc">绑定具体时间节点（月份/季节/考试前后），制造「现在开始刚好」的紧迫感和代入感，让用户觉得这条内容就是为此刻量身定做的。</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「假如你从[时间节点]开始……」「这个[时间段/季节]+ [行动]」「[剩余时间] + [目标]」</div>
-        </div>
-        <div class="formula-label">例子</div>
-        <div class="formula-examples">
-          <div class="formula-eg">假如你从今天开始系统读日语</div>
-          <div class="formula-eg">JLPT考前30天，这样练阅读</div>
-          <div class="formula-eg">新的一年，把日语阅读练起来</div>
-          <div class="formula-eg">这个备考季，先搞定阅读</div>
-        </div>
-        <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          JLPT报名/考试节点；年初年末；特定备考周期内容；节点性打卡/计划类内容
-        </div>
-      </div>
-    </div>
-
-    <div class="formula-card" onclick="toggleFormula(this)">
-      <div class="formula-header">
-        <div class="formula-num">12</div>
-        <div class="formula-name">热点借势型</div>
-        <div class="formula-arrow">▼</div>
-      </div>
-      <div class="formula-body">
-        <div class="formula-desc">借当下热点话题/流行词/社会事件切入，用熟悉的语境降低用户陌生感，蹭流量池扩大曝光。热点是入场券，产品或内容才是主体。<br><br>⚠️ 使用前提：热点与内容有真实关联，不要强行捆绑。热点时效性强，需快速响应，不适合排期内容。</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[热点词/事件] + [与产品/学习的关联]」</div>
-        </div>
-        <div class="formula-label">例子</div>
-        <div class="formula-examples">
-          <div class="formula-eg">用DeepSeek练日语，结果它教了我这个</div>
-          <div class="formula-eg">日剧刷完了，顺便把日语练了</div>
-          <div class="formula-eg">Chill Guy学日语的样子（占位举例）</div>
-        </div>
-        <div class="moji-scene">
-          <div class="moji-scene-label">MOJi适用场景</div>
-          社会热点与日语学习可建立关联时；日本文化/影视/音乐热点节点；需要快速产出蹭流量内容时。参考账号：无痛单词
+          <div class="moji-scene-label">适用场景</div>
+          内容有明确方法论/观点输出时；偏「知识分享」而非「功能介绍」的视频
         </div>
       </div>
     </div>
 
   </div>
-</div>
 
-<!-- 封面设计规范 -->
+  <!-- 可探索公式 -->
+  <div style="margin-top:24px;margin-bottom:10px">
+    <div style="font-size:11px;font-weight:700;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">可探索（暂无MOJi高赞样本，可作实验方向）</div>
+    <div style="background:var(--bg);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--gray);line-height:2">
+      结果冲击型 · FOMO信息差型 · 群体对比型 · 痛点+回报型 · 时间锚定型 · 热点借势型 · 认知重构型<br>
+      <span style="font-size:11px;color:#aaa">以上公式在逻辑上成立，但目前没有对标账号高赞封面作为参考，建议积累样本后再主推。</span>
+    </div>
+  </div>
+
+</div><!-- 封面设计规范 -->
 <div id="tab-design" class="section">
   <div class="section-title">封面设计规范</div>
   <div class="section-sub">仅供参考</div>
@@ -503,14 +356,14 @@
     </div>
 
     <div class="spec-card">
-      <div class="spec-title"><span class="spec-icon">📱</span>样机规范</div>
-      <div class="spec-item">正面直立：A型大字压手机</div>
-      <div class="spec-item">3D透视倾斜15-20度：B型临场感</div>
-      <div class="spec-item">双手机并排：C型功能对比</div>
-      <div class="spec-item">纯大字无样机：D型，文案本身已成立时用</div>
-      <div class="spec-item">手机局部特写+标注框：E型</div>
-      <div class="spec-item">建议让手机底部超出画面裁切</div>
-      <div class="spec-item red">手机完整居中悬浮 → 像产品广告图</div>
+      <div class="spec-title"><span class="spec-icon">📱</span>视觉类型（从高赞样本归纳）</div>
+      <div class="spec-item">① 单手机正面 — 浅底，上文下图分区（无痛单词主流）</div>
+      <div class="spec-item">② 双手机3D透视 — 深色底，视觉冲击最强（cover-5/8）</div>
+      <div class="spec-item">③ 手机+标注框特写 — 局部放大+标注，功能说明类</div>
+      <div class="spec-item">④ 纯大字无样机 — 文案本身已成立时用（参考答案阅览室）</div>
+      <div class="spec-item">⑤ 实拍真机/实际界面截图 — 真实设备或Web端截图叠大字</div>
+      <div class="spec-item red">标题10字以内 — 高赞封面无例外</div>
+      <div class="spec-item red">文字区和图区要分区清晰 — 上文下图是主流排版</div>
     </div>
 
         <div class="spec-card" style="grid-column: 1/-1">
@@ -778,18 +631,19 @@
       <div style="font-size:11px;color:var(--gray);margin-bottom:6px">不确定就让AI判断，想指定就下拉选。完整说明见Tab1方法论</div>
       <select id="gen-formula" style="width:100%;font-size:13px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-family:inherit">
         <option value="">— AI根据选题自行判断 —</option>
-        <option value="悬念质疑型">悬念质疑型</option>
+        <option value="行为否定型">行为否定型</option>
+        <option value="类比降门槛型">类比降门槛型</option>
+        <option value="数字冲击型">数字冲击型</option>
+        <option value="身份锚定型">身份锚定型</option>
+        <option value="洞见结论型">洞见结论型</option>
+        <optgroup label="── 可探索 ──">
         <option value="结果冲击型">结果冲击型</option>
-        <option value="数字锚定型">数字锚定型</option>
-        <option value="身份代入型">身份代入型</option>
-        <option value="行为质疑型">行为质疑型</option>
-        <option value="痛点+回报型">痛点+回报型</option>
         <option value="FOMO信息差型">FOMO信息差型</option>
         <option value="群体对比型">群体对比型</option>
         <option value="认知重构型">认知重构型</option>
-        <option value="干货问句型">干货问句型</option>
         <option value="时间锚定型">时间锚定型</option>
         <option value="热点借势型">热点借势型</option>
+        </optgroup>
       </select>
     </div>
 
