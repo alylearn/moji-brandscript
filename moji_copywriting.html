@@ -735,6 +735,16 @@ function copyPromptBody() {
 
 buildPromptTitle();
 buildPromptBody();
+
+// ── localStorage 自动填入选题 ──
+window.addEventListener('DOMContentLoaded', function() {
+  const saved = localStorage.getItem('moji_confirmed_topic');
+  if (!saved) return;
+  const t1 = document.getElementById('t1-topic');
+  const t2 = document.getElementById('t2-topic');
+  if (t1 && !t1.value) { t1.value = saved; buildPromptTitle(); }
+  if (t2 && !t2.value) { t2.value = saved; buildPromptBody(); }
+});
 </script>
 </body>
 </html>
