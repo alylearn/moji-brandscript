@@ -816,6 +816,15 @@ input[type="text"] { background-image: none; }
       🔄 <strong style="color:var(--black)">不满意？</strong>用这个句式迭代：「[哪个部分] + [什么问题] + [改成什么]」<br>
       例：「开头太长了，压缩到一句话3秒内」「第二段语气太书面，改成口语短句」「功能名不要单独念出来，嵌到句子里」
     </div>
+
+    <div style="margin-top:20px;padding:16px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;">
+      <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:4px;">脚本确认后 → 下一步</div>
+      <div style="font-size:11px;color:var(--gray);margin-bottom:12px;">点击跳转，选题自动带入，不用重新填写</div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="goToNext('moji_cover.html')" style="flex:1;padding:10px 0;background:var(--red);color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">🎨 去做封面</button>
+        <button onclick="goToNext('moji_copywriting.html')" style="flex:1;padding:10px 0;background:var(--black);color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">✍️ 去做文案</button>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -1114,6 +1123,13 @@ function copyPrompt2() {
   if (!topic) { showToast('请先填入已确认选题'); return; }
   const text = document.getElementById('prompt2-text').innerText;
   navigator.clipboard.writeText(text).then(() => showToast('指令已复制 ✓'));
+}
+
+function goToNext(page) {
+  const topic = document.getElementById('confirmed-topic').value.trim();
+  if (!topic) { showToast('请先填入已确认选题'); return; }
+  localStorage.setItem('moji_confirmed_topic', topic);
+  window.location.href = page;
 }
 
 function escapeHtml(str) {
