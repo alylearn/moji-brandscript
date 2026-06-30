@@ -198,7 +198,7 @@ input[type="text"] { }
         </ul>
         <br>
         <strong>正确示例：</strong><br>
-        封面：「别用眼睛背日语单词」（行为质疑型）<br>
+        封面：「背单词千万别过脑子」（行为否定型）<br>
         标题：听说用耳朵背单词，我试了30天<br>
         正文第一句：30天前我还在死磕单词表，背完就忘，直到换了这个方法……
       </div>
@@ -254,67 +254,33 @@ input[type="text"] { }
             <thead><tr><th>封面公式</th><th>标题逻辑</th><th>标题例子</th></tr></thead>
             <tbody>
               <tr>
-                <td>悬念质疑型</td>
-                <td>接问题，给一个「答案在里面」的暗示</td>
-                <td>只听声音能选对吗？我测了100个词</td>
+                <td>行为否定型</td>
+                <td>给出「正确做法」的暗示，引发好奇</td>
+                <td>换了这个方式，背单词快了一倍</td>
               </tr>
               <tr>
-                <td>结果冲击型</td>
-                <td>补充结果的背景，让人想知道怎么做到的</td>
-                <td>3个月没忘过一个词，我用了这个</td>
+                <td>类比降门槛型</td>
+                <td>延续类比的轻松感，落到具体效果</td>
+                <td>真的像刷视频一样，3天没断过</td>
               </tr>
               <tr>
-                <td>数字锚定型</td>
+                <td>数字冲击型</td>
                 <td>延续数字，或给数字一个「为什么」</td>
-                <td>听觉记忆留存率×3，原来差距在这里</td>
+                <td>10分钟300词，我是怎么做到的</td>
               </tr>
               <tr>
-                <td>身份代入型</td>
+                <td>身份锚定型</td>
                 <td>继续锁定这个人群，给他们专属感</td>
                 <td>N3备考中的人，这条建议先收藏</td>
               </tr>
               <tr>
-                <td>行为质疑型</td>
-                <td>给出「正确行为」的暗示，引发好奇</td>
-                <td>换了这个方式，背单词快了一倍</td>
-              </tr>
-              <tr>
-                <td>痛点+回报型</td>
-                <td>给痛点一个具体出口</td>
-                <td>背了就忘？试试这个方法坚持了30天</td>
-              </tr>
-              <tr>
-                <td>FOMO信息差型</td>
-                <td>强调「少数人知道」的稀缺感</td>
-                <td>学霸都在偷用的MOJi隐藏设置</td>
-              </tr>
-              <tr>
-                <td>群体对比型</td>
-                <td>给出「他们为什么能做到」的答案入口</td>
-                <td>凭什么他们备考N2只用了半年</td>
-              </tr>
-              <tr>
-                <td>认知重构型</td>
-                <td>接「原来还能这样」的顿悟感，给出新框架的入口</td>
-                <td>学日语，原来是场RPG</td>
-              </tr>
-              <tr>
-                <td>干货问句型</td>
-                <td>靠实用价值驱动，含问句和陈述洞见两种句式；读起来像自己得出的结论（参考：参考答案阅览室）</td>
-                <td>日语阅读怎么练，才不是在瞎读／读了很多日语，说不清自己有没有进步</td>
-              </tr>
-              <tr>
-                <td>时间锚定型</td>
-                <td>接「现在开始刚好」的时机感，顺势给出行动方向</td>
-                <td>假如你从今天开始系统读日语</td>
-              </tr>
-              <tr>
-                <td>热点借势型</td>
-                <td>用热点做入场券，内容接产品/学习的真实价值</td>
-                <td>用DeepSeek练日语，结果它教了我这个</td>
+                <td>洞见结论型</td>
+                <td>延续观点，给一个支撑这个观点的真实经历</td>
+                <td>读了三个月日语原著，我悟了一件事</td>
               </tr>
             </tbody>
           </table>
+          <div style="font-size:11px;color:#aaa;margin-top:8px;line-height:1.6">封面用了未验证公式（结果冲击型/FOMO信息差型等）时，标题逻辑按「延续封面情绪，往前推进一步」的原则自行判断，暂无固定对照写法。</div>
         </div>
       </div>
 
@@ -364,18 +330,19 @@ input[type="text"] { }
         <label class="form-label">封面公式类型 <span style="font-weight:400;color:var(--gray);text-transform:none;letter-spacing:0;font-size:11px">（可选 · 不确定就让AI判断）</span></label>
         <select id="t1-formula" onchange="buildPromptTitle()">
           <option value="">— AI根据选题自行判断 —</option>
-          <option value="悬念质疑型">悬念质疑型</option>
+          <option value="行为否定型">行为否定型</option>
+          <option value="类比降门槛型">类比降门槛型</option>
+          <option value="数字冲击型">数字冲击型</option>
+          <option value="身份锚定型">身份锚定型</option>
+          <option value="洞见结论型">洞见结论型</option>
+          <optgroup label="── 可探索 ──">
           <option value="结果冲击型">结果冲击型</option>
-          <option value="数字锚定型">数字锚定型</option>
-          <option value="身份代入型">身份代入型</option>
-          <option value="行为质疑型">行为质疑型</option>
-          <option value="痛点+回报型">痛点+回报型</option>
           <option value="FOMO信息差型">FOMO信息差型</option>
           <option value="群体对比型">群体对比型</option>
           <option value="认知重构型">认知重构型</option>
-          <option value="干货问句型">干货问句型</option>
           <option value="时间锚定型">时间锚定型</option>
           <option value="热点借势型">热点借势型</option>
+          </optgroup>
         </select>
       </div>
       <div class="form-group">

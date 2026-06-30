@@ -37,6 +37,11 @@
 .formula-template-text { font-size: 13px; color: var(--black); font-weight: 500; }
 .formula-examples { display: flex; flex-direction: column; gap: 6px; }
 .formula-eg { font-size: 12px; color: var(--gray); padding: 6px 12px; background: var(--bg); border-radius: 6px; border-left: 3px solid var(--red); }
+.formula-fill { background: var(--bg); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px; }
+.formula-fill-row { font-size: 13px; color: var(--black); line-height: 1.6; }
+.formula-fill-tag { display: inline-block; font-size: 10px; font-weight: 700; color: white; background: var(--gray); border-radius: 4px; padding: 2px 7px; margin-right: 8px; vertical-align: middle; }
+.formula-fill-tag.tag-case { background: #999; }
+.formula-fill-tag.tag-fill { background: var(--red); }
 .moji-scene { margin-top: 12px; padding: 10px 14px; background: var(--light-red); border-radius: 8px; font-size: 12px; color: var(--dark-red); line-height: 1.6; }
 .moji-scene-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; color: var(--red); }
 
@@ -49,6 +54,8 @@
 .spec-item::before { content: "—"; position: absolute; left: 0; color: #ccc; }
 .spec-item.red { color: var(--dark-red); }
 .spec-item.red::before { content: "✕"; color: var(--red); }
+.spec-item.note { color: #888; }
+.spec-item.note::before { content: "△"; color: #bbb; font-size: 10px; }
 .prod-color-btn { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--white); color: #555; cursor: pointer; font-family: inherit; transition: all 0.15s; }
 .prod-color-btn:hover { border-color: #bbb; color: var(--black); }
 .prod-color-btn.active { border-color: var(--red); color: var(--red); background: #FFF0EF; }
@@ -120,17 +127,17 @@
 </div>
 
 <div class="nav">
-  <div class="nav-tab active" onclick="switchTab('formula', this)"><span class="step-badge">1</span>封面标题-方法论</div>
+  <div class="nav-tab active" onclick="switchTab('formula', this)"><span class="step-badge">1</span>标题公式</div>
   <div class="nav-tab" onclick="switchTab('design', this)"><span class="step-badge">2</span>设计规范</div>
-  <div class="nav-tab" onclick="switchTab('flow', this)"><span class="step-badge">3</span>封面叙事参考</div>
-  <div class="nav-tab" onclick="switchTab('ai', this)"><span class="step-badge">4</span>封面生成</div>
+  <div class="nav-tab" onclick="switchTab('flow', this)"><span class="step-badge">3</span>排版结构</div>
+  <div class="nav-tab" onclick="switchTab('ai', this)"><span class="step-badge">4</span>生成AI提示词</div>
 </div>
 
 <div class="main">
 
 <!-- 文案公式 -->
 <div id="tab-formula" class="section active">
-  <div class="section-title">封面标题-方法论</div>
+  <div class="section-title">标题公式</div>
   <div class="section-sub">基于高赞封面样本归纳（无痛单词×9、哈尔的数码屋×1、MOJi辞書×3、参考答案阅览室）。每期选1个最匹配脚本核心卖点的公式使用。</div>
 
   <!-- 选题切角→封面公式映射 -->
@@ -156,19 +163,10 @@
       </div>
       <div class="formula-body">
         <div class="formula-desc">直接否定用户正在做的错误行为，制造「我一直做错了？」的认知冲突，驱动用户点进去求正确答案。情绪驱动力是焦虑+纠错欲。</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[千万别/不要] + [用户习以为常的行为]」</div>
-        </div>
-        <div class="formula-label">高赞样本（无痛单词）</div>
-        <div class="formula-examples">
-          <div class="formula-eg">背单词千万别过脑子</div>
-          <div class="formula-eg">不做选择题</div>
-        </div>
-        <div class="formula-label">MOJi参考方向</div>
-        <div class="formula-examples">
-          <div class="formula-eg">别靠汉字猜日语——你的词汇量可能是负数</div>
-          <div class="formula-eg">背了又忘？不是努力不够，是模式选错了</div>
+        <div class="formula-fill">
+          <div class="formula-fill-row"><span class="formula-fill-tag">模板</span>千万别 + [错误行为]</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-case">案例</span>背单词千万别过脑子（无痛单词）</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-fill">示范</span>千万别用眼睛硬背假名（MOJi Kana）</div>
         </div>
         <div class="moji-scene">
           <div class="moji-scene-label">适用场景</div>
@@ -185,18 +183,10 @@
       </div>
       <div class="formula-body">
         <div class="formula-desc">用用户熟悉的轻松事物来类比学习行为，把「难」变「容易」，降低心理门槛。情绪驱动力是轻松感+好奇心。</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「像[轻松熟悉的事] + 一样 + [学习行为]」</div>
-        </div>
-        <div class="formula-label">高赞样本（无痛单词）</div>
-        <div class="formula-examples">
-          <div class="formula-eg">像刷短视频一样背单词</div>
-        </div>
-        <div class="formula-label">MOJi参考方向</div>
-        <div class="formula-examples">
-          <div class="formula-eg">像查微信词典一样查日语</div>
-          <div class="formula-eg">像刷feed流一样刷日语词</div>
+        <div class="formula-fill">
+          <div class="formula-fill-row"><span class="formula-fill-tag">模板</span>像[轻松熟悉的事]一样 + [学习行为]</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-case">案例</span>像刷短视频一样背单词（无痛单词）</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-fill">示范</span>像查微信一样查日语词（MOJi辞書）</div>
         </div>
         <div class="moji-scene">
           <div class="moji-scene-label">适用场景</div>
@@ -213,19 +203,10 @@
       </div>
       <div class="formula-body">
         <div class="formula-desc">用具体数字锚定结果或规模，数字越具体冲击力越强。用户看到数字会本能停下来验证真假，信息密度高、可信度强。</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[具体数字] + [时间/数量] + [动作/结果]」</div>
-        </div>
-        <div class="formula-label">高赞样本</div>
-        <div class="formula-examples">
-          <div class="formula-eg">10分钟怒刷300词（无痛单词）</div>
-          <div class="formula-eg">MacBook · 8个新手必会隐藏技巧 · 2分钟速通（哈尔的数码屋）</div>
-        </div>
-        <div class="formula-label">MOJi参考方向</div>
-        <div class="formula-examples">
-          <div class="formula-eg">3个模式，背词效率翻倍</div>
-          <div class="formula-eg">每天10分钟，日语阅读量超过90%的人</div>
+        <div class="formula-fill">
+          <div class="formula-fill-row"><span class="formula-fill-tag">模板</span>[具体数字]+[时间/数量] + [动作/结果]</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-case">案例</span>10分钟怒刷300词（无痛单词）</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-fill">示范</span>每天10分钟，日语阅读量超过90%的人（MOJi阅读）</div>
         </div>
         <div class="moji-scene">
           <div class="moji-scene-label">适用场景</div>
@@ -242,18 +223,10 @@
       </div>
       <div class="formula-body">
         <div class="formula-desc">用人群词精准筛选目标用户，目标用户看到自己的标签会本能点进去，非目标用户自然过滤。不需要解释内容是什么。</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[具体人群/阶段词] + 之 + [行为]」或「[人群词] + [他们的处境]」</div>
-        </div>
-        <div class="formula-label">高赞样本（无痛单词）</div>
-        <div class="formula-examples">
-          <div class="formula-eg">四级备考之无痛背单词</div>
-        </div>
-        <div class="formula-label">MOJi参考方向</div>
-        <div class="formula-examples">
-          <div class="formula-eg">N3备考之词汇量自测</div>
-          <div class="formula-eg">零基础学日语，先搞定这件事</div>
+        <div class="formula-fill">
+          <div class="formula-fill-row"><span class="formula-fill-tag">模板</span>[人群/阶段词] + 之 + [行为]</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-case">案例</span>四级备考之无痛背单词（无痛单词）</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-fill">示范</span>N3备考之词汇量自测（MOJiTest）</div>
         </div>
         <div class="moji-scene">
           <div class="moji-scene-label">适用场景</div>
@@ -265,24 +238,15 @@
     <div class="formula-card" onclick="toggleFormula(this)">
       <div class="formula-header">
         <div class="formula-num">5</div>
-        <div class="formula-name">洞见/结论型</div>
+        <div class="formula-name">洞见结论型</div>
         <div class="formula-arrow">▼</div>
       </div>
       <div class="formula-body">
         <div class="formula-desc">直接放一个观点或结论，不解释，不推销。读起来像在分享一个你不知道的洞见，而不是卖东西。与其他公式风格差异最大，适合深度内容。</div>
-        <div class="formula-template">
-          <div class="formula-label">模板</div>
-          <div class="formula-template-text">「[结论句/观点句]」——论断式，不加问号</div>
-        </div>
-        <div class="formula-label">高赞样本（参考答案阅览室）</div>
-        <div class="formula-examples">
-          <div class="formula-eg">当一个普通人开始大量阅读</div>
-          <div class="formula-eg">提前布局2026：重建你的阅读体系</div>
-        </div>
-        <div class="formula-label">MOJi参考方向</div>
-        <div class="formula-examples">
-          <div class="formula-eg">学日语的人，都在查什么词</div>
-          <div class="formula-eg">真正的日语阅读，从读不懂开始</div>
+        <div class="formula-fill">
+          <div class="formula-fill-row"><span class="formula-fill-tag">模板</span>[结论句/观点句]（论断式，不加问号）</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-case">案例</span>当一个普通人开始大量阅读（参考答案阅览室）</div>
+          <div class="formula-fill-row"><span class="formula-fill-tag tag-fill">示范</span>学日语的人，都在查什么词（MOJi辞書）</div>
         </div>
         <div class="moji-scene">
           <div class="moji-scene-label">适用场景</div>
@@ -293,18 +257,21 @@
 
   </div>
 
-  <!-- 可探索公式 -->
-  <div style="margin-top:24px;margin-bottom:10px">
-    <div style="font-size:11px;font-weight:700;color:var(--gray);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">可探索（暂无MOJi高赞样本，可作实验方向）</div>
-    <div style="background:var(--bg);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--gray);line-height:2">
+  <!-- 未验证公式（折叠） -->
+  <div style="margin-top:24px">
+    <div onclick="var b=this.nextElementSibling; var open=b.style.display==='block'; b.style.display=open?'none':'block'; this.querySelector('.uv-arrow').style.transform=open?'rotate(0deg)':'rotate(180deg)';" style="display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-radius:10px;padding:12px 16px;cursor:pointer">
+      <div style="font-size:12px;font-weight:700;color:var(--gray)">未验证公式（暂无MOJi高赞样本，谨慎参考）</div>
+      <div class="uv-arrow" style="font-size:11px;color:var(--gray);transition:transform .15s">▼</div>
+    </div>
+    <div style="display:none;background:var(--bg);border-radius:0 0 10px 10px;padding:0 16px 14px;font-size:12px;color:var(--gray);line-height:2">
       结果冲击型 · FOMO信息差型 · 群体对比型 · 痛点+回报型 · 时间锚定型 · 热点借势型 · 认知重构型<br>
-      <span style="font-size:11px;color:#aaa">以上公式在逻辑上成立，但目前没有对标账号高赞封面作为参考，建议积累样本后再主推。</span>
+      <span style="font-size:11px;color:#aaa">以上公式逻辑上可能成立，但没有对标账号高赞封面验证过效果。可以试，但不建议作为首选，不进入Tab4生成提示词的下拉选项。</span>
     </div>
   </div>
 
 </div><!-- 封面设计规范 -->
 <div id="tab-design" class="section">
-  <div class="section-title">封面设计规范</div>
+  <div class="section-title">设计规范</div>
   <div class="section-sub">仅供参考</div>
   <div class="spec-grid">
 
@@ -314,8 +281,8 @@
       <div class="spec-item">副标题：× 0.5</div>
       <div class="spec-item">Logo + 说明文字：× 0.3</div>
       <div class="spec-item">主字尽量短，一眼扫完</div>
-      <div class="spec-item red">两行主标题字号不统一 → 视觉失衡</div>
-      <div class="spec-item red">副标题字号超过主标题0.5 → 喧宾夺主</div>
+      <div class="spec-item note">两行主标题字号不统一，视觉会偏失衡，可对比统一字号的效果</div>
+      <div class="spec-item note">副标题字号接近或超过主标题，容易喧宾夺主，建议控制在0.5以内</div>
     </div>
 
     <div class="spec-card">
@@ -341,8 +308,8 @@
       </div>
 
       <div style="height:8px"></div>
-      <div class="spec-item red">强调色超过3处 → 没有重点</div>
-      <div class="spec-item red">渐变背景 → 偏广告感</div>
+      <div class="spec-item note">强调色用得越多，重点越分散，建议控制在3处以内</div>
+      <div class="spec-item note">渐变背景视觉上更偏广告感，高赞封面以纯色为主</div>
       <div class="spec-item" style="color:#555">✓ 纯色深底允许（标题改白字，强调色改黄色/白色）</div>
     </div>
 
@@ -351,8 +318,8 @@
       <div class="spec-item">主推：阿里巴巴普惠体</div>
       <div class="spec-item">主推：江城圆体</div>
       <div class="spec-item">字重选最粗档位</div>
-      <div class="spec-item red">❌ 系统默认字体 → 无设计感</div>
-      <div class="spec-item red">❌ 宋体用于副标题 → 可酌情使用增加日系感</div>
+      <div class="spec-item note">系统默认字体设计感较弱，建议优先用主推字体</div>
+      <div class="spec-item note">宋体用于副标题可增加日系感，视内容调性酌情使用</div>
     </div>
 
     <div class="spec-card">
@@ -362,25 +329,25 @@
       <div class="spec-item">③ 手机+标注框特写 — 局部放大+标注，功能说明类</div>
       <div class="spec-item">④ 纯大字无样机 — 文案本身已成立时用（参考答案阅览室）</div>
       <div class="spec-item">⑤ 实拍真机/实际界面截图 — 真实设备或Web端截图叠大字</div>
-      <div class="spec-item red">标题10字以内 — 高赞封面无例外</div>
-      <div class="spec-item red">文字区和图区要分区清晰 — 上文下图是主流排版</div>
+      <div class="spec-item">标题10字以内 — 12张高赞封面样本无例外</div>
+      <div class="spec-item">文字区和图区分区清晰 — 上文下图是高赞封面主流排版</div>
     </div>
 
         <div class="spec-card" style="grid-column: 1/-1">
       <div class="spec-title"><span class="spec-icon">🖼️</span>主视觉来源决策</div>
-      <div style="font-size:12px;color:var(--gray);line-height:1.7;margin-bottom:12px">三种主视觉来源，按高数据复盘排序。示例图见叙事动线「2. 配图」段对应类型。</div>
+      <div style="font-size:12px;color:var(--gray);line-height:1.7;margin-bottom:12px">三种主视觉来源，按高赞样本数据排序。这里的A/B/C和Tab3「排版结构」里的视觉类型①-⑤是不同维度——这里讲素材怎么来，①-⑤讲画面怎么排。</div>
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="background:#FFF5F5;border-left:3px solid var(--red);padding:10px 14px;border-radius:0 8px 8px 0">
-          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px">① 实拍真机环境 <span style="font-size:10px;background:var(--red);color:white;padding:2px 7px;border-radius:10px;margin-left:6px">推荐</span></div>
-          <div style="font-size:12px;color:var(--gray);line-height:1.6">拍真实设备（笔电/手机/手表）在真桌面/环境里，屏幕显示功能界面，顶部叠大字标题。适合视频本身用实拍真机时（封面/视频画风一致）、想要「自来水/真实使用」感时、多端展示时。对应 F 型。</div>
+          <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px">A. 实拍真机/实际界面截图 <span style="font-size:10px;background:var(--red);color:white;padding:2px 7px;border-radius:10px;margin-left:6px">推荐</span></div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.6">拍真实设备或Web端界面截图，叠大字标题。适合视频本身用实拍画风时（封面/视频一致）、想要真实感时、多端展示时。对应视觉类型⑤，样本：cover-1哈尔的数码屋、cover-2 MOJi背词列表。</div>
         </div>
         <div style="background:#F7F5F0;padding:10px 14px;border-radius:8px">
-          <div style="font-size:13px;font-weight:700;color:var(--black);margin-bottom:4px">② 真实 App 截图套样机</div>
-          <div style="font-size:12px;color:var(--gray);line-height:1.6">截屏 App 界面，放进设备样机框。适合界面好看（颜色丰富、元素少而精）、需要看清功能界面时。对应 A / B / C / E 型。</div>
+          <div style="font-size:13px;font-weight:700;color:var(--black);margin-bottom:4px">B. 真实App截图套样机</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.6">截屏App界面，放进设备样机框。适合界面好看、需要看清功能时。对应视觉类型①②③，样本：无痛单词全系列。</div>
         </div>
         <div style="background:#F7F5F0;padding:10px 14px;border-radius:8px">
-          <div style="font-size:13px;font-weight:700;color:var(--black);margin-bottom:4px">③ GPT 插画化元素</div>
-          <div style="font-size:12px;color:var(--gray);line-height:1.6">用插画/动效/符号代替真实界面。适合界面实在没法看，或内容抽象、无界面可拍时。对应 D 型。</div>
+          <div style="font-size:13px;font-weight:700;color:var(--black);margin-bottom:4px">C. 纯大字/插画元素</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.6">不放界面截图，用大字或插画代替。适合文案本身已成立、内容偏知识分享时。对应视觉类型④，样本：参考答案阅览室、MOJi词汇量测试2.0。</div>
         </div>
       </div>
     </div>
@@ -394,9 +361,9 @@
           <div class="spec-item">手机底部超出画面裁切，制造临场感</div>
         </div>
         <div>
-          <div class="spec-item red">所有元素平铺在同一层 → 无纵深感</div>
-          <div class="spec-item red">Icon卡片独立放置 → 与手机分离</div>
-          <div class="spec-item red">手机完整显示 → 像产品说明图</div>
+          <div class="spec-item note">所有元素平铺在同一层，纵深感会弱一些，可对比3D透视的效果</div>
+          <div class="spec-item note">Icon卡片独立摆放，会显得和手机分离，悬浮叠加更有整体感</div>
+          <div class="spec-item note">手机完整显示在画面中央，观感更接近产品说明图而非内容封面</div>
         </div>
       </div>
     </div>
@@ -406,7 +373,7 @@
 
 <!-- 叙事动线 -->
 <div id="tab-flow" class="section">
-  <div class="section-title">封面叙事参考</div>
+  <div class="section-title">排版结构</div>
   <div class="section-sub">先定标题，再定配图。封面不是把字和图拼在一起，而是让用户先被文案拦住，再被结果或反差勾住，最后被画面证明这件事值得点进去。</div>
   <div style="font-size:11px;color:var(--gray);background:var(--light-gray);border-radius:8px;padding:8px 12px;margin-bottom:14px;line-height:1.6">
     💡 这里的"叙事"指封面画面的视觉层次（钩子→冲突→证据），和脚本工作台里的"叙事类型"（痛点直给/问题驱动等）是不同维度。
@@ -485,80 +452,73 @@
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
         <div class="formula-num">2</div>
         <div style="font-size:15px;font-weight:700;color:var(--black)">配图</div>
-        <div style="font-size:12px;color:var(--gray);font-weight:400">再决定画面怎么证明标题</div>
+        <div style="font-size:12px;color:var(--gray);font-weight:400">5种视觉类型，对照样本图选一种</div>
       </div>
   <div style="display:flex;flex-direction:column;gap:10px">
 
     <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px;border-left:3px solid var(--red)">
-      <div style="background:var(--red);color:white;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">F型</div>
+      <div style="background:var(--red);color:white;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型⑤</div>
       <div style="flex:1">
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">实拍真机环境 · 推荐 <span style="font-size:10px;color:var(--red);font-weight:500;margin-left:6px">高数据复盘首选</span></div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">真实桌面/环境 + 设备 + 屏幕显示功能界面 + 顶部叠大字。视频和封面画风一致，「自来水」感强。多端展示也用这个版面。</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:4px">实拍真机/实际界面截图 <span style="font-size:10px;color:var(--red);font-weight:500;margin-left:6px">推荐</span></div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.7">真实设备或Web端界面截图，叠大字标题。视频和封面画风一致，真实感强，多端展示也适用这版面。</div>
         <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
           <figure style="margin:0;width:120px">
             <img src="images/cover-1.jpg" style="width:100%;border-radius:6px;display:block;border:1px solid #EEE;cursor:pointer" onclick="openLightbox(this.src)">
-            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">哈尔的数码屋</figcaption>
+            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">哈尔的数码屋（实拍）</figcaption>
           </figure>
           <figure style="margin:0;width:120px">
             <img src="images/cover-2.jpg" style="width:100%;border-radius:6px;display:block;border:1px solid #EEE;cursor:pointer" onclick="openLightbox(this.src)">
-            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">自创背词列表（102赞）</figcaption>
+            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">MOJi背词列表（Web截图）</figcaption>
           </figure>
         </div>
       </div>
     </div>
 
     <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="background:var(--light-red);color:var(--red);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">A型</div>
+      <div style="background:var(--light-red);color:var(--red);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型①</div>
       <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">大字压手机型 · 完整三层</div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">钩子→收益/反差→证据，三层都有。文案先拦住用户，再抛出结果或反差，最后让 App 截图把这件事证明完整。是最完整的叙事闭环。</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:4px">单手机正面</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.7">浅底，上文下图分区清晰。无痛单词系列主流排版，标题区和样机区不叠压。</div>
       </div>
         <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto"><img src="images/cover-3.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-4.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"></div>
     </div>
 
     <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="background:#E6F1FB;color:#185FA5;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">B型</div>
+      <div style="background:#E6F1FB;color:#185FA5;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型②</div>
       <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">3D透视手机型 · 两层</div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">钩子→证据。适合强调一个核心场景，画面更有动势，但信息仍然集中。手机截图直接作为证据，中间不一定需要额外解释层。</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:4px">双手机3D透视</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.7">深色底，视觉冲击最强，数据复盘里表现最好。适合强调一个核心场景或功能对比。</div>
       </div>
-        <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto"><img src="images/cover-5.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"></div>
+        <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto"><img src="images/cover-5.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-6.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-7.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-8.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"></div>
         <div style="font-size:10px;color:#aaa;margin-top:4px">↑ 无痛单词参考示例</div>
     </div>
 
     <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="background:#EAF3DE;color:#3B6D11;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">C型</div>
+      <div style="background:#F1EFE8;color:#5F5E5A;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型③</div>
       <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">双手机对比型 · 两层</div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">钩子→对比证据。适合讲前后差异、功能对照、学习路径变化，双手机并排能直接把「反差」变成画面证据。</div>
-      </div>
-        <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto"><img src="images/cover-6.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-7.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-8.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"></div>
-        <div style="font-size:10px;color:#aaa;margin-top:4px">↑ 无痛单词参考示例</div>
-    </div>
-
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="background:#FAEEDA;color:#854F0B;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">D型</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">纯大字型 · 一层</div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">只有钩子。只有在文案本身已经足够成立，不需要截图来证明时再用。如果标题需要产品功能来支撑，就不要优先选 D 型。</div>
-        <div style="display:flex;gap:10px;margin-top:10px">
-          <figure style="margin:0;width:120px">
-            <img src="images/cover-9.jpg" style="width:100%;border-radius:6px;display:block;border:1px solid #EEE;cursor:pointer" onclick="openLightbox(this.src)">
-            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">词汇量测试（53赞）</figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
-
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="background:#F1EFE8;color:#5F5E5A;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">E型</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">特写标注型 · 两层</div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">钩子→证据。适合把一个最关键的功能点放大，让用户快速看懂「你到底想证明什么」。局部特写和标注框本身就是证据。</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:4px">手机+标注框特写</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.7">局部放大+标注说明，适合把一个最关键的功能点放大讲清楚，让用户快速看懂。</div>
       </div>
         <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto"><img src="images/cover-10.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-11.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-12.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"></div>
     </div>
 
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
+      <div style="background:#FAEEDA;color:#854F0B;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型④</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:600;margin-bottom:4px">纯大字无样机</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.7">只有标题本身。只有在文案足够成立、不需要截图佐证时再用。需要功能支撑标题说服力时，不优先选这种。</div>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+          <figure style="margin:0;width:120px">
+            <img src="images/cover-9.jpg" style="width:100%;border-radius:6px;display:block;border:1px solid #EEE;cursor:pointer" onclick="openLightbox(this.src)">
+            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">词汇量测试（53赞）</figcaption>
+          </figure>
+          <figure style="margin:0;width:120px">
+            <img src="images/cover-13.jpg" style="width:100%;border-radius:6px;display:block;border:1px solid #EEE;cursor:pointer" onclick="openLightbox(this.src)">
+            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">词汇量测试2.0</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
 
   </div>
     </div>
@@ -567,7 +527,7 @@
 
 <!-- AI使用指令 -->
 <div id="tab-ai" class="section">
-  <div class="section-title">封面生成</div>
+  <div class="section-title">生成AI提示词</div>
   <div class="section-sub">选字段 → 生成指令 → 复制给AI出图</div>
 
   <!-- 封面标题生成区块 -->
@@ -769,74 +729,6 @@ function copyPrompt() {
   });
 }
 
-function onTypeSelect(label) {
-  const val = label.getAttribute('data-val') || '';
-  const isD = val.startsWith('D型');
-  document.getElementById('ig-appscreen-wrap').style.display = isD ? 'none' : 'block';
-}
-
-function buildImagePrompt() {
-  const subtitle = document.getElementById('ig-subtitle').value.trim();
-  const line1 = document.getElementById('ig-line1').value.trim();
-  const line2 = document.getElementById('ig-line2').value.trim();
-  const line3 = document.getElementById('ig-line3').value.trim();
-  const redword = document.getElementById('ig-redword').value.trim();
-  const typeEl = document.querySelector('input[name="ig-type"]:checked');
-  const appscreen = document.getElementById('ig-appscreen').value.trim();
-  const logoEl = document.querySelector('input[name="ig-logo"]:checked');
-
-  const typeVal = typeEl ? typeEl.value : '';
-  const isTypeD = typeVal.startsWith('D型');
-  const isTypeF = typeVal.startsWith('F型');
-
-  const missing = [];
-  if (!line1) missing.push('主标题第一行');
-  if (!typeEl) missing.push('封面类型');
-  if (!isTypeD && !appscreen) missing.push('App界面描述');
-  if (!logoEl) missing.push('产品Logo');
-  if (missing.length) { alert('请填写：' + missing.join('、')); return; }
-
-  const logoVal = logoEl.value;
-  const line2Desc = redword ? `「${line2}」其中「${redword}」为红色 #E8342A，其余黑色，字重900，字号与第一行一致` : `「${line2}」黑色 #1A1A1A，字重900，字号与第一行一致`;
-  const mainVisual = isTypeD
-    ? `主视觉（下方65%）：无手机样机，根据文案内容生成相关插画，扁平线条风格，底部超出画面裁切`
-    : isTypeF
-    ? `主视觉（下方65%）：实拍真机环境——真实设备（笔电/手机/平板/手表，按选题需要）放在真实桌面或自然手持等生活场景里，可见桌面物品、室内自然柔光、设备边缘和键盘细节，屏幕显示${appscreen}（按真实截图风格呈现，写实、像相机拍真机屏幕，不要美化成插画）。整体像生活场景照片，而不是产品广告 mockup——参考哈尔的数码屋风格：真实设备 + 真实桌面环境 + 顶部叠大字，文字与场景融合无分割感。`
-    : `主视觉（下方65%）：${typeVal}，底部超出画面裁切，屏幕内显示${appscreen}（按真实App截图风格呈现，写实、像手机实拍截图，不要美化成插画——真实界面比精致插画更能取信，界面朴素甚至带用户吐槽截图都没关系，只要能证明标题那句话）`;
-
-  const prompt = `生成一张竖屏3:4比例的小红书视频封面图，风格参考MOJi系列小红书账号封面——大字压在主视觉上方，文字与画面融为一体，无分割感。
-
-背景：米白色 #F7F5F0
-
-文字区（上方40%，左对齐）：
-· 副标题（可选）：若有，「${subtitle}」灰色 #888888，字号是主标题的50%；若文案无副标题则删除此行
-· 主标题第一行：「${line1}」黑色 #1A1A1A，字重900
-· 主标题第二行：${line2Desc}${line3 ? `\n· 主标题第三行：「${line3}」黑色 #1A1A1A，字重900，字号与前两行一致` : ''}
-
-${mainVisual}
-悬浮标注：根据产品功能自行判断是否需要；若需要，白色圆角矩形叠在手机边缘，轻微投影，关键词红色加粗，其余灰色
-Logo：右上角红色胶囊，白字显示产品名称：${logoVal}
-
-整体：扁平设计，无渐变，无投影背景，强调色只用红色 #E8342A，字体圆润粗体风格`;
-
-  document.getElementById('image-prompt-text').textContent = prompt;
-  const box = document.getElementById('image-prompt-box');
-  box.style.display = 'block';
-  setTimeout(() => box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
-}
-
-function copyImagePrompt() {
-  const text = document.getElementById('image-prompt-text').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('#image-prompt-box .copy-btn');
-    const orig = btn.textContent;
-    btn.textContent = '已复制 ✓';
-    btn.style.background = 'var(--red)';
-    btn.style.color = 'white';
-    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 1500);
-  });
-}
-
 // ── 封面生成 Tab4 ──
 let genHasTitle = true;
 
@@ -977,7 +869,7 @@ function buildCoverTitlePrompt() {
 方案二：……
 方案三：……
 
-要求：三组风格各异（如：数字锚定型 / 痛点反差型 / 认知重构型），让人一眼能区分。`;
+要求：三组风格各异（如：行为否定型 / 数字冲击型 / 洞见结论型），让人一眼能区分。`;
   textEl.textContent = prompt;
 }
 
