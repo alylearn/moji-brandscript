@@ -42,6 +42,28 @@
 .formula-fill-tag { display: inline-block; font-size: 10px; font-weight: 700; color: white; background: var(--gray); border-radius: 4px; padding: 2px 7px; margin-right: 8px; vertical-align: middle; }
 .formula-fill-tag.tag-case { background: #999; }
 .formula-fill-tag.tag-fill { background: var(--red); }
+
+/* 排版结构 Tab3 */
+.flow-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+.flow-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.flow-card-title { font-size: 15px; font-weight: 700; color: var(--black); }
+.flow-card-sub { font-size: 12px; color: var(--gray); font-weight: 400; }
+.flow-step { padding: 14px 0; border-bottom: 1px solid var(--bg); }
+.flow-step:first-of-type { padding-top: 0; }
+.flow-step-tag { font-size: 11px; font-weight: 700; color: var(--red); letter-spacing: .3px; margin-bottom: 5px; }
+.flow-step-title { font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 5px; }
+.flow-step-desc { font-size: 12px; color: var(--gray); line-height: 1.7; }
+.flow-step-eg { font-size: 12px; background: var(--bg); padding: 6px 12px; border-radius: 6px; color: var(--black); border-left: 3px solid var(--red); margin-top: 8px; }
+.flow-recommend-badge { display: inline-block; font-size: 10px; font-weight: 500; color: var(--red); background: var(--light-red); padding: 2px 8px; border-radius: 10px; margin-left: 6px; }
+.flow-step-recommend { background: var(--light-red); margin: 0 -20px; padding: 14px 20px; border-radius: 8px; border-bottom: none; }
+.flow-sub-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 10px; margin-top: 10px; }
+.flow-sub-card { background: var(--bg); border-radius: 8px; padding: 12px 14px; }
+.flow-sub-name { font-size: 12px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+.flow-sub-desc { font-size: 11px; color: var(--gray); line-height: 1.6; }
+.flow-sub-rule { font-size: 11px; color: var(--dark-red); background: var(--light-red); border-radius: 8px; padding: 10px 12px; margin-top: 10px; line-height: 1.6; }
+.flow-img-row { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; }
+.flow-img-row img { height: 110px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; cursor: pointer; }
+.flow-img-caption { font-size: 10px; color: #aaa; margin-top: 4px; }
 .moji-scene { margin-top: 12px; padding: 10px 14px; background: var(--light-red); border-radius: 8px; font-size: 12px; color: var(--dark-red); line-height: 1.6; }
 .moji-scene-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; color: var(--red); }
 
@@ -374,155 +396,107 @@
 <!-- 叙事动线 -->
 <div id="tab-flow" class="section">
   <div class="section-title">排版结构</div>
-  <div class="section-sub">先定标题，再定配图。封面不是把字和图拼在一起，而是让用户先被文案拦住，再被结果或反差勾住，最后被画面证明这件事值得点进去。</div>
-  <div style="font-size:11px;color:var(--gray);background:var(--light-gray);border-radius:8px;padding:8px 12px;margin-bottom:14px;line-height:1.6">
-    💡 这里的"叙事"指封面画面的视觉层次（钩子→冲突→证据），和脚本工作台里的"叙事类型"（痛点直给/问题驱动等）是不同维度。
-  </div>
+  <div class="section-sub">先定标题怎么写，再定配图怎么排。两步走完，一张封面的骨架就定了。</div>
 
-  <div style="display:flex;flex-direction:column;gap:14px">
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
-        <div class="formula-num">1</div>
-        <div style="font-size:15px;font-weight:700;color:var(--black)">标题</div>
-        <div style="font-size:12px;color:var(--gray);font-weight:400">先把文案的叙事顺序定清楚</div>
-      </div>
-    <div class="flow-list">
-      <div class="flow-item" style="margin-bottom:8px">
-        <div class="flow-left">
-          <div class="flow-num" style="background:#E5E5E2;color:#666">A</div>
-          <div class="flow-line"></div>
-        </div>
-        <div class="flow-right">
-          <div class="flow-tag">钩子层</div>
-          <div class="flow-title">激起情绪，用户停下来</div>
-          <div class="flow-desc">封面最上方的大字，要在很短时间内让用户产生「这说的是我」或「怎么会这样」的反应。</div>
-          <div class="flow-eg">「凭什么」— 三个字直接激起情绪，用户本能想知道凭什么</div>
-        </div>
-      </div>
-      <div class="flow-item" style="margin-bottom:8px">
-        <div class="flow-left">
-          <div class="flow-num" style="background:#E5E5E2;color:#666">B</div>
-          <div class="flow-line"></div>
-        </div>
-        <div class="flow-right">
-          <div class="flow-tag">收益 / 反差层</div>
-          <div class="flow-title">给出结果、反差或认知变化，用户想点进去</div>
-          <div class="flow-desc">主标题第二行或核心强调信息，要让用户意识到「这条内容可能能帮我更快、更省力，或者告诉我一个我原来没想到的办法」。它不一定非要是强冲突，也可以是明确收益、反差对比、认知重构。关键是让用户从「停下来」进入「想点进去」。</div>
-          <div class="flow-eg">「背单词的人都错了」/「原来听了更好记」/「3天记住100个」</div>
-        </div>
-      </div>
-      <div class="flow-item">
-        <div class="flow-left">
-          <div class="flow-num" style="background:#E5E5E2;color:#666">C</div>
-          <div class="flow-line"></div>
-        </div>
-        <div class="flow-right">
-          <div class="flow-tag">副标题层</div>
-          <div class="flow-title">判断要不要加副标题</div>
-          <div class="flow-desc">副标题不是装饰，而是决定这条内容要不要进一步筛人、补信息、降门槛。如果主标题已经足够完整，可以不加。如果需要补充内容范围、目标人群，或先给用户一个更容易进入的理解入口，再加副标题。</div>
-        </div>
-      </div>
-    </div>
+  <div class="flow-card">
+    <div class="flow-card-head">
+      <div class="formula-num">1</div>
+      <div class="flow-card-title">标题</div>
+      <div class="flow-card-sub">三步定下文案的叙事顺序</div>
     </div>
 
-    <div style="border:1.5px dashed #E5E5E2;border-radius:12px;overflow:hidden">
-      <div onclick="this.parentElement.classList.toggle('open')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;user-select:none;background:var(--white)">
-        <div style="font-size:12px;color:var(--gray);line-height:1.5">如果第 3 项判断结果是「要加副标题」，点击查看具体写法</div>
-        <span style="font-size:13px;color:var(--red);font-weight:700;transition:transform 0.2s;display:inline-block" class="flow-collapse-arrow">▼</span>
-      </div>
-      <div class="flow-collapse-body" style="padding:20px;border-top:1px solid var(--border);background:var(--white)">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
-        <div style="font-size:15px;font-weight:700;color:var(--black)">副标题</div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:12px">
-        <div style="border:1px solid var(--border);border-radius:10px;padding:14px;background:#FAFAFA">
-          <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--black)">用法A · 锁定内容或人群</div>
-          <div style="font-size:12px;color:var(--gray);line-height:1.7">告诉对的人「这条是给你的」，或说明视频内容类型。例：「日语学习工具全图鉴」/「备考党看这个」/「零基础入门必看」</div>
-        </div>
-        <div style="border:1px solid var(--border);border-radius:10px;padding:14px;background:#FAFAFA">
-          <div style="font-size:13px;font-weight:700;margin-bottom:6px;color:var(--black)">用法B · 降低门槛/制造好奇</div>
-          <div style="font-size:12px;color:var(--gray);line-height:1.7">先给用户一个更容易进入的话头，再让主标题抛出强观点，三行读下来形成完整叙事链。<br>例：副标题「原来学日语这么简单」<br>→ 第一行「死记硬背」<br>→ 第二行「真的没用」</div>
-        </div>
-      </div>
-      <div style="font-size:12px;color:var(--gray);line-height:1.7;background:#FFF0EF;border-radius:10px;padding:12px 14px">判断标准：主标题观点已经很强，副标题再补信息会削弱力量时，用 B；需要先筛选人群、交代内容范围、降低理解门槛时，用 A。两种用法不冲突，关键是三行读下来要像在说一件事。</div>
-      </div>
+    <div class="flow-step">
+      <div class="flow-step-tag">钩子层</div>
+      <div class="flow-step-title">激起情绪，用户停下来</div>
+      <div class="flow-step-desc">封面最上方的大字，要在很短时间内让用户产生「这说的是我」或「怎么会这样」的反应。</div>
+      <div class="flow-step-eg">「凭什么」— 三个字直接激起情绪，用户本能想知道凭什么</div>
     </div>
 
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
-        <div class="formula-num">2</div>
-        <div style="font-size:15px;font-weight:700;color:var(--black)">配图</div>
-        <div style="font-size:12px;color:var(--gray);font-weight:400">5种视觉类型，对照样本图选一种</div>
-      </div>
-  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="flow-step">
+      <div class="flow-step-tag">收益/反差层</div>
+      <div class="flow-step-title">给出结果、反差或认知变化，用户想点进去</div>
+      <div class="flow-step-desc">主标题第二行或核心强调信息，让用户意识到这条内容能帮他更快、更省力，或告诉他一个原来没想到的办法。不一定是强冲突，也可以是明确收益、反差对比、认知重构。关键是让用户从「停下来」进入「想点进去」。</div>
+      <div class="flow-step-eg">「背单词的人都错了」/「原来听了更好记」/「3天记住100个」</div>
+    </div>
 
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px;border-left:3px solid var(--red)">
-      <div style="background:var(--red);color:white;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型⑤</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">实拍真机/实际界面截图 <span style="font-size:10px;color:var(--red);font-weight:500;margin-left:6px">推荐</span></div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">真实设备或Web端界面截图，叠大字标题。视频和封面画风一致，真实感强，多端展示也适用这版面。</div>
-        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
-          <figure style="margin:0;width:120px">
-            <img src="images/cover-1.jpg" style="width:100%;border-radius:6px;display:block;border:1px solid #EEE;cursor:pointer" onclick="openLightbox(this.src)">
-            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">哈尔的数码屋（实拍）</figcaption>
-          </figure>
-          <figure style="margin:0;width:120px">
-            <img src="images/cover-2.jpg" style="width:100%;border-radius:6px;display:block;border:1px solid #EEE;cursor:pointer" onclick="openLightbox(this.src)">
-            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">MOJi背词列表（Web截图）</figcaption>
-          </figure>
+    <div class="flow-step" style="border-bottom:none;padding-bottom:0">
+      <div class="flow-step-tag">副标题层</div>
+      <div class="flow-step-title">判断要不要加副标题</div>
+      <div class="flow-step-desc">副标题不是装饰，而是决定要不要进一步筛人、补信息、降门槛。主标题已经足够完整就不加；需要补充内容范围、目标人群，或先给用户一个更容易进入的理解入口，就加。</div>
+
+      <div class="flow-sub-grid">
+        <div class="flow-sub-card">
+          <div class="flow-sub-name">用法A · 锁定内容或人群</div>
+          <div class="flow-sub-desc">告诉对的人「这条是给你的」，或说明视频内容类型。例：「日语学习工具全图鉴」/「备考党看这个」/「零基础入门必看」</div>
+        </div>
+        <div class="flow-sub-card">
+          <div class="flow-sub-name">用法B · 降低门槛/制造好奇</div>
+          <div class="flow-sub-desc">先给一个更容易进入的话头，再让主标题抛出强观点，三行读下来形成完整叙事链。<br>例：副标题「原来学日语这么简单」→ 第一行「死记硬背」→ 第二行「真的没用」</div>
         </div>
       </div>
-    </div>
-
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="background:var(--light-red);color:var(--red);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型①</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">单手机正面</div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">浅底，上文下图分区清晰。无痛单词系列主流排版，标题区和样机区不叠压。</div>
-      </div>
-        <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto"><img src="images/cover-3.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-4.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"></div>
-    </div>
-
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="background:#E6F1FB;color:#185FA5;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型②</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">双手机3D透视</div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">深色底，视觉冲击最强，数据复盘里表现最好。适合强调一个核心场景或功能对比。</div>
-      </div>
-        <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto"><img src="images/cover-5.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-6.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-7.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-8.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"></div>
-        <div style="font-size:10px;color:#aaa;margin-top:4px">↑ 无痛单词参考示例</div>
-    </div>
-
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="background:#F1EFE8;color:#5F5E5A;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型③</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">手机+标注框特写</div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">局部放大+标注说明，适合把一个最关键的功能点放大讲清楚，让用户快速看懂。</div>
-      </div>
-        <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto"><img src="images/cover-10.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-11.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"><img src="images/cover-12.png" style="height:120px;border-radius:8px;object-fit:cover;border:1px solid #E5E5E2;flex-shrink:0;cursor:pointer;" onclick="openLightbox(this.src)"></div>
-    </div>
-
-    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px">
-      <div style="background:#FAEEDA;color:#854F0B;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;margin-top:2px">类型④</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:600;margin-bottom:4px">纯大字无样机</div>
-        <div style="font-size:12px;color:var(--gray);line-height:1.7">只有标题本身。只有在文案足够成立、不需要截图佐证时再用。需要功能支撑标题说服力时，不优先选这种。</div>
-        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
-          <figure style="margin:0;width:120px">
-            <img src="images/cover-9.jpg" style="width:100%;border-radius:6px;display:block;border:1px solid #EEE;cursor:pointer" onclick="openLightbox(this.src)">
-            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">词汇量测试（53赞）</figcaption>
-          </figure>
-          <figure style="margin:0;width:120px">
-            <img src="images/cover-13.jpg" style="width:100%;border-radius:6px;display:block;border:1px solid #EEE;cursor:pointer" onclick="openLightbox(this.src)">
-            <figcaption style="font-size:10px;color:#888;margin-top:4px;text-align:center">词汇量测试2.0</figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
-
-  </div>
+      <div class="flow-sub-rule">判断标准：主标题观点已经很强，副标题补信息会削弱力量时，用B；需要先筛选人群、交代范围、降低门槛时，用A。两种用法不冲突，关键是三行读下来要像在说一件事。</div>
     </div>
   </div>
+
+  <div class="flow-card">
+    <div class="flow-card-head">
+      <div class="formula-num">2</div>
+      <div class="flow-card-title">配图</div>
+      <div class="flow-card-sub">5种视觉类型，对照样本图选一种</div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-step-tag">类型① 单手机正面</div>
+      <div class="flow-step-desc">浅底，上文下图分区清晰。无痛单词系列主流排版，标题区和样机区不叠压。</div>
+      <div class="flow-img-row">
+        <img src="images/cover-3.png" onclick="openLightbox(this.src)">
+        <img src="images/cover-4.png" onclick="openLightbox(this.src)">
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-step-tag">类型② 双手机3D透视</div>
+      <div class="flow-step-desc">深色底，视觉冲击最强，数据复盘里表现最好。适合强调一个核心场景或功能对比。</div>
+      <div class="flow-img-row">
+        <img src="images/cover-5.png" onclick="openLightbox(this.src)">
+        <img src="images/cover-6.png" onclick="openLightbox(this.src)">
+        <img src="images/cover-7.png" onclick="openLightbox(this.src)">
+        <img src="images/cover-8.png" onclick="openLightbox(this.src)">
+      </div>
+      <div class="flow-img-caption">↑ 无痛单词参考示例</div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-step-tag">类型③ 手机+标注框特写</div>
+      <div class="flow-step-desc">局部放大+标注说明，适合把一个最关键的功能点放大讲清楚，让用户快速看懂。</div>
+      <div class="flow-img-row">
+        <img src="images/cover-10.png" onclick="openLightbox(this.src)">
+        <img src="images/cover-11.png" onclick="openLightbox(this.src)">
+        <img src="images/cover-12.png" onclick="openLightbox(this.src)">
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="flow-step-tag">类型④ 纯大字无样机</div>
+      <div class="flow-step-desc">只有标题本身。只有在文案足够成立、不需要截图佐证时再用。需要功能支撑标题说服力时，不优先选这种。</div>
+      <div class="flow-img-row">
+        <img src="images/cover-9.jpg" onclick="openLightbox(this.src)">
+        <img src="images/cover-13.jpg" onclick="openLightbox(this.src)">
+      </div>
+      <div class="flow-img-caption">↑ 词汇量测试（53赞）/ 词汇量测试2.0</div>
+    </div>
+
+    <div class="flow-step flow-step-recommend" style="border-bottom:none;padding-bottom:0">
+      <div class="flow-step-tag">类型⑤ 实拍真机/实际界面截图 <span class="flow-recommend-badge">推荐</span></div>
+      <div class="flow-step-desc">真实设备或Web端界面截图，叠大字标题。视频和封面画风一致，真实感强，多端展示也适用这版面。</div>
+      <div class="flow-img-row">
+        <img src="images/cover-1.jpg" onclick="openLightbox(this.src)">
+        <img src="images/cover-2.jpg" onclick="openLightbox(this.src)">
+      </div>
+      <div class="flow-img-caption">↑ 哈尔的数码屋（实拍）/ MOJi背词列表（Web截图）</div>
+    </div>
+  </div>
+
 </div>
 
 <!-- AI使用指令 -->
